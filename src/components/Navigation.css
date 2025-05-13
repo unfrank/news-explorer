@@ -1,0 +1,39 @@
+.navigation {
+  font-family: "Roboto", "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  /* text-align: center; */
+  display: flex;
+  align-items: center;
+}
+
+.navigation__link {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  color: white;
+  text-decoration: none;
+  position: relative;
+  padding: 4px 0;
+}
+
+.navigation__link:hover {
+  opacity: 0.8;
+}
+
+.navigation__button {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  color: white;
+  border: 1px solid white;
+  border-radius: 24px;
+  padding: 8px 20px;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.navigation__button:hover {
+  background-color: white;
+  color: black;
+}
