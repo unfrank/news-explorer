@@ -11,29 +11,39 @@ import Main from "./components/Main";
 import About from "./components/About";
 import Footer from "./components/Footer";
 import ModalWithForm from "./components/ModalWithForm";
+import LoginModal from "./components/LoginModal";
 
 function App() {
-  const [isSignInOpen, setIsSignInOpen] = useState(false);
+  // const [isSignInOpen, setIsSignInOpen] = useState(false);
+  const [activeModal, setActiveModal] = useState("");
 
   return (
     <div className="hero">
-      <Header onSignInClick={() => setIsSignInOpen(true)} />
+      {/* <Header onSignInClick={() => setIsSignInOpen(true)} /> */}
+      <Header
+        onSignInClick={() => {
+          console.log("Clicked Sign In");
+          setActiveModal("login");
+          // setIsSignInOpen(true);
+        }}
+      />
       <Main />
       <About />
       <Footer />
 
-      <ModalWithForm
-        title="Sign In"
-        isOpen={isSignInOpen}
-        onClose={() => setIsSignInOpen(false)}
-        onSubmit={(e) => {
-          e.preventDefault();
-          console.log("Sign in submitted");
+      <LoginModal
+        isOpen={activeModal === "login"}
+        onClose={() => setActiveModal("")}
+        setActiveModal={setActiveModal}
+        onAuthSuccess={(credentials) => {
+          console.log("Logged in:", credentials);
+          setIsLoggedIn(true);
+          setCurrentUser(credentials.user);
+          setActiveModal("");
         }}
-      >
-        <input type="email" placeholder="Email" required />
-        <input type="password" placeholder="Password" required />
-      </ModalWithForm>
+        isLoading={false}
+        buttonText="Sign In"
+      />
     </div>
   );
 }

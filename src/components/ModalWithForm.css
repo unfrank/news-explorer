@@ -1,7 +1,8 @@
-.modal {
+/* REMEMBER FONTS */
+/* .modal {
   position: fixed;
   inset: 0;
-  z-index: 10;
+  z-index: 100;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,7 +18,7 @@
   position: relative;
   background: white;
   border-radius: 20px;
-  padding: 40px 32px;
+  padding: 34px 35px 28px;
   max-width: 380px;
   max-height: 430px;
   width: 100%;
@@ -53,8 +54,9 @@
 }
 
 .modal__title {
-  margin: 0 0 24px 0;
+  margin: 0 0 22px 0;
   font-size: 24px;
+  line-height: 1;
   font-weight: 700;
   color: #1a1a1a;
 }
@@ -62,20 +64,27 @@
 .modal__form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+}
+
+.modal__form label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #2f71e5;
+  margin-bottom: 9px;
 }
 
 .modal__form input {
   font-family: "Inter", sans-serif;
-  font-size: 16px;
-  /* padding: 8px 0; */
+  font-size: 14px;
   border: none;
   border-bottom: 1px solid #ccc;
   outline: none;
   color: #1a1a1a;
   background: transparent;
-
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 30px;
 }
 
 .modal__form input:focus {
@@ -92,6 +101,7 @@
   border-radius: 40px;
   cursor: pointer;
   transition: opacity 0.2s ease, transform 0.05s ease;
+  margin-bottom: 16px;
 }
 
 .modal__submit:hover {
@@ -106,7 +116,6 @@
   text-align: center;
   font-size: 14px;
   color: #aaa;
-  margin-top: 16px;
 }
 
 .modal__footer a {
@@ -119,11 +128,169 @@
   text-decoration: underline;
 }
 
-/* new */
 .modal__error {
-  color: #d92d20;
   font-size: 12px;
-  /* margin-top: -12px; */
-  /* margin-bottom: 8px; */
-  /* display: block; */
+  color: #d92d20;
+  margin-top: 6px;
+} */
+
+/* remake */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__content {
+  position: relative;
+  background: white;
+  border-radius: 20px;
+  padding: 34px 35px 28px;
+  max-width: 380px;
+  width: 100%;
+  z-index: 1;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__close {
+  position: absolute;
+  top: -60px;
+  right: -40px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  font-size: 36px;
+  cursor: pointer;
+  color: white;
+  transition: opacity 0.2s ease, transform 0.05s ease;
+}
+
+.modal__close:focus {
+  outline: none;
+}
+
+.modal__close:hover {
+  opacity: 0.6;
+}
+
+.modal__close:active {
+  transform: scale(0.9);
+}
+
+.modal__title {
+  margin: 0 0 22px 0;
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.modal__field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.modal__label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #2f71e5;
+  margin-bottom: 6px;
+}
+
+.modal__input {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+  color: #1a1a1a;
+  background: transparent;
+  padding: 0 0 8px;
+}
+
+.modal__input:focus {
+  border-bottom: 1px solid black;
+}
+
+/* .modal__error {
+  font-size: 12px;
+  color: #d92d20;
+  margin-top: 6px;
+  opacity: 0;
+}
+
+.modal__error :active {
+  font-size: 12px;
+  color: #d92d20;
+  margin-top: 6px;
+  opacity: 1;
+} */
+
+.modal__error {
+  font-size: 12px;
+  color: #d92d20;
+  margin-top: 6px;
+  opacity: 0;
+  height: 16px;
+  transition: opacity 0.2s ease;
+}
+
+.modal__error--visible {
+  opacity: 1;
+}
+
+.modal__submit {
+  padding: 16px;
+  background-color: #2f71e5;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.05s ease;
+  margin-bottom: 16px;
+}
+
+.modal__submit:hover {
+  opacity: 0.9;
+}
+
+.modal__submit:active {
+  transform: scale(0.97);
+}
+
+.modal__footer {
+  text-align: center;
+  font-size: 14px;
+  color: #aaa;
+}
+
+.modal__footer a {
+  color: #2f71e5;
+  text-decoration: none;
+  margin-left: 4px;
+}
+
+.modal__footer a:hover {
+  text-decoration: underline;
 }
