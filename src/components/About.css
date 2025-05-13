@@ -3,14 +3,12 @@
   background-color: #fff;
   display: flex;
   justify-content: center;
-  /* padding: 80px 0; */
   padding-top: 80px;
   padding-bottom: 80px;
+  /* aspect-ratio: 900 / 500; */
 }
 
 .about__container {
-  /* max-width: 1140px; */
-  /* padding: 0 80px; */
   margin-left: 100px;
   width: 100%;
   display: flex;

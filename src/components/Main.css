@@ -1,6 +1,7 @@
 .main {
   width: 100%;
-  aspect-ratio: 1440 / 576;
+  /* max-height: 576px; */
+  aspect-ratio: 1340 / 576;
   background-image: url("../assets/images/home--bkgrnd.png");
   background-size: cover;
   background-position: center;
