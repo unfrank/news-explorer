@@ -1,5 +1,4 @@
 import React from "react";
-// import { GithubIcon } from "../assets/icons/icon-github.svg";
 import githubIcon from "../assets/icons/icon-github.svg";
 import "./Footer.css";
 

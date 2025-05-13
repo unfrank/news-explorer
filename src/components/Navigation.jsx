@@ -8,7 +8,7 @@ function Navigation() {
         Home
       </a>
 
-      <button className="navigation__auth">Sign in</button>
+      <button className="navigation__button ">Sign in</button>
     </nav>
   );
 }

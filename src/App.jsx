@@ -3,6 +3,7 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import React from "react";
 
+import "./components/Hero.css";
 import "./App.css";
 
 import Header from "./components/Header";
@@ -12,7 +13,7 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div className="page">
+    <div className="hero">
       <Header />
       <Main />
       <About />
