@@ -26,12 +26,14 @@
   font-weight: 400;
   line-height: 64px;
   max-width: 480px;
+  padding-left: 12px;
 }
 
 .main__subtitle {
   font-family: "Inter", sans-serif;
   font-size: 18px;
   margin-bottom: 32px;
+  padding-left: 12px;
 }
 
 .main__form {
@@ -59,4 +61,12 @@
   font-weight: 500;
   font-size: 16px;
   cursor: pointer;
+}
+
+.main__error {
+  color: #ff4d4f;
+  font-size: 14px;
+  margin-top: 8px;
+  text-align: left;
+  width: 100%;
 }

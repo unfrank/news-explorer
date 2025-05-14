@@ -1,7 +1,12 @@
 import React from "react";
 import "./Main.css";
+import SearchForm from "./SearchForm";
 
 function Main() {
+  const handleSearch = (query) => {
+    console.log("Searching for:", query);
+  };
+
   return (
     <section className="main">
       <div className="main__overlay">
@@ -10,15 +15,7 @@ function Main() {
           Find the latest news on any topic and save them in your personal
           account.
         </p>
-        <form className="main__form">
-          <input
-            className="main__input"
-            type="text"
-            placeholder="Enter topic"
-            required
-          />
-          <button className="main__button">Search</button>
-        </form>
+        <SearchForm onSearch={handleSearch} />
       </div>
     </section>
   );
