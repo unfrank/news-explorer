@@ -267,7 +267,9 @@
   border: none;
   border-radius: 40px;
   cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.05s ease;
+  transform: scale(0.95);
+  transition: transform 0.12s ease;
+
   margin-bottom: 16px;
 }
 

@@ -30,7 +30,13 @@ function SearchForm({ onSearch }) {
           Search
         </button>
       </div>
-      {error && <p className="search-form__error">{error}</p>}
+      <p
+        className={`search-form__error ${
+          error ? "search-form__error--visible" : ""
+        }`}
+      >
+        {error || " "}
+      </p>
     </form>
   );
 }

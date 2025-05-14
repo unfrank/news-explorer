@@ -19,6 +19,8 @@
 
 .navigation__link:hover {
   opacity: 0.8;
+  transform: scale(1.1);
+  color: #347eff;
 }
 
 .navigation__button {
@@ -29,12 +31,12 @@
   padding: 8px 20px;
   background: transparent;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
 }
 
 .navigation__button:hover {
-  background-color: white;
-  color: black;
+  transform: scale(1.05);
+  transition: transform 0.12s ease;
+  background-color: #347eff;
 }
 
 @media (max-width: 480px) {
