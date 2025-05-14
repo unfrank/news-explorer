@@ -1,10 +1,10 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import NewsCardList from "./NewsCardList";
 import "./SearchResults.css";
 
-function SearchResults({ articles, onShowMore }) {
+const SearchResults = forwardRef(({ articles, onShowMore }, ref) => {
   return (
-    <section className="search-results">
+    <section className="search-results" ref={ref}>
       <h2 className="search-results__title">Search results</h2>
       <NewsCardList articles={articles} />
       <button className="search-results__button" onClick={onShowMore}>
@@ -12,6 +12,6 @@ function SearchResults({ articles, onShowMore }) {
       </button>
     </section>
   );
-}
+});
 
 export default SearchResults;
