@@ -16,7 +16,7 @@
 .news-card-list__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
+  gap: 16px;
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
