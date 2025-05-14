@@ -51,7 +51,8 @@
 
 .search-form__error {
   font-size: 14px;
-  color: #d92d20;
+  font-style: bold;
+  color: red;
   margin-top: 6px;
   height: 18px;
   opacity: 0;

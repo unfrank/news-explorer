@@ -1,6 +1,6 @@
 import React from "react";
 import "./NewsCard.css";
-import saveIcon from "../assets/icons/icon-save-disabled.svg"; // placeholder
+import saveIcon from "../assets/icons/icon-like-light.svg";
 
 function NewsCard({ title, description, date, source, image }) {
   return (
