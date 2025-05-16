@@ -57,29 +57,48 @@
 //       onSubmit={handleSubmit}
 //       buttonText={buttonText}
 //     >
-//       <label className="modal__label">Email</label>
-//       <input
-//         type="email"
-//         value={email}
-//         onChange={(e) => {
-//           setEmail(e.target.value);
-//           validateEmail(e.target.value);
-//         }}
-//         required
-//       />
-//       {emailError && <span className="modal__error">{emailError}</span>}
+//       <div className="modal__field">
+//         <label className="modal__label">Email</label>
+//         <input
+//           type="email"
+//           className="modal__input"
+//           value={email}
+//           onChange={(e) => {
+//             setEmail(e.target.value);
+//             validateEmail(e.target.value);
+//           }}
+//           required
+//         />
+//         <span
+//           className={`modal__error ${
+//             emailError ? "modal__error--visible" : ""
+//           }`}
+//         >
+//           {emailError || " "}
+//         </span>
+//       </div>
 
-//       <label className="modal__label">Password</label>
-//       <input
-//         type="password"
-//         value={password}
-//         onChange={(e) => {
-//           setPassword(e.target.value);
-//           validatePassword(e.target.value);
-//         }}
-//         required
-//       />
-//       {passwordError && <span className="modal__error">{passwordError}</span>}
+//       <div className="modal__field">
+//         <label className="modal__label">Password</label>
+//         <input
+//           type="password"
+//           className="modal__input"
+//           value={password}
+//           onChange={(e) => {
+//             setPassword(e.target.value);
+//             validatePassword(e.target.value);
+//           }}
+//           required
+//         />
+//         <span
+//           className={`modal__error ${
+//             passwordError ? "modal__error--visible" : ""
+//           }`}
+//         >
+//           {passwordError || " "}
+//         </span>
+//       </div>
+
 //       <button type="submit" className="modal__submit">
 //         {buttonText}
 //       </button>
@@ -102,7 +121,7 @@
 
 // export default LoginModal;
 
-// redo
+// remake
 
 import React, { useState, useEffect } from "react";
 import ModalWithForm from "./ModalWithForm";
@@ -146,7 +165,6 @@ function LoginModal({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!emailError && !passwordError && email && password) {
-      // You can call your API here. For now, mock response:
       const mockCredentials = {
         token: "fake-token-123",
         user: { _id: "abc123", email: email },
@@ -162,6 +180,20 @@ function LoginModal({
       onClose={onClose}
       onSubmit={handleSubmit}
       buttonText={buttonText}
+      footer={
+        <>
+          or{" "}
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              setActiveModal("register");
+            }}
+          >
+            Sign up
+          </a>
+        </>
+      }
     >
       <div className="modal__field">
         <label className="modal__label">Email</label>
@@ -203,23 +235,6 @@ function LoginModal({
         >
           {passwordError || " "}
         </span>
-      </div>
-
-      <button type="submit" className="modal__submit">
-        {buttonText}
-      </button>
-
-      <div className="modal__footer">
-        or{" "}
-        <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            setActiveModal("register");
-          }}
-        >
-          Sign up
-        </a>
       </div>
     </ModalWithForm>
   );

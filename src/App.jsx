@@ -14,19 +14,26 @@ import About from "./components/About";
 import Footer from "./components/Footer";
 import ModalWithForm from "./components/ModalWithForm";
 import LoginModal from "./components/LoginModal";
+import RegisterModal from "./components/RegisterModal";
+
+import { useFormAndValidation } from "./hooks/useFormValidation";
 
 function App() {
-  // const [isSignInOpen, setIsSignInOpen] = useState(false);
   const [activeModal, setActiveModal] = useState("");
+
+  const handleRegister = (userData) => {
+    return api.register(userData);
+  };
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   return (
     <div className="hero">
-      {/* <Header onSignInClick={() => setIsSignInOpen(true)} /> */}
       <Header
         onSignInClick={() => {
           console.log("Clicked Sign In");
           setActiveModal("login");
-          // setIsSignInOpen(true);
         }}
       />
       <Main />
@@ -45,6 +52,13 @@ function App() {
         }}
         isLoading={false}
         buttonText="Sign In"
+      />
+      <RegisterModal
+        isOpen={activeModal === "register"}
+        onClose={() => setActiveModal("")}
+        onRegister={handleRegister}
+        isLoading={isLoading}
+        setActiveModal={setActiveModal}
       />
     </div>
   );

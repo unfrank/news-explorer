@@ -58,6 +58,7 @@ function ModalWithForm({
   onClose,
   onSubmit,
   isOpen,
+  footer,
 }) {
   if (!isOpen) return null;
 
@@ -80,8 +81,14 @@ function ModalWithForm({
           <img src={closeIcon} alt="Close" />
         </button>
         <h2 className="modal__title">{title}</h2>
-        <form onSubmit={onSubmit} className="modal__form">
+        <form onSubmit={onSubmit} className="modal__form" noValidate>
           {children}
+          {buttonText && (
+            <button type="submit" className="modal__submit">
+              {buttonText}
+            </button>
+          )}
+          {footer && <div className="modal__footer">{footer}</div>}
         </form>
       </div>
     </div>
