@@ -1,3 +1,5 @@
+// todo: @import url(./vendor/normalize.css); @import url(./vendor/fonts.css)  to index.css.
+
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
