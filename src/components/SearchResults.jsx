@@ -1,17 +1,41 @@
-import React, { forwardRef } from "react";
-import NewsCardList from "./NewsCardList";
-import "./SearchResults.css";
+import React from "react";
+import SearchCard from "./SearchCard";
 
-const SearchResults = forwardRef(({ articles, onShowMore }, ref) => {
+function SearchResults({ articles, visibleCount, onShowMore }) {
+  const isShowMoreVisible = articles.length > visibleCount;
+
   return (
-    <section className="search-results" ref={ref}>
-      <h2 className="search-results__title">Search results</h2>
-      <NewsCardList articles={articles} />
-      <button className="search-results__button" onClick={onShowMore}>
-        Show more
-      </button>
+    <section className="results">
+      {articles.slice(0, visibleCount).map((article, index) => (
+        <SearchCard key={index} article={article} />
+      ))}
+      {isShowMoreVisible && (
+        <button className="results__button" onClick={onShowMore}>
+          Show more
+        </button>
+      )}
     </section>
   );
-});
+}
 
 export default SearchResults;
+
+//redo
+// function SearchResults({ articles, visibleCount, onShowMore }) {
+//   const shownArticles = articles.slice(0, visibleCount);
+//   const isShowMoreVisible = visibleCount < articles.length;
+
+//   return (
+//     <section className="results">
+//       {shownArticles.map((article, index) => (
+//         <SearchCard key={index} article={article} />
+//       ))}
+//       {isShowMoreVisible && (
+//         <button className="results__button" onClick={onShowMore}>
+//           Show more
+//         </button>
+//       )}
+//     </section>
+//   );
+// }
+// export default SearchResults;

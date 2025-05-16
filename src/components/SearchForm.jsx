@@ -24,10 +24,10 @@ function SearchForm({ onSearch }) {
           placeholder="Enter topic"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          noValidate
-          required
+          // noValidate
+          // required
         />
-        <button className="search-form__button" type="submit">
+        <button className="search-form__button" type="submit" noValidate>
           Search
         </button>
       </div>
