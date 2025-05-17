@@ -3,7 +3,7 @@ import "./NewsCard.css";
 import saveIconLight from "../assets/icons/icon-like-light.svg";
 import saveIconDark from "../assets/icons/icon-like-dark.svg";
 
-function NewsCard({ title, description, date, source, image }) {
+function NewsCard({ title, description, date, source, image, url }) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -30,6 +30,14 @@ function NewsCard({ title, description, date, source, image }) {
         <p className="news-card__description">{description}</p>
         <div className="news-card__footer">
           <span className="news-card__source">{source}</span>
+          <a
+            className="news-card__read-more"
+            href={url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Read more →
+          </a>
         </div>
       </div>
     </article>
