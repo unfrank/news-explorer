@@ -104,6 +104,7 @@ function RegisterModal({
           type="email"
           id="email"
           name="email"
+          maxLength={62}
           placeholder="Enter email"
           value={email}
           onChange={(e) => {
@@ -129,6 +130,7 @@ function RegisterModal({
         <input
           type="password"
           id="password"
+          maxLength={31}
           name="password"
           placeholder="Enter password"
           value={password}
@@ -155,6 +157,7 @@ function RegisterModal({
         <input
           type="text"
           id="name"
+          maxLength={31}
           name="name"
           placeholder="Enter your username"
           value={username}

@@ -79,6 +79,7 @@ function LoginModal({
           type="email"
           id="email"
           name="email"
+          maxLength={62}
           placeholder="Enter email"
           className="modal__input"
           value={email}
@@ -103,6 +104,7 @@ function LoginModal({
         </label>
         <input
           type="password"
+          maxLength={31}
           id="password"
           name="password"
           placeholder="Enter password"

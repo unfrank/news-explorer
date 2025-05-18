@@ -2,10 +2,10 @@ import React from "react";
 import NewsCard from "./NewsCard";
 import "./NewsCardList.css";
 
-function NewsCardList({ articles }) {
+function NewsCardList({ articles, onCardClick }) {
   return (
-    <section className="news-card-list">
-      <div className="news-card-list__grid">
+    <section className="news-results__list">
+      <div className="news-results__grid">
         {articles.map((article, index) => (
           <NewsCard
             key={index}
@@ -19,6 +19,9 @@ function NewsCardList({ articles }) {
             source={article.source.name}
             image={article.urlToImage}
             url={article.url}
+            // test
+            onClick={() => onCardClick(article.description)}
+            // onCardClick={() => console.log("Card clicked", article.title)}
           />
         ))}
       </div>

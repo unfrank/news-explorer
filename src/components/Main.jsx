@@ -1,7 +1,7 @@
 import "./Main.css";
 import React from "react";
 import SearchForm from "./SearchForm";
-import SearchResults from "./SearchResults";
+import NewsResults from "./NewsResults";
 import Preloader from "./PreLoader";
 
 function Main({
@@ -11,6 +11,7 @@ function Main({
   hasSearched,
   visibleCount,
   onShowMore,
+  handleCardClick,
 }) {
   return (
     <>
@@ -30,10 +31,12 @@ function Main({
       </section>
 
       {!isLoading && hasSearched && articles.length > 0 && (
-        <SearchResults
+        <NewsResults
           articles={articles}
           visibleCount={visibleCount}
           onShowMore={onShowMore}
+          // test
+          onCardClick={handleCardClick}
         />
       )}
     </>

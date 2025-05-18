@@ -26,7 +26,7 @@ export const fetchNewsArticles = ({ query, from, to }) => {
   url.searchParams.append("q", query);
   url.searchParams.append("from", from);
   url.searchParams.append("to", to);
-  url.searchParams.append("pageSize", 12);
+  url.searchParams.append("pageSize", 9);
   url.searchParams.append("language", "en");
   url.searchParams.append("apiKey", NEWS_API_KEY);
 
