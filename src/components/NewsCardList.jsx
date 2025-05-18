@@ -19,9 +19,6 @@ function NewsCardList({ articles, onCardClick }) {
             source={article.source.name}
             image={article.urlToImage}
             url={article.url}
-            // test
-            onClick={() => onCardClick(article.description)}
-            // onCardClick={() => console.log("Card clicked", article.title)}
           />
         ))}
       </div>

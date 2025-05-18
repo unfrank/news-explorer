@@ -3,6 +3,7 @@ import React from "react";
 import SearchForm from "./SearchForm";
 import NewsResults from "./NewsResults";
 import Preloader from "./PreLoader";
+import NothingFound from "./NothingFound";
 
 function Main({
   onSearch,
@@ -11,7 +12,7 @@ function Main({
   hasSearched,
   visibleCount,
   onShowMore,
-  handleCardClick,
+  fetchError,
 }) {
   return (
     <>
@@ -30,13 +31,21 @@ function Main({
         </div>
       </section>
 
+      {!isLoading && hasSearched && fetchError && (
+        <div className="main__search-error">
+          <h3>Something went wrong</h3>
+          <p>Please try again later.</p>
+        </div>
+      )}
+      {!isLoading && hasSearched && !fetchError && articles.length === 0 && (
+        <NothingFound />
+      )}
+
       {!isLoading && hasSearched && articles.length > 0 && (
         <NewsResults
           articles={articles}
           visibleCount={visibleCount}
           onShowMore={onShowMore}
-          // test
-          onCardClick={handleCardClick}
         />
       )}
     </>

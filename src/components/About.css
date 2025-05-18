@@ -5,6 +5,7 @@
   justify-content: center;
   padding-top: 80px;
   padding-bottom: 80px;
+  font-family: "Roboto", "Inter", sans-serif;
   /* aspect-ratio: 1340 / 576; */
 }
 
@@ -30,7 +31,7 @@
 }
 
 .about__title {
-  font-family: "Roboto Slab", serif;
+  /* font-family: "Roboto", "Inter", sans-serif; */
   font-size: 40px;
   font-weight: 400;
   margin: 0;
@@ -42,7 +43,7 @@
 }
 
 .about__paragraph {
-  font-family: "Inter", sans-serif;
+  /* font-family: "Inter", sans-serif; */
   font-size: 16px;
   color: #1a1a1a;
   margin-bottom: 16px;

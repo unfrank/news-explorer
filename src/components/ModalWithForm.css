@@ -5,6 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "Roboto", "Inter", sans-serif;
 }
 
 .modal__overlay {
@@ -80,7 +81,7 @@
 }
 
 .modal__input {
-  font-family: "Inter", sans-serif;
+  font-family: "Roboto", "Inter", sans-serif;
   font-size: 14px;
   border: none;
   border-bottom: 1px solid #ccc;

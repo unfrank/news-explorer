@@ -6,10 +6,11 @@
   display: flex;
   align-items: center;
   gap: 42px;
+  font-family: "Roboto", "Inter", sans-serif;
 }
 
 .navigation__link {
-  font-family: "Inter", sans-serif;
+  /* font-family: "Inter", sans-serif; */
   font-size: 16px;
   color: white;
   text-decoration: none;
@@ -24,7 +25,7 @@
 }
 
 .navigation__button {
-  font-family: "Inter", sans-serif;
+  /* font-family: "Inter", sans-serif; */
   font-size: 16px;
   border: 1px solid white;
   border-radius: 24px;

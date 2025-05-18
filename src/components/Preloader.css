@@ -1,16 +1,3 @@
-/* 
-.preloader {
-  position: absolute;
-  top: 41%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 5;
-  pointer-events: none;
-} */
-
 .preloader {
   position: absolute;
   top: 100%;
@@ -31,7 +18,8 @@
 }
 
 .preloader__text {
-  font-family: "Inter", sans-serif;
+  /* font-family: "Inter", sans-serif; */
+  font-family: "Roboto", "Inter", sans-serif;
   font-size: 16px;
   color: #ffffff;
   text-align: center;
