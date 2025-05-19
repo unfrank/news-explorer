@@ -16,6 +16,9 @@
   line-height: 46px;
   align-self: flex-start;
   color: black;
+  margin: 0;
+  margin-left: 104px;
+  margin-bottom: 64px;
 }
 
 .news-results__grid {

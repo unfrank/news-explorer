@@ -1,8 +1,14 @@
+// import React, { useRef, useEffect } from "react";
 // import "./NewsResults.css";
-// import React from "react";
 // import NewsCardList from "./NewsCardList";
 
 // function NewsResults({ articles, visibleCount, onShowMore, onCardClick }) {
+//   const prevCountRef = useRef(0);
+
+//   useEffect(() => {
+//     prevCountRef.current = visibleCount;
+//   }, [visibleCount]);
+
 //   const isShowMoreVisible = articles.length > visibleCount;
 
 //   return (
@@ -10,7 +16,9 @@
 //       <NewsCardList
 //         articles={articles.slice(0, visibleCount)}
 //         onCardClick={onCardClick}
+//         prevCount={prevCountRef.current}
 //       />
+
 //       {isShowMoreVisible && (
 //         <button className="news-results__button" onClick={onShowMore}>
 //           Show more
@@ -22,26 +30,28 @@
 
 // export default NewsResults;
 
-// test
-import React, { useRef, useEffect } from "react";
+//test
+
+// NewsResults.jsx
+
 import "./NewsResults.css";
+import React from "react";
 import NewsCardList from "./NewsCardList";
 
 function NewsResults({ articles, visibleCount, onShowMore, onCardClick }) {
-  const prevCountRef = useRef(0);
-
-  useEffect(() => {
-    prevCountRef.current = visibleCount;
-  }, [visibleCount]);
-
   const isShowMoreVisible = articles.length > visibleCount;
+
+  // Calculate the first card index of the newly added batch
+  const scrollToIndex = visibleCount > 3 ? visibleCount - 3 : 0;
 
   return (
     <section className="news-results">
+      <h2 className="news-results__title">Search results</h2>
+
       <NewsCardList
         articles={articles.slice(0, visibleCount)}
         onCardClick={onCardClick}
-        prevCount={prevCountRef.current}
+        scrollToIndex={scrollToIndex}
       />
 
       {isShowMoreVisible && (
@@ -54,5 +64,3 @@ function NewsResults({ articles, visibleCount, onShowMore, onCardClick }) {
 }
 
 export default NewsResults;
-
-// test
