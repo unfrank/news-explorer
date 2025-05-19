@@ -8,11 +8,12 @@ import NothingFound from "./NothingFound";
 function Main({ onSearch, articles, isLoading, hasSearched, fetchError }) {
   const [visibleCount, setVisibleCount] = useState(3);
   const resultsRef = useRef(null);
+  const [lastVisibleIndex, setLastVisibleIndex] = useState(null);
 
   const handleShowMore = () => {
+    setLastVisibleIndex(visibleCount - 1);
     setVisibleCount((prev) => prev + 3);
   };
-
   const handleSearch = (query) => {
     setVisibleCount(3);
     onSearch(query);
@@ -62,6 +63,7 @@ function Main({ onSearch, articles, isLoading, hasSearched, fetchError }) {
             articles={articles}
             visibleCount={visibleCount}
             onShowMore={handleShowMore}
+            lastVisibleIndex={lastVisibleIndex}
           />
         </div>
       )}

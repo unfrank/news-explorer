@@ -2,7 +2,18 @@ import React, { useEffect, useRef } from "react";
 import NewsCard from "./NewsCard";
 import "./NewsCardList.css";
 
-function NewsCardList({ articles, onCardClick }) {
+function NewsCardList({ articles, onCardClick, scrollToIndex }) {
+  const cardRefs = useRef([]);
+
+  useEffect(() => {
+    if (scrollToIndex != null && cardRefs.current[scrollToIndex]) {
+      cardRefs.current[scrollToIndex].scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [scrollToIndex, articles.length]); // Triggered after article expansion
+
   return (
     <section className="news-results__list">
       <h2 className="news-results__title">Search results</h2>
@@ -10,6 +21,7 @@ function NewsCardList({ articles, onCardClick }) {
         {articles.map((article, index) => (
           <NewsCard
             key={`${article.url}-${index}`}
+            ref={(el) => (cardRefs.current[index] = el)} // 🆕 Assign each card to the array
             title={article.title}
             description={article.description}
             date={new Date(article.publishedAt).toLocaleDateString("en-US", {

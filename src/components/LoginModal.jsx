@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ModalWithForm from "./ModalWithForm";
 import "./LoginModal.css";
+import { login } from "../utils/auth";
 
 function LoginModal({
   isOpen,
@@ -40,11 +41,9 @@ function LoginModal({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!emailError && !passwordError && email && password) {
-      const mockCredentials = {
-        token: "fake-token-123",
-        user: { _id: "abc123", email: email },
-      };
-      onAuthSuccess(mockCredentials);
+      login(email, password).then((res) => {
+        onAuthSuccess({ token: res.token, user: { email: res.email } });
+      });
     }
   };
 
