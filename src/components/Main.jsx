@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Main.css";
 import SearchForm from "./SearchForm";
 import NewsResults from "./NewsResults";
@@ -7,6 +7,7 @@ import NothingFound from "./NothingFound";
 
 function Main({ onSearch, articles, isLoading, hasSearched, fetchError }) {
   const [visibleCount, setVisibleCount] = useState(3);
+  const resultsRef = useRef(null);
 
   const handleShowMore = () => {
     setVisibleCount((prev) => prev + 3);
@@ -16,6 +17,17 @@ function Main({ onSearch, articles, isLoading, hasSearched, fetchError }) {
     setVisibleCount(3);
     onSearch(query);
   };
+
+  useEffect(() => {
+    if (
+      !isLoading &&
+      hasSearched &&
+      articles.length > 0 &&
+      resultsRef.current
+    ) {
+      resultsRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [isLoading, hasSearched, articles]);
 
   return (
     <>
@@ -45,11 +57,13 @@ function Main({ onSearch, articles, isLoading, hasSearched, fetchError }) {
       )}
 
       {!isLoading && hasSearched && articles.length > 0 && (
-        <NewsResults
-          articles={articles}
-          visibleCount={visibleCount}
-          onShowMore={handleShowMore}
-        />
+        <div ref={resultsRef}>
+          <NewsResults
+            articles={articles}
+            visibleCount={visibleCount}
+            onShowMore={handleShowMore}
+          />
+        </div>
       )}
     </>
   );
