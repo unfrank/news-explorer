@@ -1,6 +1,6 @@
 // todo: @import url(./vendor/normalize.css); @import url(./vendor/fonts.css) to index.css.
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 import Main from "./components/Main";
@@ -24,6 +24,11 @@ function App() {
   const [hasSearched, setHasSearched] = useState(false);
   const [visibleCount, setVisibleCount] = useState(3);
   const [fetchError, setFetchError] = useState(false);
+
+  useEffect(() => {
+    window.history.scrollRestoration = "manual"; // prevent browser from restoring scroll
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSearch = (query) => {
     setFetchError(false);
