@@ -46,7 +46,7 @@ function NewsResults({ articles, visibleCount, onShowMore, onCardClick }) {
 
   return (
     <section className="news-results">
-      <h2 className="news-results__title">Search results</h2>
+      {/* <h2 className="news-results__title">Search results</h2> */}
 
       <NewsCardList
         articles={articles.slice(0, visibleCount)}

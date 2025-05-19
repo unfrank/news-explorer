@@ -54,6 +54,7 @@ function NewsCardList({ articles, onCardClick, scrollToIndex }) {
 
   return (
     <section className="news-results__list">
+      <h2 className="news-results__title">Search results</h2>
       <div className="news-results__grid">
         {articles.map((article, index) => (
           <NewsCard
