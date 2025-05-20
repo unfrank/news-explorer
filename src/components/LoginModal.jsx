@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ModalWithForm from "./ModalWithForm";
 import "./LoginModal.css";
-import { login } from "../utils/auth";
+import { login } from "../authorization/auth";
 
 function LoginModal({
   isOpen,
