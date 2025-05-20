@@ -8,6 +8,10 @@ function NewsResults({
   onShowMore,
   onCardClick,
   lastVisibleIndex,
+  onSaveArticle,
+  onDeleteArticle,
+  savedArticles,
+  isLoggedIn,
 }) {
   const isShowMoreVisible = articles.length > visibleCount;
 
@@ -16,7 +20,10 @@ function NewsResults({
       <NewsCardList
         articles={articles.slice(0, visibleCount)}
         onCardClick={onCardClick}
-        scrollToIndex={lastVisibleIndex} // 🆕
+        scrollToIndex={lastVisibleIndex}
+        onSaveArticle={onSaveArticle}
+        savedArticles={savedArticles}
+        isLoggedIn={isLoggedIn} // ✅ Pass it forward
       />
       {isShowMoreVisible && (
         <button className="news-results__button" onClick={onShowMore}>

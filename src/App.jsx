@@ -178,9 +178,10 @@ function App() {
           isLoading={isLoading}
           hasSearched={hasSearched}
           visibleCount={visibleCount}
+          isLoggedIn={isLoggedIn}
           onShowMore={() => setVisibleCount((prev) => Math.min(prev + 3, 12))}
           fetchError={fetchError}
-          onsaveArticle={handleSaveArticle}
+          onSaveArticle={handleSaveArticle}
           onDeleteArticle={handleDeleteArticle}
           savedArticles={savedArticles}
         />

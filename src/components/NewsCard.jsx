@@ -1,11 +1,33 @@
 import React, { useState, forwardRef } from "react";
 import "./NewsCard.css";
+
 import saveIconLight from "../assets/icons/icon-like-light.svg";
 import saveIconDark from "../assets/icons/icon-like-dark.svg";
+import saveIconMarked from "../assets/icons/icon-like-marked.svg";
 
 const NewsCard = forwardRef(
-  ({ title, description, date, source, image, url, onClick, style }, ref) => {
+  (
+    {
+      title,
+      description,
+      date,
+      source,
+      image,
+      url,
+      onClick,
+      style,
+      onSave,
+      isSaved,
+      isLoggedIn,
+    },
+    ref
+  ) => {
     const [isHovered, setIsHovered] = useState(false);
+
+    const getIcon = () => {
+      if (isSaved && isLoggedIn) return saveIconMarked;
+      return isHovered ? saveIconDark : saveIconLight;
+    };
 
     return (
       <article className="news-card" style={style} onClick={onClick} ref={ref}>
@@ -13,14 +35,26 @@ const NewsCard = forwardRef(
           <img className="news-card__image" src={image} alt={title} />
           <div
             className="news-card__save-wrapper"
+            onClick={(e) => {
+              e.stopPropagation();
+              onSave();
+            }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            <span className="news-card__tooltip">Sign in to save articles</span>
+            <span className="news-card__tooltip">
+              {!isLoggedIn
+                ? "Sign in to save articles"
+                : isSaved
+                ? "Remove from saved"
+                : "Save to favorites"}
+            </span>
             <img
-              src={isHovered ? saveIconDark : saveIconLight}
-              alt="Save article"
-              className="news-card__save-icon"
+              src={getIcon()}
+              alt={isSaved ? "Saved" : "Save article"}
+              className={`news-card__save-icon ${
+                isSaved ? "news-card__save-icon--active" : ""
+              }`}
             />
           </div>
         </div>

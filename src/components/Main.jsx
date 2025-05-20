@@ -5,7 +5,16 @@ import NewsResults from "./NewsResults";
 import Preloader from "./PreLoader";
 import NothingFound from "./NothingFound";
 
-function Main({ onSearch, articles, isLoading, hasSearched, fetchError }) {
+function Main({
+  onSearch,
+  articles,
+  isLoading,
+  hasSearched,
+  fetchError,
+  isLoggedIn,
+  onSaveArticle,
+  savedArticles,
+}) {
   const [visibleCount, setVisibleCount] = useState(3);
   const resultsRef = useRef(null);
   const [lastVisibleIndex, setLastVisibleIndex] = useState(null);
@@ -17,6 +26,14 @@ function Main({ onSearch, articles, isLoading, hasSearched, fetchError }) {
   const handleSearch = (query) => {
     setVisibleCount(3);
     onSearch(query);
+  };
+
+  const handleSave = (article) => {
+    if (isLoggedIn) {
+      onSaveArticle(article);
+    } else {
+      alert("Please log in to save articles.");
+    }
   };
 
   useEffect(() => {
@@ -64,6 +81,9 @@ function Main({ onSearch, articles, isLoading, hasSearched, fetchError }) {
             visibleCount={visibleCount}
             onShowMore={handleShowMore}
             lastVisibleIndex={lastVisibleIndex}
+            onSaveArticle={handleSave}
+            savedArticles={savedArticles}
+            isLoggedIn={isLoggedIn}
           />
         </div>
       )}

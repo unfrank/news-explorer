@@ -1,17 +1,34 @@
-export function login(email, password) {
-  const fakeToken = "fake-jwt-token";
-  localStorage.setItem("jwt", fakeToken);
-  return Promise.resolve({ token: fakeToken, email });
-}
+const BASE_URL = "http://localhost:3000";
 
 export function register(email, password) {
-  return Promise.resolve({ email });
+  return fetch(`${BASE_URL}/signup`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  }).then((res) => {
+    if (!res.ok) throw new Error("Registration failed");
+    return res.json();
+  });
+}
+
+export function login(email, password) {
+  return fetch(`${BASE_URL}/signin`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  }).then((res) => {
+    if (!res.ok) throw new Error("Login failed");
+    return res.json();
+  });
 }
 
 export function checkToken(token) {
-  if (token === "fake-jwt-token") {
-    return Promise.resolve({ email: "user@example.com" });
-  } else {
-    return Promise.reject("Invalid token");
-  }
+  return fetch(`${BASE_URL}/users/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => {
+    if (!res.ok) throw new Error("Token check failed");
+    return res.json();
+  });
 }

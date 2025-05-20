@@ -2,7 +2,14 @@ import React, { useEffect, useRef } from "react";
 import NewsCard from "./NewsCard";
 import "./NewsCardList.css";
 
-function NewsCardList({ articles, onCardClick, scrollToIndex }) {
+function NewsCardList({
+  articles,
+  onCardClick,
+  scrollToIndex,
+  onSaveArticle,
+  savedArticles,
+  isLoggedIn,
+}) {
   const cardRefs = useRef([]);
 
   useEffect(() => {
@@ -12,7 +19,16 @@ function NewsCardList({ articles, onCardClick, scrollToIndex }) {
         block: "start",
       });
     }
-  }, [scrollToIndex, articles.length]); // Triggered after article expansion
+  }, [scrollToIndex, articles.length]);
+
+  const handleSave = (article) => {
+    if (isLoggedIn) {
+      onSaveArticle(article);
+    } else {
+      alert("Please log in to save articles.");
+    }
+  };
+  console.log("🧪 isLoggedIn?", isLoggedIn);
 
   return (
     <section className="news-results__list">
@@ -21,7 +37,7 @@ function NewsCardList({ articles, onCardClick, scrollToIndex }) {
         {articles.map((article, index) => (
           <NewsCard
             key={`${article.url}-${index}`}
-            ref={(el) => (cardRefs.current[index] = el)} // 🆕 Assign each card to the array
+            ref={(el) => (cardRefs.current[index] = el)}
             title={article.title}
             description={article.description}
             date={new Date(article.publishedAt).toLocaleDateString("en-US", {
@@ -33,7 +49,10 @@ function NewsCardList({ articles, onCardClick, scrollToIndex }) {
             image={article.urlToImage}
             url={article.url}
             style={{ animationDelay: `${index * 0.33}s` }}
-            onClick={onCardClick}
+            onClick={() => onCardClick && onCardClick(article)}
+            onSave={() => handleSave(article)}
+            isSaved={savedArticles.some((a) => a.url === article.url)}
+            isLoggedIn={isLoggedIn}
           />
         ))}
       </div>
