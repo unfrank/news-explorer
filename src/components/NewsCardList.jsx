@@ -24,12 +24,8 @@ function NewsCardList({
   const handleSave = (article) => {
     if (isLoggedIn) {
       onSaveArticle(article);
-    } else {
-      alert("Please log in to save articles.");
     }
   };
-  console.log("🧪 isLoggedIn?", isLoggedIn);
-
   return (
     <section className="news-results__list">
       <h2 className="news-results__title">Search results</h2>

@@ -31,8 +31,6 @@ function Main({
   const handleSave = (article) => {
     if (isLoggedIn) {
       onSaveArticle(article);
-    } else {
-      alert("Please log in to save articles.");
     }
   };
 

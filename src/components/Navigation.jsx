@@ -1,31 +1,11 @@
-// import React from "react";
-// import "./Navigation.css";
-
-// function Navigation({ onSignInClick, onLogoutClick }) {
-//   return (
-//     <nav className="navigation">
-//       <a href="/" className="navigation__link">
-//         Home
-//       </a>
-//       <button className="navigation__button" onClick={onSignInClick}>
-//         Sign in
-//       </button>
-
-//       {/* Logout button, in protected route. render user first name */}
-//       {/* <button className="navigation__button" onClick={onSignInClick}> */}
-//       {/* {user.name} */}
-//       {/* </button> */}
-//     </nav>
-//   );
-// }
-
-// export default Navigation;
-
-import React from "react";
+import React, { useContext } from "react";
 import "./Navigation.css";
 import logoutIcon from "../assets/icons/icon-logout.svg";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
-function Navigation({ isLoggedIn, userEmail, onSignInClick, onLogoutClick }) {
+function Navigation({ onSignInClick, onLogoutClick }) {
+  const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
+
   return (
     <nav className="navigation">
       <a href="/" className="navigation__link">
@@ -41,7 +21,7 @@ function Navigation({ isLoggedIn, userEmail, onSignInClick, onLogoutClick }) {
           className="navigation__button navigation__button--logout"
           onClick={onLogoutClick}
         >
-          <span className="navigation__username">{userEmail}</span>
+          <span className="navigation__username">{currentUser?.email}</span>
           <img
             src={logoutIcon}
             alt="Logout"

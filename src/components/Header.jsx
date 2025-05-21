@@ -1,31 +1,10 @@
-// import React from "react";
-// import Navigation from "./Navigation";
-// import "./Header.css";
-
-// function Header({ onSignInClick }) {
-//   return (
-//     <header className="header">
-//       <div className="header__container">
-//         <div className="header__logo">NewsExplorer</div>
-//         <Navigation onSignInClick={onSignInClick} />
-//       </div>
-//     </header>
-//   );
-// }
-
-// export default Header;
-
-import React from "react";
+import React, { useContext } from "react";
 import Navigation from "./Navigation";
 import "./Header.css";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
-function Header({
-  onSignInClick,
-  isLoggedIn,
-  currentUser,
-  setActiveModal,
-  handleLogout,
-}) {
+function Header({ onSignInClick, setActiveModal, handleLogout }) {
+  const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
   return (
     <header className="header">
       <div className="header__container">

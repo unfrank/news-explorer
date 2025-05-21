@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./App.css";
 
 import Main from "./components/Main";
@@ -15,6 +15,8 @@ import SavedNews from "./components/SavedNews";
 
 import { fetchNewsArticles } from "./utils/newsApi";
 import { checkToken, register, login } from "./authorization/auth";
+
+import CurrentUserContext from "./contexts/CurrentUserContext";
 
 import {
   BrowserRouter as Router,
@@ -75,6 +77,38 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+
+    if (!token) {
+      setIsLoggedIn(false);
+      setCurrentUser(null);
+      return;
+    }
+
+    checkToken(token)
+      .then((res) => {
+        setIsLoggedIn(true);
+        setCurrentUser({ email: res.email });
+
+        // Optional: Fetch saved articles right after login
+        fetch("http://localhost:3000/articles", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => setSavedArticles(data))
+          .catch((err) => console.error("Failed to load saved articles:", err));
+      })
+      .catch((err) => {
+        console.warn("Invalid or expired token:", err);
+        localStorage.removeItem("jwt");
+        setIsLoggedIn(false);
+        setCurrentUser(null);
+      });
+  }, []);
+
   const handleSearch = (query) => {
     setFetchError(false);
     setIsLoading(true);
@@ -99,21 +133,37 @@ function App() {
   };
 
   const handleSaveArticle = (articleData) => {
+    const isAlreadySaved = savedArticles.some((a) => a.url === articleData.url);
     const token = localStorage.getItem("jwt");
 
-    fetch("http://localhost:3000/articles", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(articleData),
-    })
-      .then((res) => res.json())
-      .then((saved) => {
-        setSavedArticles((prev) => [...prev, saved]);
+    if (isAlreadySaved) {
+      const saved = savedArticles.find((a) => a.url === articleData.url);
+      fetch(`http://localhost:3000/articles/${saved._id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .catch((err) => console.error("Save failed:", err));
+        .then((res) => {
+          if (!res.ok) throw new Error("Failed to delete article");
+          setSavedArticles((prev) => prev.filter((a) => a._id !== saved._id));
+        })
+        .catch((err) => console.error("Delete failed:", err));
+    } else {
+      fetch("http://localhost:3000/articles", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(articleData),
+      })
+        .then((res) => res.json())
+        .then((saved) => {
+          setSavedArticles((prev) => [...prev, saved]);
+        })
+        .catch((err) => console.error("Save failed:", err));
+    }
   };
 
   const handleDeleteArticle = (id) => {
@@ -140,20 +190,20 @@ function App() {
   const handleRegister = ({ email, password }) => {
     setIsLoading(true);
     register(email, password)
-      .then(() => {
-        return login(email, password);
-      })
-      .then((res) => {
-        localStorage.setItem("jwt", res.token);
-        setCurrentUser({ email: res.email });
-        setIsLoggedIn(true);
-        setActiveModal("");
-        console.log("Registered user:", res.email);
-      })
+      .then(() => login(email, password))
+      .then(handleLogin)
       .catch((err) => {
         console.error("Registration failed:", err);
       })
       .finally(() => setIsLoading(false));
+  };
+
+  const handleLogin = (credentials) => {
+    localStorage.setItem("jwt", credentials.token);
+    setIsLoggedIn(true);
+    setCurrentUser(credentials.user);
+    setActiveModal("");
+    console.log("logging use", credentials.user);
   };
 
   const handleLogout = () => {
@@ -163,76 +213,79 @@ function App() {
   };
 
   return (
-    <Router>
-      <div className="hero">
-        <Header
-          isLoggedIn={isLoggedIn}
-          currentUser={currentUser}
-          setActiveModal={setActiveModal}
-          handleLogout={handleLogout}
-        />
+    <CurrentUserContext.Provider value={{ currentUser, isLoggedIn }}>
+      <Router>
+        <div className="hero">
+          <Header
+            isLoggedIn={isLoggedIn}
+            currentUser={currentUser}
+            setActiveModal={setActiveModal}
+            handleLogout={handleLogout}
+          />
 
-        <Main
-          onSearch={handleSearch}
-          articles={articles}
-          isLoading={isLoading}
-          hasSearched={hasSearched}
-          visibleCount={visibleCount}
-          isLoggedIn={isLoggedIn}
-          onShowMore={() => setVisibleCount((prev) => Math.min(prev + 3, 12))}
-          fetchError={fetchError}
-          onSaveArticle={handleSaveArticle}
-          onDeleteArticle={handleDeleteArticle}
-          savedArticles={savedArticles}
-        />
+          <Main
+            onSearch={handleSearch}
+            articles={articles}
+            isLoading={isLoading}
+            hasSearched={hasSearched}
+            visibleCount={visibleCount}
+            isLoggedIn={isLoggedIn}
+            onShowMore={() => setVisibleCount((prev) => Math.min(prev + 3, 12))}
+            fetchError={fetchError}
+            onSaveArticle={handleSaveArticle}
+            onDeleteArticle={handleDeleteArticle}
+            savedArticles={savedArticles}
+          />
 
-        <Routes>
-          <Route element={<ProtectedRoute />}>
-            <Route
-              path="/saved-news"
-              element={
-                <SavedNews
-                  savedArticles={savedArticles}
-                  onDeleteArticle={handleDeleteArticle}
-                />
-              }
-            />
-          </Route>
+          <Routes>
+            <Route element={<ProtectedRoute />}>
+              <Route
+                path="/saved-news"
+                element={
+                  <SavedNews
+                    savedArticles={savedArticles}
+                    onDeleteArticle={handleDeleteArticle}
+                  />
+                }
+              />
+            </Route>
 
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
 
-        <About />
-        <Footer />
+          <About />
+          <Footer />
 
-        <LoginModal
-          isOpen={activeModal === "login"}
-          onClose={() => setActiveModal("")}
-          setActiveModal={setActiveModal}
-          onAuthSuccess={(credentials) => {
-            setIsLoggedIn(true);
-            setCurrentUser(credentials.user);
-            setActiveModal("");
-          }}
-          isLoading={false}
-          buttonText="Sign In"
-        />
+          <LoginModal
+            isOpen={activeModal === "login"}
+            onClose={() => setActiveModal("")}
+            setActiveModal={setActiveModal}
+            // onAuthSuccess={(credentials) => {
+            //   setIsLoggedIn(true);
+            //   setCurrentUser(credentials.user);
+            //   setActiveModal("");
+            // }}
+            onAuthSuccess={handleLogin}
+            isLoading={false}
+            buttonText="Sign In"
+          />
 
-        <RegisterModal
-          isOpen={activeModal === "register"}
-          onClose={() => setActiveModal("")}
-          onRegister={handleRegister}
-          isLoading={isLoading}
-          setActiveModal={setActiveModal}
-        />
+          <RegisterModal
+            isOpen={activeModal === "register"}
+            onClose={() => setActiveModal("")}
+            onRegister={handleRegister}
+            isLoading={isLoading}
+            setActiveModal={setActiveModal}
+          />
 
-        <RegisterSuccessModal
-          isOpen={activeModal === "register-success"}
-          onClose={() => setActiveModal("")}
-          setActiveModal={setActiveModal}
-        />
-      </div>
-    </Router>
+          <RegisterSuccessModal
+            isOpen={activeModal === "register-success"}
+            onClose={() => setActiveModal("")}
+            setActiveModal={setActiveModal}
+          />
+        </div>
+      </Router>
+    </CurrentUserContext.Provider>
   );
 }
 
