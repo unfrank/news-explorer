@@ -56,6 +56,13 @@ const NewsCard = forwardRef(
                 isSaved ? "news-card__save-icon--active" : ""
               }`}
             />
+            {/* <img
+  src={getIcon()}
+  alt={isSaved && isLoggedIn ? "Saved" : "Save article"}
+  className={`news-card__save-icon ${
+    isSaved && isLoggedIn ? "news-card__save-icon--active" : ""
+  }`}
+/> */}
           </div>
         </div>
 

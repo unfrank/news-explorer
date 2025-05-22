@@ -50,7 +50,9 @@ function NewsCardList({
             style={{ animationDelay: `${index * 0.33}s` }}
             onClick={() => onCardClick && onCardClick(article)}
             onSave={() => handleSave(article)}
-            isSaved={savedArticles.some((a) => a.url === article.url)}
+            // isSaved={savedArticles.some((a) => a.url === article.url)}
+            // isSaved={savedArticles.some((a) => a.title === article.title)}
+            isSaved={savedArticles.some((a) => a.link === article.url)}
             isLoggedIn={isLoggedIn}
           />
         ))}

@@ -133,11 +133,18 @@ function App() {
   };
 
   const handleSaveArticle = (articleData) => {
-    const isAlreadySaved = savedArticles.some((a) => a.url === articleData.url);
     const token = localStorage.getItem("jwt");
+    if (!token) return;
+
+    // Use `link` instead of `url` to match backend schema
+    const isAlreadySaved = savedArticles.some(
+      (a) => a.link === articleData.url
+    );
 
     if (isAlreadySaved) {
-      const saved = savedArticles.find((a) => a.url === articleData.url);
+      const saved = savedArticles.find((a) => a.link === articleData.url);
+      console.log("Deleting article:", saved);
+
       fetch(`http://localhost:3000/articles/${saved._id}`, {
         method: "DELETE",
         headers: {
@@ -150,21 +157,74 @@ function App() {
         })
         .catch((err) => console.error("Delete failed:", err));
     } else {
+      const normalized = {
+        keyword: articleData.keyword || "news",
+        title: articleData.title,
+        text: articleData.description || "No description provided.",
+        date: articleData.publishedAt || articleData.date || "Unknown date",
+        source:
+          articleData.source?.name || articleData.source || "Unknown source",
+        link: articleData.url,
+        image: articleData.urlToImage || articleData.image || "",
+      };
+
+      console.log("Saving normalized article:", normalized);
+
       fetch("http://localhost:3000/articles", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(articleData),
+        body: JSON.stringify(normalized),
       })
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) throw new Error("Failed to save article");
+          return res.json();
+        })
         .then((saved) => {
           setSavedArticles((prev) => [...prev, saved]);
         })
         .catch((err) => console.error("Save failed:", err));
     }
   };
+
+  // orig
+  // const handleSaveArticle = (articleData) => {
+  //   const isAlreadySaved = savedArticles.some((a) => a.url === articleData.url);
+  //   const token = localStorage.getItem("jwt");
+
+  //   if (isAlreadySaved) {
+  //     const saved = savedArticles.find((a) => a.url === articleData.url);
+  //     console.log("Sending article to backend:", articleData);
+
+  //     fetch(`http://localhost:3000/articles/${saved._id}`, {
+  //       method: "DELETE",
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //       .then((res) => {
+  //         if (!res.ok) throw new Error("Failed to delete article");
+  //         setSavedArticles((prev) => prev.filter((a) => a._id !== saved._id));
+  //       })
+  //       .catch((err) => console.error("Delete failed:", err));
+  //   } else {
+  //     fetch("http://localhost:3000/articles", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       body: JSON.stringify(articleData),
+  //     })
+  //       .then((res) => res.json())
+  //       .then((saved) => {
+  //         setSavedArticles((prev) => [...prev, saved]);
+  //       })
+  //       .catch((err) => console.error("Save failed:", err));
+  //   }
+  // };
 
   const handleDeleteArticle = (id) => {
     const token = localStorage.getItem("jwt");
