@@ -12,20 +12,23 @@ function NewsCardList({
 }) {
   const cardRefs = useRef([]);
 
-  useEffect(() => {
-    if (scrollToIndex != null && cardRefs.current[scrollToIndex]) {
-      cardRefs.current[scrollToIndex].scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+  setTimeout(() => {
+    const targetCard = cardRefs.current[scrollToIndex];
+    if (targetCard) {
+      const yOffset = -24;
+      const y =
+        targetCard.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+      window.scrollTo({ top: y, behavior: "smooth" });
     }
-  }, [scrollToIndex, articles.length]);
+  }, 1000);
 
   const handleSave = (article) => {
     if (isLoggedIn) {
       onSaveArticle(article);
     }
   };
+
   return (
     <section className="news-results__list">
       <h2 className="news-results__title">Search results</h2>

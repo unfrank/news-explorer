@@ -20,9 +20,16 @@ function Main({
   const [lastVisibleIndex, setLastVisibleIndex] = useState(null);
 
   const handleShowMore = () => {
-    setLastVisibleIndex(visibleCount - 1);
+    setLastVisibleIndex(visibleCount + 1); // scroll to last card BEFORE update
     setVisibleCount((prev) => prev + 3);
   };
+
+  // const handleShowMore = () => {
+  //   const newVisibleCount = visibleCount + 3;
+  //   setVisibleCount(newVisibleCount);
+  //   setLastVisibleIndex(newVisibleCount - 1);
+  // };
+
   const handleSearch = (query) => {
     setVisibleCount(3);
     onSearch(query);
