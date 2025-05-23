@@ -189,43 +189,6 @@ function App() {
     }
   };
 
-  // orig
-  // const handleSaveArticle = (articleData) => {
-  //   const isAlreadySaved = savedArticles.some((a) => a.url === articleData.url);
-  //   const token = localStorage.getItem("jwt");
-
-  //   if (isAlreadySaved) {
-  //     const saved = savedArticles.find((a) => a.url === articleData.url);
-  //     console.log("Sending article to backend:", articleData);
-
-  //     fetch(`http://localhost:3000/articles/${saved._id}`, {
-  //       method: "DELETE",
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //       .then((res) => {
-  //         if (!res.ok) throw new Error("Failed to delete article");
-  //         setSavedArticles((prev) => prev.filter((a) => a._id !== saved._id));
-  //       })
-  //       .catch((err) => console.error("Delete failed:", err));
-  //   } else {
-  //     fetch("http://localhost:3000/articles", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //       body: JSON.stringify(articleData),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((saved) => {
-  //         setSavedArticles((prev) => [...prev, saved]);
-  //       })
-  //       .catch((err) => console.error("Save failed:", err));
-  //   }
-  // };
-
   const handleDeleteArticle = (id) => {
     const token = localStorage.getItem("jwt");
 
