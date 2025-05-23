@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import NewsCard from "./NewsCard";
 import "./NewsCardList.css";
+import About from "./About";
 
 function NewsCardList({
   articles,
@@ -32,6 +33,7 @@ function NewsCardList({
   return (
     <section className="news-results__list">
       <h2 className="news-results__title">Search results</h2>
+      {/* <div className="testing"> */}
       <div className="news-results__grid">
         {articles.map((article, index) => (
           <NewsCard
@@ -50,12 +52,11 @@ function NewsCardList({
             style={{ animationDelay: `${index * 0.33}s` }}
             onClick={() => onCardClick && onCardClick(article)}
             onSave={() => handleSave(article)}
-            // isSaved={savedArticles.some((a) => a.url === article.url)}
-            // isSaved={savedArticles.some((a) => a.title === article.title)}
             isSaved={savedArticles.some((a) => a.link === article.url)}
             isLoggedIn={isLoggedIn}
           />
         ))}
+        {/* </div> */}
       </div>
     </section>
   );

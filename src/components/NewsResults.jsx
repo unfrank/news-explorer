@@ -17,19 +17,21 @@ function NewsResults({
 
   return (
     <section className="news-results">
-      <NewsCardList
-        articles={articles.slice(0, visibleCount)}
-        onCardClick={onCardClick}
-        scrollToIndex={lastVisibleIndex}
-        onSaveArticle={onSaveArticle}
-        savedArticles={savedArticles}
-        isLoggedIn={isLoggedIn} // ✅ Pass it forward
-      />
-      {isShowMoreVisible && (
-        <button className="news-results__button" onClick={onShowMore}>
-          Show more
-        </button>
-      )}
+      <div className="section-inner">
+        <NewsCardList
+          articles={articles.slice(0, visibleCount)}
+          onCardClick={onCardClick}
+          scrollToIndex={lastVisibleIndex}
+          onSaveArticle={onSaveArticle}
+          savedArticles={savedArticles}
+          isLoggedIn={isLoggedIn}
+        />
+        {isShowMoreVisible && (
+          <button className="news-results__button" onClick={onShowMore}>
+            Show more
+          </button>
+        )}
+      </div>
     </section>
   );
 }

@@ -7,14 +7,16 @@ function Header({ onSignInClick, setActiveModal, handleLogout }) {
   const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
   return (
     <header className="header">
-      <div className="header__container">
-        <div className="header__logo">NewsExplorer</div>
-        <Navigation
-          isLoggedIn={isLoggedIn}
-          userEmail={currentUser?.email}
-          onSignInClick={() => setActiveModal("login")}
-          onLogoutClick={handleLogout}
-        />
+      <div className="section-inner">
+        <div className="header__container">
+          <div className="header__logo">NewsExplorer</div>
+          <Navigation
+            isLoggedIn={isLoggedIn}
+            userEmail={currentUser?.email}
+            onSignInClick={() => setActiveModal("login")}
+            onLogoutClick={handleLogout}
+          />
+        </div>
       </div>
     </header>
   );

@@ -282,7 +282,6 @@ function App() {
             setActiveModal={setActiveModal}
             handleLogout={handleLogout}
           />
-
           <Main
             onSearch={handleSearch}
             articles={articles}
@@ -320,11 +319,6 @@ function App() {
             isOpen={activeModal === "login"}
             onClose={() => setActiveModal("")}
             setActiveModal={setActiveModal}
-            // onAuthSuccess={(credentials) => {
-            //   setIsLoggedIn(true);
-            //   setCurrentUser(credentials.user);
-            //   setActiveModal("");
-            // }}
             onAuthSuccess={handleLogin}
             isLoading={false}
             buttonText="Sign In"

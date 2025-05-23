@@ -12,8 +12,8 @@
 
 .header__container {
   margin: 0 auto;
-  padding-left: 100px;
-  padding-right: 100px;
+  /* padding-left: 100px; */
+  /* padding-right: 100px; */
   display: flex;
   justify-content: space-between;
   align-items: center;

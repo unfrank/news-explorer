@@ -18,10 +18,14 @@
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  /* font-family: "Inter", sans-serif; */
   font-family: "Roboto", "Inter", sans-serif;
-  width: 400px;
+  /* width: 400px; */
   height: auto;
+
+  /* experimental */
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .news-card__image-container {

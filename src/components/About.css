@@ -1,22 +1,24 @@
 .about {
-  width: 100%;
+  /* width: 100%; */
   background-color: #fff;
   display: flex;
   justify-content: center;
   padding-top: 80px;
   padding-bottom: 80px;
-  padding-left: 104px;
-  padding-right: 104px;
+  /* padding-left: 104px; */
+  /* padding-right: 104px; */
   font-family: "Roboto", "Inter", sans-serif;
   /* aspect-ratio: 1340 / 576; */
 }
 
 .about__container {
-  /* margin-left: 100px; */
   width: 100%;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   flex-wrap: wrap;
+
+  justify-content: space-between;
+  gap: 32px;
 }
 
 .about__image {
