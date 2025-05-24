@@ -18,17 +18,11 @@ import { checkToken, register, login } from "./authorization/auth";
 
 import CurrentUserContext from "./contexts/CurrentUserContext";
 
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
   const [articles, setArticles] = useState([]);
@@ -38,7 +32,8 @@ function App() {
   const [visibleCount, setVisibleCount] = useState(3);
   const [fetchError, setFetchError] = useState(false);
 
-  // force scroll to top on page load
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   useEffect(() => {
     window.history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
@@ -50,35 +45,6 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
-    if (token) {
-      checkToken(token)
-        .then((res) => {
-          setIsLoggedIn(true);
-          setCurrentUser({ email: res.email });
-
-          // 🆕 Fetch saved articles
-          fetch("http://localhost:3000/articles", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-            .then((res) => res.json())
-            .then((data) => setSavedArticles(data))
-            .catch((err) =>
-              console.error("Failed to load saved articles:", err)
-            );
-        })
-        .catch((err) => {
-          console.warn("Invalid or expired token:", err);
-          localStorage.removeItem("jwt");
-          setIsLoggedIn(false);
-          setCurrentUser(null);
-        });
-    }
-  }, []);
-
-  useEffect(() => {
-    const token = localStorage.getItem("jwt");
 
     if (!token) {
       setIsLoggedIn(false);
@@ -86,12 +52,12 @@ function App() {
       return;
     }
 
+    setIsLoggedIn(true);
+
     checkToken(token)
       .then((res) => {
-        setIsLoggedIn(true);
         setCurrentUser({ email: res.email });
 
-        // Optional: Fetch saved articles right after login
         fetch("http://localhost:3000/articles", {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -136,7 +102,6 @@ function App() {
     const token = localStorage.getItem("jwt");
     if (!token) return;
 
-    // Use `link` instead of `url` to match backend schema
     const isAlreadySaved = savedArticles.some(
       (a) => a.link === articleData.url
     );
@@ -235,16 +200,19 @@ function App() {
     setCurrentUser(null);
   };
 
+  const location = useLocation();
+  console.log("ROUTE:", location.pathname);
+  console.log("LOGGED IN?", isLoggedIn);
   return (
     <CurrentUserContext.Provider value={{ currentUser, isLoggedIn }}>
-      <Router>
-        <div className="hero">
-          <Header
-            isLoggedIn={isLoggedIn}
-            currentUser={currentUser}
-            setActiveModal={setActiveModal}
-            handleLogout={handleLogout}
-          />
+      <div className={location.pathname === "/" ? "hero" : "page-wrapper"}>
+        <Header
+          isLoggedIn={isLoggedIn}
+          currentUser={currentUser}
+          setActiveModal={setActiveModal}
+          handleLogout={handleLogout}
+        />
+        {location.pathname === "/" && (
           <Main
             onSearch={handleSearch}
             articles={articles}
@@ -258,50 +226,50 @@ function App() {
             onDeleteArticle={handleDeleteArticle}
             savedArticles={savedArticles}
           />
+        )}
 
-          <Routes>
-            <Route element={<ProtectedRoute />}>
-              <Route
-                path="/saved-news"
-                element={
-                  <SavedNews
-                    savedArticles={savedArticles}
-                    onDeleteArticle={handleDeleteArticle}
-                  />
-                }
-              />
-            </Route>
+        <Routes>
+          <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
+            <Route
+              path="/saved-news"
+              element={
+                <SavedNews
+                  savedArticles={savedArticles}
+                  onDeleteArticle={handleDeleteArticle}
+                />
+              }
+            />
+          </Route>
 
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
 
-          <About />
-          <Footer />
+        <About />
+        <Footer />
 
-          <LoginModal
-            isOpen={activeModal === "login"}
-            onClose={() => setActiveModal("")}
-            setActiveModal={setActiveModal}
-            onAuthSuccess={handleLogin}
-            isLoading={false}
-            buttonText="Sign In"
-          />
+        <LoginModal
+          isOpen={activeModal === "login"}
+          onClose={() => setActiveModal("")}
+          setActiveModal={setActiveModal}
+          onAuthSuccess={handleLogin}
+          isLoading={false}
+          buttonText="Sign In"
+        />
 
-          <RegisterModal
-            isOpen={activeModal === "register"}
-            onClose={() => setActiveModal("")}
-            onRegister={handleRegister}
-            isLoading={isLoading}
-            setActiveModal={setActiveModal}
-          />
+        <RegisterModal
+          isOpen={activeModal === "register"}
+          onClose={() => setActiveModal("")}
+          onRegister={handleRegister}
+          isLoading={isLoading}
+          setActiveModal={setActiveModal}
+        />
 
-          <RegisterSuccessModal
-            isOpen={activeModal === "register-success"}
-            onClose={() => setActiveModal("")}
-            setActiveModal={setActiveModal}
-          />
-        </div>
-      </Router>
+        <RegisterSuccessModal
+          isOpen={activeModal === "register-success"}
+          onClose={() => setActiveModal("")}
+          setActiveModal={setActiveModal}
+        />
+      </div>
     </CurrentUserContext.Provider>
   );
 }

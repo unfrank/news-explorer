@@ -3,6 +3,8 @@ import "./SavedNews.css";
 import NewsCard from "./NewsCard";
 
 function SavedNews({ savedArticles, onDeleteArticle }) {
+  console.log("🔥 SavedNews mounted");
+
   return (
     <section className="saved-news">
       <div className="section-inner">

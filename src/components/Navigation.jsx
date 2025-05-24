@@ -2,15 +2,35 @@ import React, { useContext } from "react";
 import "./Navigation.css";
 import logoutIcon from "../assets/icons/icon-logout.svg";
 import CurrentUserContext from "../contexts/CurrentUserContext";
+import { Link, useLocation } from "react-router-dom";
 
 function Navigation({ onSignInClick, onLogoutClick }) {
   const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
+  const location = useLocation();
 
   return (
     <nav className="navigation">
-      <a href="/" className="navigation__link">
+      <Link
+        to="/"
+        className={`navigation__link ${
+          location.pathname === "/" ? "navigation__link--active" : ""
+        }`}
+      >
         Home
-      </a>
+      </Link>
+
+      {isLoggedIn && (
+        <Link
+          to="/saved-news"
+          className={`navigation__link ${
+            location.pathname === "/saved-news"
+              ? "navigation__link--active"
+              : ""
+          }`}
+        >
+          Saved Articles
+        </Link>
+      )}
 
       {!isLoggedIn ? (
         <button className="navigation__button" onClick={onSignInClick}>
@@ -19,6 +39,7 @@ function Navigation({ onSignInClick, onLogoutClick }) {
       ) : (
         <button
           className="navigation__button navigation__button--logout"
+          // className="navigation__button"
           onClick={onLogoutClick}
         >
           <span className="navigation__username">{currentUser?.email}</span>

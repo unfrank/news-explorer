@@ -49,3 +49,10 @@
   background: rgba(0, 255, 0, 0.05);
   margin: auto;
 }
+
+.page-wrapper {
+  background-color: #f2f5f8;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
