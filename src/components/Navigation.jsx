@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Navigation.css";
 import logoutIcon from "../assets/icons/icon-logout.svg";
 import CurrentUserContext from "../contexts/CurrentUserContext";
@@ -8,8 +8,18 @@ function Navigation({ onSignInClick, onLogoutClick }) {
   const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
   const location = useLocation();
 
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      setAnimate(true);
+      const timeout = setTimeout(() => setAnimate(false), 1500);
+      return () => clearTimeout(timeout);
+    }
+  }, [isLoggedIn]);
+
   return (
-    <nav className="navigation">
+    <nav className={`navigation ${animate ? "navigation--animate" : ""}`}>
       <Link
         to="/"
         className={`navigation__link ${
@@ -39,7 +49,6 @@ function Navigation({ onSignInClick, onLogoutClick }) {
       ) : (
         <button
           className="navigation__button navigation__button--logout"
-          // className="navigation__button"
           onClick={onLogoutClick}
         >
           <span className="navigation__username">{currentUser?.email}</span>
