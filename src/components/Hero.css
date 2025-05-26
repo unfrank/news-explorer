@@ -1,12 +1,5 @@
-/* .hero {
-  position: relative;
-  background-image: url("../assets/hero-bg.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh;
+.hero .header__logo,
+.hero .navigation__link,
+.hero .navigation__button {
   color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-} */
+}

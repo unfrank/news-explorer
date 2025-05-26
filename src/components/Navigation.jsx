@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Navigation.css";
-import logoutIcon from "../assets/icons/icon-logout.svg";
+import logoutIconDark from "../assets/icons/icon-logout-dark.svg";
+import logoutIconLight from "../assets/icons/icon-logout-light.svg";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import { Link, useLocation } from "react-router-dom";
 
@@ -55,7 +56,7 @@ function Navigation({ onSignInClick, onLogoutClick }) {
         >
           <span className="navigation__username">{currentUser?.username}</span>
           <img
-            src={logoutIcon}
+            src={logoutIconDark}
             alt="Logout"
             className="navigation__logout-icon"
           />

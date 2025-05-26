@@ -1,10 +1,13 @@
 import React, { useState, forwardRef } from "react";
 import "./NewsCard.css";
 
+// todo: import icons together
 import saveIconLight from "../assets/icons/icon-like-light.svg";
 import saveIconDark from "../assets/icons/icon-like-dark.svg";
 import saveIconMarked from "../assets/icons/icon-like-marked.svg";
 
+import deleteIconActive from "../assets/icons/icon-trash-active.svg";
+import deleteIconInactive from "../assets/icons/icon-trash-inactive.svg";
 const NewsCard = forwardRef(
   (
     {
@@ -19,12 +22,20 @@ const NewsCard = forwardRef(
       onSave,
       isSaved,
       isLoggedIn,
+      isSavedView,
     },
+
     ref
   ) => {
     const [isHovered, setIsHovered] = useState(false);
 
+    // const getIcon = () => {
+    //   if (isSaved && isLoggedIn) return saveIconMarked;
+    //   return isHovered ? saveIconDark : saveIconLight;
+    // };
+    // test
     const getIcon = () => {
+      if (isSavedView) return isHovered ? deleteIconActive : deleteIconInactive;
       if (isSaved && isLoggedIn) return saveIconMarked;
       return isHovered ? saveIconDark : saveIconLight;
     };
@@ -42,13 +53,25 @@ const NewsCard = forwardRef(
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            <span className="news-card__tooltip">
+            {/* <span className="news-card__tooltip">
               {!isLoggedIn
                 ? "Sign in to save articles"
                 : isSaved
                 ? "Remove from saved"
                 : "Save to favorites"}
+            </span> */}
+
+            {/* test */}
+            <span className="news-card__tooltip">
+              {!isLoggedIn
+                ? "Sign in to save articles"
+                : isSavedView
+                ? "Remove from saved"
+                : isSaved
+                ? "Remove from saved"
+                : "Save to favorites"}
             </span>
+
             <img
               src={getIcon()}
               alt={isSaved ? "Saved" : "Save article"}

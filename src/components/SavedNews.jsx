@@ -1,17 +1,25 @@
 import React from "react";
 import "./SavedNews.css";
 import NewsCard from "./NewsCard";
+import { useContext } from "react";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function SavedNews({ savedArticles, onDeleteArticle }) {
   console.log("🔥 SavedNews mounted");
+
+  const { currentUser } = useContext(CurrentUserContext);
+  const displayName =
+    currentUser?.username?.charAt(0).toUpperCase() +
+      currentUser?.username?.slice(1) || "You";
 
   return (
     <section className="saved-news">
       <div className="section-inner">
         <h1 className="saved-news__title">Saved Articles</h1>
+
         <p className="saved-news__subtitle">
-          You have {savedArticles.length} saved article
-          {savedArticles.length !== 1 ? "s" : ""}
+          {displayName}, you have {savedArticles.length} saved article
+          {savedArticles.length !== 1 ? "s" : ""}.
         </p>
 
         <div className="saved-news__grid">
@@ -25,6 +33,7 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
               image={article.image}
               url={article.link}
               isSaved={true}
+              isSavedView={true}
               isLoggedIn={true}
               onSave={() => onDeleteArticle(article._id)}
               style={{ animationDelay: `${index * 0.25}s` }}

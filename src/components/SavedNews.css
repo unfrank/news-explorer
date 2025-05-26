@@ -1,6 +1,7 @@
 .saved-news {
   padding: 64px 0;
   background-color: #f9f9f9;
+  color: black;
 }
 
 .saved-news__title {
@@ -13,8 +14,20 @@
   margin-bottom: 32px;
 }
 
-.saved-news__grid {
+/* .saved-news__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 24px;
+} */
+
+.saved-news__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+@media screen and (min-width: 1024px) {
+  .saved-news__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
