@@ -1,4 +1,5 @@
-import React, { useState, forwardRef } from "react";
+import React, { useState, forwardRef, useEffect } from "react";
+
 import "./NewsCard.css";
 
 // todo: import icons together
@@ -23,11 +24,17 @@ const NewsCard = forwardRef(
       isSaved,
       isLoggedIn,
       isSavedView,
+      extraClass,
     },
 
     ref
   ) => {
     const [isHovered, setIsHovered] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+      setMounted(true);
+    }, []);
 
     // const getIcon = () => {
     //   if (isSaved && isLoggedIn) return saveIconMarked;
@@ -41,7 +48,14 @@ const NewsCard = forwardRef(
     };
 
     return (
-      <article className="news-card" style={style} onClick={onClick} ref={ref}>
+      <article
+        className={`news-card ${mounted ? "news-card__fade-in" : ""} ${
+          extraClass || ""
+        }`}
+        style={style}
+        onClick={onClick}
+        ref={ref}
+      >
         <div className="news-card__image-container">
           <img className="news-card__image" src={image} alt={title} />
           <div

@@ -1,7 +1,7 @@
-import React from "react";
 import "./SavedNews.css";
 import NewsCard from "./NewsCard";
-import { useContext } from "react";
+import React, { useContext, useState } from "react";
+
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function SavedNews({ savedArticles, onDeleteArticle }) {
@@ -11,6 +11,8 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
   const displayName =
     currentUser?.username?.charAt(0).toUpperCase() +
       currentUser?.username?.slice(1) || "You";
+
+  const [fadingCardIds, setFadingCardIds] = useState([]);
 
   return (
     <section className="saved-news">
@@ -35,8 +37,18 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
               isSaved={true}
               isSavedView={true}
               isLoggedIn={true}
-              onSave={() => onDeleteArticle(article._id)}
+              onSave={() => {
+                if (!fadingCardIds.includes(article._id)) {
+                  setFadingCardIds((prev) => [...prev, article._id]);
+                  setTimeout(() => {
+                    onDeleteArticle(article._id);
+                  }, 600); // ⏱ increased delay to allow animation to complete
+                }
+              }}
               style={{ animationDelay: `${index * 0.25}s` }}
+              extraClass={
+                fadingCardIds.includes(article._id) ? "news-card--fade-out" : ""
+              }
             />
           ))}
         </div>

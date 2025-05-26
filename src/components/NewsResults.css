@@ -31,7 +31,6 @@
   width: 100%;
 } */
 
-/* experimental */
 .news-results__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
