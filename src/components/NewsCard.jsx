@@ -36,11 +36,6 @@ const NewsCard = forwardRef(
       setMounted(true);
     }, []);
 
-    // const getIcon = () => {
-    //   if (isSaved && isLoggedIn) return saveIconMarked;
-    //   return isHovered ? saveIconDark : saveIconLight;
-    // };
-    // test
     const getIcon = () => {
       if (isSavedView) return isHovered ? deleteIconActive : deleteIconInactive;
       if (isSaved && isLoggedIn) return saveIconMarked;
@@ -49,9 +44,7 @@ const NewsCard = forwardRef(
 
     return (
       <article
-        className={`news-card ${mounted ? "news-card__fade-in" : ""} ${
-          extraClass || ""
-        }`}
+        className={`news-card ${mounted ? "fade-in" : ""} ${extraClass || ""}`}
         style={style}
         onClick={onClick}
         ref={ref}
@@ -67,15 +60,6 @@ const NewsCard = forwardRef(
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            {/* <span className="news-card__tooltip">
-              {!isLoggedIn
-                ? "Sign in to save articles"
-                : isSaved
-                ? "Remove from saved"
-                : "Save to favorites"}
-            </span> */}
-
-            {/* test */}
             <span className="news-card__tooltip">
               {!isLoggedIn
                 ? "Sign in to save articles"
@@ -93,13 +77,6 @@ const NewsCard = forwardRef(
                 isSaved ? "news-card__save-icon--active" : ""
               }`}
             />
-            {/* <img
-  src={getIcon()}
-  alt={isSaved && isLoggedIn ? "Saved" : "Save article"}
-  className={`news-card__save-icon ${
-    isSaved && isLoggedIn ? "news-card__save-icon--active" : ""
-  }`}
-/> */}
           </div>
         </div>
 
