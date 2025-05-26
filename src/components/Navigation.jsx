@@ -51,12 +51,17 @@ function Navigation({ onSignInClick, onLogoutClick }) {
         </button>
       ) : (
         <button
-          className="navigation__button navigation__button--logout"
+          className={`navigation__button navigation__button--logout ${
+            location.pathname === "/"
+              ? "navigation__button--logout-white"
+              : "navigation__button--logout-black"
+          }`}
           onClick={onLogoutClick}
         >
           <span className="navigation__username">{currentUser?.username}</span>
+
           <img
-            src={logoutIconDark}
+            src={location.pathname === "/" ? logoutIconLight : logoutIconDark}
             alt="Logout"
             className="navigation__logout-icon"
           />

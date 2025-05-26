@@ -87,6 +87,14 @@
   animation: fadeInSlideLeft 1s ease-out forwards;
 }
 
+.navigation__button--logout-white {
+  border-color: white;
+}
+
+.navigation__button--logout-black {
+  border-color: black;
+}
+
 @keyframes fadeInSlideLeft {
   0% {
     opacity: 0;
