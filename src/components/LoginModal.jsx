@@ -41,9 +41,12 @@ function LoginModal({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!emailError && !passwordError && email && password) {
-      login(email, password).then((res) => {
-        onAuthSuccess({ token: res.token, user: { email: res.email } });
-      });
+      login(email, password)
+        .then(onAuthSuccess)
+        .catch((err) => {
+          console.error("Login failed:", err);
+          setPasswordError("Invalid credentials");
+        });
     }
   };
 

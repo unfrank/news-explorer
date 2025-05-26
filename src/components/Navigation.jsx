@@ -18,6 +18,8 @@ function Navigation({ onSignInClick, onLogoutClick }) {
     }
   }, [isLoggedIn]);
 
+  console.log("🟢 Navigation re-rendered. CurrentUser:", currentUser);
+
   return (
     <nav className={`navigation ${animate ? "navigation--animate" : ""}`}>
       <Link
@@ -51,7 +53,7 @@ function Navigation({ onSignInClick, onLogoutClick }) {
           className="navigation__button navigation__button--logout"
           onClick={onLogoutClick}
         >
-          <span className="navigation__username">{currentUser?.email}</span>
+          <span className="navigation__username">{currentUser?.username}</span>
           <img
             src={logoutIcon}
             alt="Logout"

@@ -6,8 +6,6 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  /* min-width: 320px; */
-  /* width: 100%; */
   flex-grow: 1;
   justify-content: flex-end;
 }
@@ -33,7 +31,7 @@
   /* font-size: 16px; */
   border: 1px solid white;
   border-radius: 24px;
-  min-width: 160px;
+  width: 150px;
   /* padding: 8px 12px; */
   background: transparent;
   cursor: pointer;
@@ -52,20 +50,31 @@
   display: flex;
   line-height: 24px;
   align-items: center;
-  /* gap: 8px; */
-  /* padding: 8px 12px; */
+
   border: 1px solid #000;
   border-radius: 24px;
   background-color: transparent;
-  /* font-weight: 600; */
-  /* font-size: 16px; */
+
   cursor: pointer;
-  min-width: 160px;
+  width: 150px;
+  justify-content: space-around;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .navigation__logout-icon {
   width: 24px;
   height: 24px;
+}
+
+.navigation__username {
+  display: inline-block;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .navigation--animate {

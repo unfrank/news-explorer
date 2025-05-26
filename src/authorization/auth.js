@@ -1,15 +1,40 @@
 const BASE_URL = "http://localhost:3000";
 
-export function register(email, password) {
+// export function register(email, username, password) {
+//   return fetch(`${BASE_URL}/signup`, {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({ email, username, password }),
+//   }).then((res) => {
+//     if (!res.ok) throw new Error("Registration failed");
+//     return res.json();
+//   });
+// }
+
+export const register = (email, username, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
-  }).then((res) => {
-    if (!res.ok) throw new Error("Registration failed");
-    return res.json();
-  });
-}
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, username, password }),
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error("Registration failed");
+      return res.json();
+    })
+    .then((res) => {
+      if (!res.token || !res.username)
+        throw new Error("No token or username received");
+      return {
+        token: res.token,
+        user: {
+          email: res.email,
+          username: res.username,
+        },
+      };
+    });
+};
 
 export function login(email, password) {
   return fetch(`${BASE_URL}/signin`, {
@@ -21,23 +46,30 @@ export function login(email, password) {
       if (!res.ok) throw new Error("Login failed");
       return res.json();
     })
-    .then((data) => {
-      if (data.token) {
-        localStorage.setItem("jwt", data.token);
-        return data;
-      } else {
-        throw new Error("No token received from server");
-      }
+    .then((res) => {
+      if (!res.token || !res.username)
+        throw new Error("Incomplete login response");
+      localStorage.setItem("jwt", res.token);
+      return {
+        token: res.token,
+        user: { email: res.email, username: res.username },
+      };
     });
 }
 
-export function checkToken(token) {
-  return fetch(`${BASE_URL}/users/me`, {
+export const checkToken = (token) => {
+  return fetch("http://localhost:3000/users/me", {
+    method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  }).then((res) => {
-    if (!res.ok) throw new Error("Token check failed");
-    return res.json();
-  });
-}
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error("Token validation failed");
+      return res.json();
+    })
+    .then((data) => {
+      console.log("✅ JWT checkToken returned:", data); // <--- add this
+      return data;
+    });
+};

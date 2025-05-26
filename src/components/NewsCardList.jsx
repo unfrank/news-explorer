@@ -13,16 +13,15 @@ function NewsCardList({
 }) {
   const cardRefs = useRef([]);
 
-  setTimeout(() => {
-    const targetCard = cardRefs.current[scrollToIndex];
-    if (targetCard) {
+  useEffect(() => {
+    if (scrollToIndex != null && cardRefs.current[scrollToIndex]) {
+      const targetCard = cardRefs.current[scrollToIndex];
       const yOffset = -24;
       const y =
         targetCard.getBoundingClientRect().top + window.pageYOffset + yOffset;
-
       window.scrollTo({ top: y, behavior: "smooth" });
     }
-  }, 1000);
+  }, [scrollToIndex]);
 
   const handleSave = (article) => {
     if (isLoggedIn) {
