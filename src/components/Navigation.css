@@ -1,8 +1,5 @@
 .navigation {
   font-family: "Roboto", "Inter", sans-serif;
-  /* font-weight: 500; */
-  /* font-size: 18px; */
-  /* line-height: 24px; */
   display: flex;
   align-items: center;
   gap: 16px;
@@ -11,31 +8,51 @@
 }
 
 .navigation__link {
-  /* font-family: "Inter", sans-serif; */
-  /* font-size: 16px; */
-  /* color: white; */
-  /* text-decoration: none; */
-  /* position: relative; */
+  position: relative;
   /* padding: 4px 0; */
   margin: 0;
-  padding: 0;
   color: inherit;
+  text-decoration: none;
+
+  display: inline-block;
 }
 
 .navigation__link:hover {
   opacity: 0.8;
-  transform: scale(1.1);
   color: #347eff;
 }
 
+.navigation__link--active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  /* bottom: -24px; */
+  height: 3px;
+  background-color: currentColor;
+  padding: 0;
+}
+
+.navigation__link--white::after {
+  /* height: 2px;  */
+  bottom: -24px;
+  /* height: 3px; */
+  background-color: white;
+  padding: 0;
+  margin: 0;
+}
+
+.navigation__link--black::after {
+  /* height: 3px; */
+  bottom: -24px;
+  /* height: 3px; */
+  background-color: black;
+}
+
 .navigation__button {
-  /* font-size: 16px; */
-  /* border: 1px solid white; */
   color: inherit;
   border: 1px solid currentColor;
-
   width: 150px;
-
   background: transparent;
   cursor: pointer;
   margin: 0;
@@ -50,19 +67,15 @@
 }
 
 .navigation__button--logout {
-  margin: 0;
   display: flex;
   line-height: 24px;
   align-items: center;
-
   border: 1px solid #000;
   border-radius: 24px;
   background-color: transparent;
-
   cursor: pointer;
   width: 150px;
   justify-content: space-around;
-
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

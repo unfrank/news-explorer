@@ -8,8 +8,10 @@ import { Link, useLocation } from "react-router-dom";
 function Navigation({ onSignInClick, onLogoutClick }) {
   const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
   const location = useLocation();
-
   const [animate, setAnimate] = useState(false);
+
+  const isHome = location.pathname === "/";
+  const isSaved = location.pathname === "/saved-news";
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -19,14 +21,12 @@ function Navigation({ onSignInClick, onLogoutClick }) {
     }
   }, [isLoggedIn]);
 
-  console.log("🟢 Navigation re-rendered. CurrentUser:", currentUser);
-
   return (
     <nav className={`navigation ${animate ? "navigation--animate" : ""}`}>
       <Link
         to="/"
         className={`navigation__link ${
-          location.pathname === "/" ? "navigation__link--active" : ""
+          isHome ? "navigation__link--active navigation__link--white" : ""
         }`}
       >
         Home
@@ -36,9 +36,7 @@ function Navigation({ onSignInClick, onLogoutClick }) {
         <Link
           to="/saved-news"
           className={`navigation__link ${
-            location.pathname === "/saved-news"
-              ? "navigation__link--active"
-              : ""
+            isSaved ? "navigation__link--active navigation__link--black" : ""
           }`}
         >
           Saved Articles
@@ -52,16 +50,15 @@ function Navigation({ onSignInClick, onLogoutClick }) {
       ) : (
         <button
           className={`navigation__button navigation__button--logout ${
-            location.pathname === "/"
+            isHome
               ? "navigation__button--logout-white"
               : "navigation__button--logout-black"
           }`}
           onClick={onLogoutClick}
         >
           <span className="navigation__username">{currentUser?.username}</span>
-
           <img
-            src={location.pathname === "/" ? logoutIconLight : logoutIconDark}
+            src={isHome ? logoutIconLight : logoutIconDark}
             alt="Logout"
             className="navigation__logout-icon"
           />

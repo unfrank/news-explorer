@@ -3,16 +3,33 @@
   top: 0;
   left: 0;
   width: 100%;
-  padding: 28px 0;
+  /* padding: 28px 0; */
   z-index: 10;
   background: transparent;
   font-family: "Roboto Slab", serif;
   color: white;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.header--transparent {
+  background-color: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  /* padding: 1px; */
+}
+
+.header--solid {
+  /* background-color: #ffffff; */
+  border-bottom: 1px solid #d1d2d6;
+  color: black;
+  overflow: hidden;
+  /* padding-bottom: 1px; */
 }
 
 .header__container {
   margin: 0 auto;
-
+  padding-bottom: 13px;
+  margin-top: 19px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,7 +40,6 @@
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
-  /* color: black; */
   color: inherit;
 }
 
@@ -31,7 +47,6 @@
   .header__container {
     flex-direction: column;
     align-items: flex-start;
-    /* padding: 16px 20px; */
     gap: 8px;
   }
 }

@@ -22,13 +22,14 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
   return (
     <section className="saved-news">
       <div className="section-inner">
-        <h1 className="saved-news__title">Saved Articles</h1>
+        <div className="saved-news__title-container">
+          <h1 className="saved-news__title">Saved Articles</h1>
 
-        <p className="saved-news__subtitle">
-          {displayName}, you have {visibleArticles.length} saved article
-          {visibleArticles.length !== 1 ? "s" : ""}
-        </p>
-
+          <p className="saved-news__subtitle">
+            {displayName}, you have {visibleArticles.length} saved article
+            {visibleArticles.length !== 1 ? "s" : ""}
+          </p>
+        </div>
         <div className="saved-news__grid">
           {savedArticles.map((article, index) => (
             <NewsCard
