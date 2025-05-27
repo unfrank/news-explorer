@@ -2,23 +2,21 @@
   padding: 64px 0;
   background-color: #f9f9f9;
   color: black;
+  font-family: "Roboto", "Inter", sans-serif;
 }
 
 .saved-news__title {
-  font-size: 36px;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0;
   margin-bottom: 16px;
+  color: #1a1b2280;
 }
 
 .saved-news__subtitle {
-  font-size: 18px;
+  font-size: 40px;
   margin-bottom: 32px;
 }
-
-/* .saved-news__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
-} */
 
 .saved-news__grid {
   display: grid;

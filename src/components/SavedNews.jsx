@@ -1,7 +1,6 @@
 import "./SavedNews.css";
 import NewsCard from "./NewsCard";
-import React, { useContext, useState } from "react";
-
+import React, { useContext, useState, useMemo } from "react";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function SavedNews({ savedArticles, onDeleteArticle }) {
@@ -14,14 +13,20 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
 
   const [fadingCardIds, setFadingCardIds] = useState([]);
 
+  const visibleArticles = useMemo(
+    () =>
+      savedArticles.filter((article) => !fadingCardIds.includes(article._id)),
+    [savedArticles, fadingCardIds]
+  );
+
   return (
     <section className="saved-news">
       <div className="section-inner">
         <h1 className="saved-news__title">Saved Articles</h1>
 
         <p className="saved-news__subtitle">
-          {displayName}, you have {savedArticles.length} saved article
-          {savedArticles.length !== 1 ? "s" : ""}.
+          {displayName}, you have {visibleArticles.length} saved article
+          {visibleArticles.length !== 1 ? "s" : ""}
         </p>
 
         <div className="saved-news__grid">
@@ -42,7 +47,7 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
                   setFadingCardIds((prev) => [...prev, article._id]);
                   setTimeout(() => {
                     onDeleteArticle(article._id);
-                  }, 600); // ⏱ increased delay to allow animation to complete
+                  }, 600);
                 }
               }}
               style={{ animationDelay: `${index * 0.25}s` }}
