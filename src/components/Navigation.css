@@ -35,7 +35,7 @@
 
 .navigation__link--white::after {
   /* height: 2px;  */
-  bottom: -24px;
+  bottom: -25px;
   /* height: 3px; */
   background-color: white;
   padding: 0;
@@ -44,7 +44,7 @@
 
 .navigation__link--black::after {
   /* height: 3px; */
-  bottom: -24px;
+  bottom: -25px;
   /* height: 3px; */
   background-color: black;
 }
