@@ -167,3 +167,12 @@
 .fade-in {
   animation: fadeInUp 0.4s ease-in-out forwards;
 }
+
+.news-card.news-card--fade-out {
+  animation: fadeOut 0.5s ease-in-out forwards;
+  opacity: 1;
+  position: relative;
+  height: 100%; /* lock height */
+  max-height: 380px; /* fallback if height isn't explicitly known */
+  overflow: hidden; /* prevent bleed during transform */
+}
