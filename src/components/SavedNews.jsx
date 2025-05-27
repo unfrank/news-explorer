@@ -5,6 +5,10 @@ import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function SavedNews({ savedArticles, onDeleteArticle }) {
   console.log("🔥 SavedNews mounted");
+  console.log(
+    "🔍 Saved Articles:",
+    savedArticles.map((a) => a.keyword)
+  );
 
   const { currentUser } = useContext(CurrentUserContext);
   const displayName =
@@ -19,6 +23,37 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
     [savedArticles, fadingCardIds]
   );
 
+  const keywordCounts = useMemo(() => {
+    const counts = {};
+    savedArticles.forEach((article) => {
+      const keyword = article.keyword?.trim();
+      if (keyword) {
+        counts[keyword] = (counts[keyword] || 0) + 1;
+      }
+    });
+
+    return Object.entries(counts)
+      .sort((a, b) => b[1] - a[1]) // sort by frequency descending
+      .map(([keyword]) => keyword); // return just the sorted keywords
+  }, [savedArticles]);
+
+  const topKeywords = keywordCounts.slice(0, 3); // Get top 3 keywords
+
+  const renderKeywordSummary = () => {
+    const total = keywordCounts.length;
+
+    if (total === 0) return null;
+
+    if (total <= 3) {
+      return keywordCounts.join(", ");
+    }
+
+    const [first, second] = topKeywords;
+    const others = total - 2;
+
+    return `${first}, ${second}, and ${others} other${others > 1 ? "s" : ""}`;
+  };
+
   return (
     <section className="saved-news">
       <div className="section-inner">
@@ -28,6 +63,12 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
           <p className="saved-news__subtitle">
             {displayName}, you have {visibleArticles.length} saved article
             {visibleArticles.length !== 1 ? "s" : ""}
+          </p>
+          <p className="saved-news__keywords">
+            <span className="saved-news__keywords-label">By keywords:</span>{" "}
+            <span className="saved-news__keywords-values">
+              {renderKeywordSummary()}
+            </span>
           </p>
         </div>
         <div className="saved-news__grid">

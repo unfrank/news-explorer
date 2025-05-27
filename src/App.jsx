@@ -19,6 +19,7 @@ import { checkToken, register, login } from "./authorization/auth";
 import CurrentUserContext from "./contexts/CurrentUserContext";
 
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+// import { set } from "mongoose";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -30,9 +31,11 @@ function App() {
 
   const [hasSearched, setHasSearched] = useState(false);
   const [visibleCount, setVisibleCount] = useState(3);
+
   const [fetchError, setFetchError] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     window.history.scrollRestoration = "manual";
@@ -56,6 +59,7 @@ function App() {
 
     checkToken(token)
       .then((res) => {
+        console.log("🔑 Authenticated user:", res);
         setCurrentUser({
           email: res.email,
           username: res.username,
@@ -82,6 +86,7 @@ function App() {
     setIsLoading(true);
     setHasSearched(true);
     setVisibleCount(3);
+    setSearchTerm(query);
 
     sessionStorage.setItem("justSearched", "true");
 
@@ -127,7 +132,7 @@ function App() {
         .catch((err) => console.error("Delete failed:", err));
     } else {
       const normalized = {
-        keyword: articleData.keyword || "news",
+        keyword: articleData.keyword || searchTerm || "news",
         title: articleData.title,
         text: articleData.description || "No description provided.",
         date: articleData.publishedAt || articleData.date || "Unknown date",
@@ -190,12 +195,39 @@ function App() {
   };
 
   const handleLogin = (credentials) => {
-    localStorage.setItem("jwt", credentials.token);
+    const token = credentials.token;
+    localStorage.setItem("jwt", token);
     setIsLoggedIn(true);
     setCurrentUser(credentials.user);
     console.log("🔵 App state updated with:", credentials.user);
     setActiveModal("");
-    console.log("logging use", credentials.user);
+
+    // ✅ Immediately re-fetch saved articles for the new user
+    checkToken(token)
+      .then((userInfo) => {
+        console.log("🔄 Rechecking token post-login:", userInfo);
+        setCurrentUser({
+          email: userInfo.email,
+          username: userInfo.username,
+        });
+
+        return fetch("http://localhost:3000/articles", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      })
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch articles");
+        return res.json();
+      })
+      .then((articles) => {
+        console.log("✅ Loaded saved articles after login:", articles);
+        setSavedArticles(articles);
+      })
+      .catch((err) => {
+        console.error("❌ Failed post-login sync:", err);
+      });
   };
 
   const handleLogout = () => {
