@@ -79,6 +79,7 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
               description={article.text}
               date={article.date}
               source={article.source}
+              keyword={article.keyword}
               image={article.image}
               url={article.link}
               isSaved={true}
