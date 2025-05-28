@@ -1,14 +1,12 @@
 // import React, { useState, forwardRef, useEffect } from "react";
-
 // import "./NewsCard.css";
 
-// // todo: import icons together
 // import saveIconLight from "../assets/icons/icon-like-light.svg";
 // import saveIconDark from "../assets/icons/icon-like-dark.svg";
 // import saveIconMarked from "../assets/icons/icon-like-marked.svg";
-
 // import deleteIconActive from "../assets/icons/icon-trash-active.svg";
 // import deleteIconInactive from "../assets/icons/icon-trash-inactive.svg";
+
 // const NewsCard = forwardRef(
 //   (
 //     {
@@ -27,7 +25,6 @@
 //       extraClass,
 //       keyword,
 //     },
-
 //     ref
 //   ) => {
 //     const [isHovered, setIsHovered] = useState(false);
@@ -52,33 +49,40 @@
 //       >
 //         <div className="news-card__image-container">
 //           <img className="news-card__image" src={image} alt={title} />
-//           {isSavedView && <div className="news-card__keyword">{keyword}</div>}
-//           <div
-//             className="news-card__save-wrapper"
-//             onClick={(e) => {
-//               e.stopPropagation();
-//               onSave();
-//             }}
-//             onMouseEnter={() => setIsHovered(true)}
-//             onMouseLeave={() => setIsHovered(false)}
-//           >
-//             <span className="news-card__tooltip">
-//               {!isLoggedIn
-//                 ? "Sign in to save articles"
-//                 : isSavedView
-//                 ? "Remove from saved"
-//                 : isSaved
-//                 ? "Remove from saved"
-//                 : "Save to favorites"}
-//             </span>
 
-//             <img
-//               src={getIcon()}
-//               alt={isSaved ? "Saved" : "Save article"}
-//               className={`news-card__save-icon ${
-//                 isSaved ? "news-card__save-icon--active" : ""
-//               }`}
-//             />
+//           <div className="news-card__control-bar">
+//             {isSavedView && (
+//               <div className="news-card__keyword">
+//                 {keyword?.charAt(0).toUpperCase() + keyword?.slice(1)}
+//               </div>
+//             )}
+
+//             <div
+//               className="news-card__icon-container"
+//               onMouseEnter={() => setIsHovered(true)}
+//               onMouseLeave={() => setIsHovered(false)}
+//             >
+//               {isHovered && (
+//                 <div className="news-card__tooltip">
+//                   {!isLoggedIn
+//                     ? "Sign in to save articles"
+//                     : isSavedView || isSaved
+//                     ? "Remove from saved"
+//                     : "Save to favorites"}
+//                 </div>
+//               )}
+//               <img
+//                 src={getIcon()}
+//                 alt={isSaved ? "Saved" : "Save article"}
+//                 className={`news-card__save-icon ${
+//                   isSaved ? "news-card__save-icon--active" : ""
+//                 }`}
+//                 onClick={(e) => {
+//                   e.stopPropagation();
+//                   onSave();
+//                 }}
+//               />
+//             </div>
 //           </div>
 //         </div>
 
@@ -160,11 +164,11 @@ const NewsCard = forwardRef(
           <img className="news-card__image" src={image} alt={title} />
 
           <div className="news-card__control-bar">
-            <div className="news-card__keyword">
-              {isSavedView
-                ? keyword?.charAt(0).toUpperCase() + keyword?.slice(1)
-                : ""}
-            </div>
+            {isSavedView && (
+              <div className="news-card__keyword">
+                {keyword?.charAt(0).toUpperCase() + keyword?.slice(1)}
+              </div>
+            )}
 
             <div
               className="news-card__icon-container"

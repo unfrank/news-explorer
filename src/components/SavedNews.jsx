@@ -38,6 +38,7 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
   }, [savedArticles]);
 
   const topKeywords = keywordCounts.slice(0, 3);
+
   const capitalize = (word) =>
     word ? word.charAt(0).toUpperCase() + word.slice(1) : "";
 
