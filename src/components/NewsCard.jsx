@@ -159,34 +159,35 @@ const NewsCard = forwardRef(
         <div className="news-card__image-container">
           <img className="news-card__image" src={image} alt={title} />
 
-          <div
-            className="news-card__control-bar"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
+          <div className="news-card__control-bar">
             {isSavedView && <div className="news-card__keyword">{keyword}</div>}
 
-            {isHovered && (
-              <div className="news-card__tooltip">
-                {!isLoggedIn
-                  ? "Sign in to save articles"
-                  : isSavedView || isSaved
-                  ? "Remove from saved"
-                  : "Save to favorites"}
-              </div>
-            )}
-
-            <img
-              src={getIcon()}
-              alt={isSaved ? "Saved" : "Save article"}
-              className={`news-card__save-icon ${
-                isSaved ? "news-card__save-icon--active" : ""
-              }`}
-              onClick={(e) => {
-                e.stopPropagation();
-                onSave();
-              }}
-            />
+            <div
+              className="news-card__icon-container"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              {isHovered && (
+                <div className="news-card__tooltip">
+                  {!isLoggedIn
+                    ? "Sign in to save articles"
+                    : isSavedView || isSaved
+                    ? "Remove from saved"
+                    : "Save to favorites"}
+                </div>
+              )}
+              <img
+                src={getIcon()}
+                alt={isSaved ? "Saved" : "Save article"}
+                className={`news-card__save-icon ${
+                  isSaved ? "news-card__save-icon--active" : ""
+                }`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onSave();
+                }}
+              />
+            </div>
           </div>
         </div>
 

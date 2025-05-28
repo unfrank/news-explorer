@@ -308,6 +308,35 @@
   z-index: 2;
 }
 
+.news-card__icon-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.news-card__tooltip {
+  position: absolute;
+  right: 45px; /* icon width (40px) + 5px gap */
+  display: none;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 14px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+  white-space: nowrap;
+  z-index: 3;
+}
+
+.news-card__icon-container:hover .news-card__tooltip {
+  display: flex;
+}
+
 .news-card__keyword,
 .news-card__tooltip {
   display: flex;
