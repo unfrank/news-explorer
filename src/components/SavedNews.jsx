@@ -33,11 +33,13 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
     });
 
     return Object.entries(counts)
-      .sort((a, b) => b[1] - a[1]) // sort by frequency descending
-      .map(([keyword]) => keyword); // return just the sorted keywords
+      .sort((a, b) => b[1] - a[1])
+      .map(([keyword]) => keyword);
   }, [savedArticles]);
 
-  const topKeywords = keywordCounts.slice(0, 3); // Get top 3 keywords
+  const topKeywords = keywordCounts.slice(0, 3);
+  const capitalize = (word) =>
+    word ? word.charAt(0).toUpperCase() + word.slice(1) : "";
 
   const renderKeywordSummary = () => {
     const total = keywordCounts.length;
@@ -45,13 +47,17 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
     if (total === 0) return null;
 
     if (total <= 3) {
-      return keywordCounts.join(", ");
+      return keywordCounts
+        .map((kw) => kw.charAt(0).toUpperCase() + kw.slice(1))
+        .join(", ");
     }
 
     const [first, second] = topKeywords;
     const others = total - 2;
 
-    return `${first}, ${second}, and ${others} other${others > 1 ? "s" : ""}`;
+    return `${capitalize(first)}, ${capitalize(second)}, and ${others} other${
+      others > 1 ? "s" : ""
+    }`;
   };
 
   return (

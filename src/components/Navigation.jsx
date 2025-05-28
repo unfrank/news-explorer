@@ -56,7 +56,11 @@ function Navigation({ onSignInClick, onLogoutClick }) {
           }`}
           onClick={onLogoutClick}
         >
-          <span className="navigation__username">{currentUser?.username}</span>
+          <span className="navigation__username">
+            {currentUser?.username?.charAt(0).toUpperCase() +
+              currentUser?.username?.slice(1)}
+          </span>
+
           <img
             src={isHome ? logoutIconLight : logoutIconDark}
             alt="Logout"

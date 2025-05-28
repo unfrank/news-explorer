@@ -160,7 +160,11 @@ const NewsCard = forwardRef(
           <img className="news-card__image" src={image} alt={title} />
 
           <div className="news-card__control-bar">
-            {isSavedView && <div className="news-card__keyword">{keyword}</div>}
+            <div className="news-card__keyword">
+              {isSavedView
+                ? keyword?.charAt(0).toUpperCase() + keyword?.slice(1)
+                : ""}
+            </div>
 
             <div
               className="news-card__icon-container"
