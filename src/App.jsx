@@ -578,28 +578,28 @@ function App() {
         </div>
       ) : (
         <>
-          <div className="page-wrapper">
-            <Header
-              isLoggedIn={isLoggedIn}
-              currentUser={currentUser}
-              setActiveModal={setActiveModal}
-              handleLogout={handleLogout}
-            />
-            <Routes>
-              <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
-                <Route
-                  path="/saved-news"
-                  element={
-                    <SavedNews
-                      savedArticles={savedArticles}
-                      onDeleteArticle={handleDeleteArticle}
-                    />
-                  }
-                />
-              </Route>
-              <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
-          </div>
+          {/* <div className="page-wrapper"> */}
+          <Header
+            isLoggedIn={isLoggedIn}
+            currentUser={currentUser}
+            setActiveModal={setActiveModal}
+            handleLogout={handleLogout}
+          />
+          <Routes>
+            <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
+              <Route
+                path="/saved-news"
+                element={
+                  <SavedNews
+                    savedArticles={savedArticles}
+                    onDeleteArticle={handleDeleteArticle}
+                  />
+                }
+              />
+            </Route>
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+          {/* </div> */}
         </>
       )}
 

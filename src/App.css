@@ -45,11 +45,11 @@
 
 .section-inner {
   max-width: 1350px;
-  width: 100%;
+  /* width: 100%; */
   margin: 0 auto;
   /* padding: 0 24px; */
 }
-
+/* 
 .page-wrapper {
   background-color: #f2f5f8;
   min-height: 100vh;
@@ -61,4 +61,4 @@
 .page-wrapper .header,
 .page-wrapper .navigation {
   color: black;
-}
+} */
