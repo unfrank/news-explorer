@@ -5,7 +5,7 @@
 }
 
 .hero {
-  background-image: url("../assets/images/home--bkgrnd.png");
+  background-image: url("/src/assets/images/home--bkgrnd.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

@@ -1,12 +1,12 @@
-.header {
-  width: 100%;
-  background-color: transparent;
+/* .header {
   font-family: "Roboto Slab", serif;
-  color: white;
-  z-index: 10;
-  position: relative;
-  padding-top: 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+} */
+
+.header {
+  font-family: "Roboto Slab", serif;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 20px;
 }
 
 .header--transparent {
@@ -17,16 +17,17 @@
 .header--solid {
   background-color: #ffffff;
   color: black;
-  /* border-bottom: 1px solid #ddd; */
+  border-bottom: 1px solid rgba(13, 14, 14, 0.2);
 }
 
 .header__container {
   margin: 0 auto;
-  padding-bottom: 14px;
-  margin-top: 25px;
+  /* padding-bottom: 54px; */
+  /* margin-top: 25px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 14px;
 }
 .header__logo {
   font-size: 18px;

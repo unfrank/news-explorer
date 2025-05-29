@@ -333,6 +333,7 @@
 // REMADE
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import "./components/Hero.css";
 import heroBg from "./assets/images/home--bkgrnd.png";
 import Main from "./components/Main";
 import About from "./components/About";
@@ -553,15 +554,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={{ currentUser, isLoggedIn }}>
       {isHome ? (
-        <div
-          className="hero"
-          style={{
-            backgroundImage: `url(${heroBg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-        >
+        <div className="hero">
           <Header
             isLoggedIn={isLoggedIn}
             currentUser={currentUser}
