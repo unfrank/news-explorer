@@ -4,12 +4,6 @@ import React, { useContext, useState, useMemo } from "react";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function SavedNews({ savedArticles, onDeleteArticle }) {
-  console.log("🔥 SavedNews mounted");
-  console.log(
-    "🔍 Saved Articles:",
-    savedArticles.map((a) => a.keyword)
-  );
-
   const { currentUser } = useContext(CurrentUserContext);
   const displayName =
     currentUser?.username?.charAt(0).toUpperCase() +
@@ -63,10 +57,9 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
 
   return (
     <section className="saved-news">
-      <div className="section-inner">
-        <div className="saved-news__title-container">
+      <div className="saved-news__title-container">
+        <div className="section-inner">
           <h1 className="saved-news__title">Saved Articles</h1>
-
           <p className="saved-news__subtitle">
             {displayName}, you have {visibleArticles.length} saved article
             {visibleArticles.length !== 1 ? "s" : ""}
@@ -78,6 +71,9 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
             </span>
           </p>
         </div>
+      </div>
+
+      <div className="section-inner">
         <div className="saved-news__grid">
           {savedArticles.map((article, index) => (
             <NewsCard

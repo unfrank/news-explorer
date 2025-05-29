@@ -334,7 +334,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import "./components/Hero.css";
-import heroBg from "./assets/images/home--bkgrnd.png";
 import Main from "./components/Main";
 import About from "./components/About";
 import Header from "./components/Header";
@@ -578,7 +577,6 @@ function App() {
         </div>
       ) : (
         <>
-          {/* <div className="page-wrapper"> */}
           <Header
             isLoggedIn={isLoggedIn}
             currentUser={currentUser}
@@ -599,7 +597,6 @@ function App() {
             </Route>
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
-          {/* </div> */}
         </>
       )}
 
