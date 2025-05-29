@@ -1,5 +1,5 @@
 import "./NewsResults.css";
-import React from "react";
+import React, { useRef } from "react";
 import NewsCardList from "./NewsCardList";
 
 function NewsResults({
@@ -14,6 +14,21 @@ function NewsResults({
   isLoggedIn,
 }) {
   const isShowMoreVisible = articles.length > visibleCount;
+  const bottomRef = useRef(null);
+
+  const handleShowMoreClick = () => {
+    onShowMore();
+    setTimeout(() => {
+      if (bottomRef.current) {
+        const y =
+          bottomRef.current.getBoundingClientRect().bottom +
+          window.scrollY -
+          window.innerHeight +
+          60;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    }, 50);
+  };
 
   return (
     <section className="news-results">
@@ -27,11 +42,15 @@ function NewsResults({
           isLoggedIn={isLoggedIn}
         />
         {isShowMoreVisible && (
-          <button className="news-results__button" onClick={onShowMore}>
+          <button
+            className="news-results__button"
+            onClick={handleShowMoreClick}
+          >
             Show more
           </button>
         )}
       </div>
+      <div ref={bottomRef} />
     </section>
   );
 }

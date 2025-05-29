@@ -4,7 +4,8 @@
 } */
 
 .header {
-  font-family: "Roboto Slab", serif;
+  /* font-family: "Roboto Slab", serif; */
+  font-family: "Roboto", "Inter", sans-serif;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   padding-top: 20px;
 }
@@ -31,7 +32,7 @@
 }
 .header__logo {
   font-size: 18px;
-  font: "Roboto Slab";
+  font-family: "Roboto Slab";
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
