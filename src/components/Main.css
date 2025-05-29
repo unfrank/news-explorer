@@ -1,29 +1,21 @@
 .main {
-  width: 100%;
   min-height: 576px;
-  padding: 80px 24px;
-  background-image: url("../assets/images/home--bkgrnd.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 80px 24px;
   color: white;
-  box-sizing: border-box;
-  font-family: "Roboto", "Inter", sans-serif;
 }
 
-.main__overlay {
-  max-width: 608px;
-  padding: 0 50px;
-  width: 100%;
-  margin: 0 auto;
-  text-align: left;
-
-  /* experimental */
-  position: relative;
+.main {
+  min-height: 576px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 24px;
+  color: white;
 }
 
 .main__title {
@@ -86,11 +78,6 @@
     padding: 60px 16px;
     min-height: auto;
     flex-direction: column;
-  }
-
-  .main__overlay {
-    padding: 0;
-    text-align: center;
   }
 
   .main__title {

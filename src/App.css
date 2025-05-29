@@ -46,9 +46,8 @@
 .section-inner {
   max-width: 1350px;
   width: 100%;
-  padding: 0;
-  /* background: rgba(0, 255, 0, 0.05); */
-  margin: auto;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
 .page-wrapper {

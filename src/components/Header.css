@@ -1,78 +1,28 @@
 .header {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  /* padding: 28px 0; */
-  z-index: 10;
-  background: transparent;
+  background-color: transparent;
   font-family: "Roboto Slab", serif;
   color: white;
-  transition: background-color 0.5s ease-in-out;
-}
-
-.header .section-inner {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* or black depending on mode */
-  padding-bottom: 1px;
-}
-
-/* original */
-/* .header--solid .section-inner {
-  border-bottom: 1px solid #d1d2d6;
-  background-color: #ffffff;
-} */
-
-/* .header--solid .section-inner {
-  max-width: 1350px;
-  width: 100%;
-  margin: 0 auto;
-  border-bottom: 1px solid #d1d2d6;
-  background-color: #ffffff;
-} */
-
-/* this just added */
-.header--solid .section-inner {
-  max-width: 1350px;
-  width: 100%;
-  margin: 0 auto;
-  border-bottom: 1px solid #d1d2d6;
-}
-
-.header--transparent .section-inner {
+  z-index: 10;
+  position: relative;
+  padding-top: 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .header--transparent {
   background-color: transparent;
-  /* border-bottom: 1px solid rgba(255, 255, 255, 0.2); */
   color: white;
-  /* padding: 1px; */
 }
 
-/* .header--solid {
-  color: black;
-  overflow: hidden;
-} */
-
-/* .header--solid {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+.header--solid {
   background-color: #ffffff;
   color: black;
-} */
-
-/* this just added */
-.header--solid {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background-color: #ffffff; /* ⬅️ background belongs HERE */
-  color: black;
+  /* border-bottom: 1px solid #ddd; */
 }
+
 .header__container {
   margin: 0 auto;
-  padding-bottom: 13px;
+  padding-bottom: 14px;
   margin-top: 25px;
   display: flex;
   justify-content: space-between;
