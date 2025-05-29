@@ -74,6 +74,7 @@ function Header({ onSignInClick, setActiveModal, handleLogout }) {
           >
             NewsExplorer
           </div>
+
           <Navigation
             isLoggedIn={isLoggedIn}
             userEmail={currentUser?.email}

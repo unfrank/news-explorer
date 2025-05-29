@@ -7,6 +7,7 @@
 
   /* padding-top: 0; */
   /* margin-top: 0; */
+  /* background-color: pink; */
 }
 
 .saved-news__title-container {
@@ -15,9 +16,12 @@
   align-items: left;
   text-align: left;
   margin: 0;
-  margin-top: 40px;
-  margin-bottom: 56px;
-  /* margin-bottom: 32px; */
+
+  padding-top: 40px;
+
+  padding-bottom: 56px;
+
+  background-color: #ffffff;
 }
 
 .saved-news__title {
@@ -45,6 +49,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 24px;
+  padding-top: 62px;
+  padding-bottom: 62px;
 }
 
 @media screen and (min-width: 1024px) {

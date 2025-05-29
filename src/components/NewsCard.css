@@ -272,6 +272,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  cursor: pointer;
 }
 
 .news-card__tooltip {
@@ -290,6 +291,7 @@
   color: #1a1a1a;
   white-space: nowrap;
   z-index: 3;
+  cursor: default;
 }
 
 .news-card__icon-container:hover .news-card__tooltip {

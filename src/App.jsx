@@ -81,6 +81,32 @@ function App() {
       });
   }, []);
 
+  // const handleSearch = (query) => {
+  //   setFetchError(false);
+  //   setIsLoading(true);
+  //   setHasSearched(true);
+  //   setVisibleCount(3);
+  //   setSearchTerm(query);
+
+  //   sessionStorage.setItem("justSearched", "true");
+
+  //   const today = new Date().toISOString().slice(0, 10);
+  //   const lastWeek = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+  //     .toISOString()
+  //     .slice(0, 10);
+
+  //   fetchNewsArticles({ query, from: lastWeek, to: today })
+  //     .then((data) => {
+  //       setArticles(data.articles);
+  //     })
+  //     .catch((err) => {
+  //       console.error("Search failed:", err);
+  //       setArticles([]);
+  //       setFetchError(true);
+  //     })
+  //     .finally(() => setIsLoading(false));
+  // };
+
   const handleSearch = (query) => {
     setFetchError(false);
     setIsLoading(true);
@@ -96,8 +122,27 @@ function App() {
       .slice(0, 10);
 
     fetchNewsArticles({ query, from: lastWeek, to: today })
-      .then((data) => {
-        setArticles(data.articles);
+      .then(async (data) => {
+        const articles = data.articles.slice(0, 18); // Grab 18 only
+
+        const validateImage = (url) =>
+          new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+            img.src = url;
+          });
+
+        const validated = [];
+
+        for (let article of articles) {
+          const imageUrl = article.urlToImage || article.image || "";
+          const isValid = await validateImage(imageUrl);
+          if (isValid) validated.push(article);
+          if (validated.length === 9) break;
+        }
+
+        setArticles(validated);
       })
       .catch((err) => {
         console.error("Search failed:", err);
