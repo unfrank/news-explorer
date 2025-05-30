@@ -331,6 +331,7 @@ function App() {
   const [fetchError, setFetchError] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [pendingLogin, setPendingLogin] = useState(null);
 
   const location = useLocation();
   const isHome = location.pathname === "/";
@@ -493,8 +494,13 @@ function App() {
   const handleRegister = ({ email, username, password }) => {
     setIsLoading(true);
     register(email, username, password)
-      .then(handleLogin)
-      .catch((err) => console.error("Registration failed:", err))
+      .then(() => {
+        setPendingLogin({ email, password });
+        setActiveModal("register-success");
+      })
+      .catch((err) => {
+        console.error("Registration failed:", err);
+      })
       .finally(() => setIsLoading(false));
   };
 
@@ -603,6 +609,8 @@ function App() {
         isOpen={activeModal === "register-success"}
         onClose={() => setActiveModal("")}
         setActiveModal={setActiveModal}
+        pendingLogin={pendingLogin}
+        onAuthSuccess={handleLogin}
       />
     </CurrentUserContext.Provider>
   );

@@ -1,5 +1,10 @@
-/* modal__footer-registration-success {
-  text-align: left;
-  font-size: 14px;
-  color: #aaa;
-} */
+.register-success__link {
+  color: black;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.register-success__link:hover {
+  color: #2f71e5;
+}

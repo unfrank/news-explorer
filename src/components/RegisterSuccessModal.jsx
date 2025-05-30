@@ -1,7 +1,14 @@
 import React from "react";
 import "./RegisterSuccessModal.css";
+import { login } from "../authorization/auth";
 
-function RegisterSuccessModal({ isOpen, onClose, setActiveModal }) {
+function RegisterSuccessModal({
+  isOpen,
+  onClose,
+  setActiveModal,
+  onAuthSuccess,
+  pendingLogin,
+}) {
   if (!isOpen) return null;
 
   return (
@@ -13,16 +20,23 @@ function RegisterSuccessModal({ isOpen, onClose, setActiveModal }) {
         </button>
         <h2 className="modal__title">Registration successfully completed!</h2>
         <div className="modal__footer-registration">
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              onClose();
-              setActiveModal("login");
+          <p
+            className="register-success__link"
+            onClick={() => {
+              if (!pendingLogin) return;
+
+              login(pendingLogin.email, pendingLogin.password)
+                .then((res) => {
+                  onAuthSuccess(res); // ⬅️ properly shaped login result
+                  setActiveModal("");
+                })
+                .catch((err) => {
+                  console.error("Auto-login after registration failed:", err);
+                });
             }}
           >
             Sign in
-          </a>
+          </p>
         </div>
       </div>
     </div>
