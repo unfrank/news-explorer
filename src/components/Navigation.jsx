@@ -25,7 +25,7 @@ function Navigation({ onSignInClick, onLogoutClick }) {
     <nav className={`navigation ${animate ? "navigation--animate" : ""}`}>
       <Link
         to="/"
-        className={`navigation__link ${
+        className={`navigation__link-home ${
           isHome ? "navigation__link--active navigation__link--white" : ""
         }`}
       >
@@ -35,7 +35,7 @@ function Navigation({ onSignInClick, onLogoutClick }) {
       {isLoggedIn && (
         <Link
           to="/saved-news"
-          className={`navigation__link ${
+          className={`navigation__link-saved ${
             isSaved ? "navigation__link--active navigation__link--black" : ""
           }`}
         >

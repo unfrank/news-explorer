@@ -56,9 +56,7 @@ function RegisterModal({
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await onRegister({ email, password, username });
-      onClose();
-      setActiveModal("register-success");
+      await onRegister({ email, username, password }, setEmailError);
     } catch (err) {
       console.error("Registration failed:", err);
     }

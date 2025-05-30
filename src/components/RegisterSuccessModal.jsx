@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./RegisterSuccessModal.css";
 import { login } from "../authorization/auth";
 
 function RegisterSuccessModal({
   isOpen,
   onClose,
-  setActiveModal,
   onAuthSuccess,
   pendingLogin,
+  setActiveModal,
 }) {
   if (!isOpen) return null;
+
+  const [emailError, setEmailError] = useState("");
 
   return (
     <div className="modal">
@@ -27,7 +29,7 @@ function RegisterSuccessModal({
 
               login(pendingLogin.email, pendingLogin.password)
                 .then((res) => {
-                  onAuthSuccess(res); // ⬅️ properly shaped login result
+                  onAuthSuccess(res);
                   setActiveModal("");
                 })
                 .catch((err) => {

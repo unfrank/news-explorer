@@ -2,22 +2,32 @@
   font-family: "Roboto", "Inter", sans-serif;
   display: flex;
   align-items: center;
-  gap: 16px;
 }
 
-.navigation__link {
+.navigation__link-home {
   position: relative;
-  /* padding: 4px 0; */
   margin: 0;
   color: inherit;
   text-decoration: none;
   font-family: "Roboto", "Inter", sans-serif;
   display: inline-block;
+  margin-right: 42px;
 }
 
-.navigation__link:hover {
+.navigation__link-saved {
+  position: relative;
+  margin: 0;
+  color: inherit;
+  text-decoration: none;
+  font-family: "Roboto", "Inter", sans-serif;
+  display: inline-block;
+  margin-left: 24px;
+  margin-right: 64px;
+}
+
+.navigation__link-saved:hover,
+.navigation__link-home:hover {
   opacity: 0.8;
-  /* color: #347eff; */
   color: #2f71e5;
 }
 
@@ -26,25 +36,20 @@
   position: absolute;
   left: 0;
   width: 100%;
-  /* bottom: -24px; */
   height: 3px;
   background-color: currentColor;
   padding: 0;
 }
 
 .navigation__link--white::after {
-  /* height: 2px;  */
   bottom: -25px;
-  /* height: 3px; */
   background-color: white;
   padding: 0;
   margin: 0;
 }
 
 .navigation__link--black::after {
-  /* height: 3px; */
   bottom: -25px;
-  /* height: 3px; */
   background-color: black;
 }
 

@@ -1,8 +1,8 @@
-.hero .header__logo,
+/* .hero .header__logo,
 .hero .navigation__link,
 .hero .navigation__button {
   color: white;
-}
+} */
 
 .hero {
   background-image: url("/src/assets/images/home--bkgrnd.png");
