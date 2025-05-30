@@ -43,7 +43,7 @@
 
 .main__form-wrapper {
   position: relative;
-  min-height: 200px;
+  /* min-height: 200px; */
 }
 
 .main__input {
