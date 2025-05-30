@@ -32,14 +32,10 @@
   overflow: hidden;
   box-shadow: 0 12px 42px rgba(0, 0, 0, 0.3);
   font-family: "Roboto", "Inter", sans-serif;
-  /* width: 100%; */
-  /* max-width: 100%; */
-  /* box-sizing: border-box; */
-  /* transform: translateY(20px); */
 
-  max-width: 423px; /* or try 400px if it fits */
   width: 100%;
-  margin: 0 auto;
+  max-width: 400px;
+  min-height: 576px;
 }
 
 .news-card.fade-in {
@@ -75,7 +71,7 @@
   right: 24px;
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* ✅ Right-align all content */
+  justify-content: flex-end;
   gap: 12px;
   height: 40px;
   z-index: 2;

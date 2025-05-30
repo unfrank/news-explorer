@@ -43,12 +43,6 @@
 
 /* todo: investigate everything in here */
 
-.section-inner {
-  max-width: 1350px;
-  /* width: 100%; */
-  margin: 0 auto;
-  /* padding: 0 24px; */
-}
 /* 
 .page-wrapper {
   background-color: #f2f5f8;
@@ -62,9 +56,10 @@
 .page-wrapper .navigation {
   color: black;
 } */
+
 .section-inner {
-  max-width: 1440px;
-  margin: 0 auto;
+  /* max-width: 1600px; */
+  /* margin: 0 auto; */
   padding: 0 104px;
   width: 100%;
   box-sizing: border-box;
