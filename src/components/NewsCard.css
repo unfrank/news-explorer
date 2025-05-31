@@ -25,6 +25,7 @@
 .news-card {
   opacity: 0;
   animation: fadeInUp 0.4s ease forwards;
+
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -34,15 +35,11 @@
   font-family: "Roboto", "Inter", sans-serif;
 
   width: 100%;
-  max-width: 400px;
-  min-height: 576px;
-}
-
-.news-card {
-  width: 100%;
-  max-width: 400px;
-  font-size: 1rem;
-  min-height: 36em; /* Will scale with root font size and container width */
+  height: auto;
+  min-height: 420px; /* default for smaller sizes */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 .news-card.fade-in {
