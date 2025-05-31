@@ -193,3 +193,15 @@
 .news-card__keyword {
   margin-right: auto;
 }
+
+@media screen and (min-width: 768px) {
+  .news-card {
+    min-height: 420px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .news-card {
+    min-height: 576px;
+  }
+}
