@@ -25,11 +25,12 @@
 
 .news-results__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(224px, 400px));
 
   gap: 16px;
   width: 100%;
   box-sizing: border-box;
+  justify-content: center;
 }
 
 .news-results__button {
@@ -70,11 +71,3 @@
 .news-results__button:hover {
   background-color: #254eda;
 }
-
-/* .news-results__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
-  width: 100%;
-  box-sizing: border-box;
-} */
