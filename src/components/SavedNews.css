@@ -31,6 +31,10 @@
   margin-top: 30px;
 }
 
+.saved-news__keywords-values {
+  font-weight: 700;
+}
+
 .saved-news__subtitle {
   font-size: 40px;
   margin: 0;

@@ -36,7 +36,7 @@
 
   width: 100%;
   height: auto;
-  min-height: 420px; /* default for smaller sizes */
+  min-height: 420px;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -179,6 +179,9 @@
   line-height: 20px;
   margin: 0;
   padding: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .news-card__read-more {
