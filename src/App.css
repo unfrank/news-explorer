@@ -43,24 +43,19 @@
 
 /* todo: investigate everything in here */
 
-/* 
-.page-wrapper {
-  background-color: #f2f5f8;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.page-wrapper,
-.page-wrapper .header,
-.page-wrapper .navigation {
-  color: black;
-} */
-
 .section-inner {
-  /* max-width: 1600px; */
-  /* margin: 0 auto; */
   padding: 0 104px;
   width: 100%;
   box-sizing: border-box;
+}
+
+@media screen and (min-width: 776px) and (max-width: 1275px) {
+  .section-inner {
+    padding: 0 40px;
+  }
+}
+@media screen and (max-width: 775px) {
+  .section-inner {
+    padding: 0 20px;
+  }
 }
