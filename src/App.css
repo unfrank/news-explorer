@@ -50,12 +50,12 @@
   /* justify-content: center; */
 }
 
-@media screen and (min-width: 756px) and (max-width: 1275px) {
+@media screen and (min-width: 766px) and (max-width: 1275px) {
   .section-inner {
     padding: 0 40px;
   }
 }
-@media screen and (max-width: 755px) {
+@media screen and (max-width: 765px) {
   .section-inner {
     padding: 0 20px;
   }

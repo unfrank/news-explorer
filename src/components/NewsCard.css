@@ -24,8 +24,14 @@
 
 .news-card__wrapper {
   justify-self: stretch;
-  /* max-height: 576px;
-  max-width: 400px; */
+  max-height: 576px;
+  overflow: auto;
+}
+
+@media screen and (max-width: 770px) {
+  .news-card__wrapper {
+    max-height: 420px;
+  }
 }
 
 .news-card {
@@ -162,10 +168,13 @@
 
 .news-card__description {
   flex-grow: 1;
-  overflow: auto;
+  /* overflow: auto; */
   margin-top: 16px;
   margin-bottom: 18px;
   line-height: 22px;
+  /* white-space: nowrap; */
+  overflow: visible;
+  text-overflow: ellipsis;
 }
 
 .news-card__footer {
