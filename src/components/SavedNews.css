@@ -77,7 +77,7 @@
   }
 }
 
-@media (max-width: 767px) and (min-width: 321px) {
+@media (max-width: 757px) and (min-width: 325px) {
   .saved-news__grid {
     grid-template-columns: repeat(2, 1fr);
   }
