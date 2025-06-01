@@ -45,29 +45,22 @@
 .saved-news__grid {
   display: grid;
   gap: 16px;
-
-  /* Always 3 equal‐width columns by default: */
   grid-template-columns: repeat(3, 1fr);
-
   padding: 62px 0;
   width: 100%;
   box-sizing: border-box;
-
-  /* Stretch each cell to match the tallest in the row: */
   align-items: stretch;
   justify-items: stretch;
 }
 
-/* The ONLY time we drop to a single column is when
-   the viewport is very narrow (320px or below). */
-@media (max-width: 320px) {
+@media (max-width: 764px) and (min-width: 401px) {
   .saved-news__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 757px) and (min-width: 325px) {
+@media (max-width: 400px) {
   .saved-news__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
 }

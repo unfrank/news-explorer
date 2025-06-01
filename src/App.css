@@ -47,16 +47,15 @@
   padding: 0 104px;
   width: 100%;
   box-sizing: border-box;
-  /* justify-content: center; */
 }
-
-@media screen and (min-width: 766px) and (max-width: 1275px) {
+@media (min-width: 401px) and (max-width: 800px) {
   .section-inner {
     padding: 0 40px;
   }
 }
-@media screen and (max-width: 765px) {
+
+@media (max-width: 400px) {
   .section-inner {
-    padding: 0 20px;
+    padding: 0 16px;
   }
 }
