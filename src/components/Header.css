@@ -31,14 +31,6 @@
   color: inherit;
 }
 
-/* @media (max-width: 480px) {
-  .header__container {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-} */
-
 .header__logo--animate {
   opacity: 0;
   transform: translateX(-30px);

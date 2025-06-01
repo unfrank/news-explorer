@@ -86,7 +86,7 @@ function App() {
 
     fetchNewsArticles({ query, from: lastWeek, to: today })
       .then(async (data) => {
-        const articles = data.articles.slice(0, 18);
+        const articles = data.articles.slice(0, 12);
         const validated = [];
 
         const validateImage = (url) =>

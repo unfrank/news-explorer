@@ -154,68 +154,72 @@ const NewsCard = forwardRef(
     };
 
     return (
-      <article
-        className={`news-card ${mounted ? "fade-in" : ""} ${extraClass || ""}`}
-        style={style}
-        onClick={onClick}
-        ref={ref}
-      >
-        <div className="news-card__image-container">
-          <img className="news-card__image" src={image} alt={title} />
+      <div className="news-card__wrapper">
+        <article
+          className={`news-card ${mounted ? "fade-in" : ""} ${
+            extraClass || ""
+          }`}
+          style={style}
+          onClick={onClick}
+          ref={ref}
+        >
+          <div className="news-card__image-container">
+            <img className="news-card__image" src={image} alt={title} />
 
-          <div className="news-card__control-bar">
-            {isSavedView && (
-              <div className="news-card__keyword">
-                {keyword?.charAt(0).toUpperCase() + keyword?.slice(1)}
-              </div>
-            )}
-
-            <div
-              className="news-card__icon-container"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-            >
-              {isHovered && (
-                <div className="news-card__tooltip">
-                  {!isLoggedIn
-                    ? "Sign in to save articles"
-                    : isSavedView || isSaved
-                    ? "Remove from saved"
-                    : "Save to favorites"}
+            <div className="news-card__control-bar">
+              {isSavedView && (
+                <div className="news-card__keyword">
+                  {keyword?.charAt(0).toUpperCase() + keyword?.slice(1)}
                 </div>
               )}
-              <img
-                src={getIcon()}
-                alt={isSaved ? "Saved" : "Save article"}
-                className={`news-card__save-icon ${
-                  isSaved ? "news-card__save-icon--active" : ""
-                }`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onSave();
-                }}
-              />
+
+              <div
+                className="news-card__icon-container"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                {isHovered && (
+                  <div className="news-card__tooltip">
+                    {!isLoggedIn
+                      ? "Sign in to save articles"
+                      : isSavedView || isSaved
+                      ? "Remove from saved"
+                      : "Save to favorites"}
+                  </div>
+                )}
+                <img
+                  src={getIcon()}
+                  alt={isSaved ? "Saved" : "Save article"}
+                  className={`news-card__save-icon ${
+                    isSaved ? "news-card__save-icon--active" : ""
+                  }`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSave();
+                  }}
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="news-card__info">
-          <p className="news-card__date">{date}</p>
-          <h3 className="news-card__title">{title}</h3>
-          <p className="news-card__description">{description}</p>
-          <div className="news-card__footer">
-            <span className="news-card__source">{source}</span>
-            <a
-              className="news-card__read-more"
-              href={url}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Read more →
-            </a>
+          <div className="news-card__info">
+            <p className="news-card__date">{date}</p>
+            <h3 className="news-card__title">{title}</h3>
+            <p className="news-card__description">{description}</p>
+            <div className="news-card__footer">
+              <span className="news-card__source">{source}</span>
+              <a
+                className="news-card__read-more"
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Read more →
+              </a>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </div>
     );
   }
 );
