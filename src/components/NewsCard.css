@@ -29,27 +29,27 @@
 .news-card {
   opacity: 0;
   animation: fadeInUp 0.4s ease forwards;
-
   display: flex;
   flex-direction: column;
-
-  /* never taller than 576px even when content is long */
   max-height: 576px;
-
-  /* fill exactly the wrapper’s height (set by the grid) */
   height: 100%;
-
   background-color: #fff;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 12px 42px rgba(0, 0, 0, 0.3);
   font-family: "Roboto", "Inter", sans-serif;
-
   width: auto;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
+/* @media screen and (max-width: 1024px) {
+  .news-card {
+    max-height: 420px;
+    max-width: 224px;
+  }
+} */
 
 .news-card.fade-in {
   animation: fadeInUp 0.4s ease-in-out forwards;

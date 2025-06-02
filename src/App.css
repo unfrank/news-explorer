@@ -43,19 +43,27 @@
 
 /* todo: investigate everything in here */
 
+/* 1) Desktop (≥ 1025px): 100px gutters on each side */
 .section-inner {
-  padding: 0 104px;
   width: 100%;
   box-sizing: border-box;
+  padding-left: 100px;
+  padding-right: 100px;
+  margin: 0 auto;
 }
-@media (min-width: 401px) and (max-width: 800px) {
+
+/* 2) Tablet (≤ 1024px and ≥ 401px): 40px gutters on each side */
+@media (max-width: 1024px) and (min-width: 401px) {
   .section-inner {
-    padding: 0 40px;
+    padding-left: 40px;
+    padding-right: 40px;
   }
 }
 
+/* 3) Mobile (≤ 400px): 16px gutters on each side */
 @media (max-width: 400px) {
   .section-inner {
-    padding: 0 16px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }

@@ -42,6 +42,7 @@
   line-height: 46px;
 }
 
+/* 1) Desktop & tablet (≥ 765px): exactly 3 columns */
 .saved-news__grid {
   display: grid;
   gap: 16px;
@@ -49,17 +50,20 @@
   padding: 62px 0;
   width: 100%;
   box-sizing: border-box;
+
   align-items: stretch;
   justify-items: stretch;
 }
 
-@media (max-width: 764px) and (min-width: 401px) {
+/* 2) Small tablets / large phones (≤ 764px and ≥ 401px): exactly 2 columns */
+@media (max-width: 764px) and (min-width: 501px) {
   .saved-news__grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 400px) {
+/* 3) Mobile (≤ 400px): exactly 1 column */
+@media (max-width: 500px) {
   .saved-news__grid {
     grid-template-columns: 1fr;
   }
