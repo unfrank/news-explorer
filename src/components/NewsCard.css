@@ -194,16 +194,24 @@
   margin-bottom: 18px;
   line-height: 22px;
 
-  /* clamp to exactly 5 lines = 5 × 22px = 110px */
   max-height: calc(22px * 5);
   overflow: hidden;
   position: relative;
 }
+
+.news-card__title--clickable {
+  cursor: pointer;
+}
+
+.news-card__title--clickable:hover {
+  text-decoration: underline;
+}
+
 .news-card__footer {
-  margin-top: auto;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
+  margin-top: 8px;
 }
 
 .news-card__source {
