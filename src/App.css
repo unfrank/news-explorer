@@ -56,7 +56,7 @@
 }
 
 /* ≥1280px → 100px gutters */
-@media (min-width: 1280px) {
+@media (min-width: 1270px) {
   .section-inner {
     padding-left: 100px;
     padding-right: 100px;

@@ -29,15 +29,23 @@
 .news-card {
   opacity: 0;
   animation: fadeInUp 0.4s ease forwards;
+
   display: flex;
   flex-direction: column;
+
+  /* Force every card to be exactly 576px tall,
+     so that the footer (with .news-card__source) always sits
+     at the same vertical position. */
+  height: 576px;
   max-height: 576px;
-  height: 100%;
+
   background-color: #fff;
   border-radius: 16px;
-  overflow: hidden;
+  overflow: hidden; /* clip any content that exceeds the 576px */
+
   box-shadow: 0 12px 42px rgba(0, 0, 0, 0.3);
   font-family: "Roboto", "Inter", sans-serif;
+
   width: auto;
   box-sizing: border-box;
   margin: 0;
