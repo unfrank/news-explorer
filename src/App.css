@@ -1,8 +1,6 @@
 #root {
   width: 100%;
-
   margin: 5px;
-  /* background-color: #f9f9f9; */
 }
 
 .logo {
@@ -41,32 +39,30 @@
   color: #888;
 }
 
-/* todo: investigate everything in here */
-
-/* ============================================================================
-   1) SECTION‐INNER: Enforce 100px / 40px / 16px gutters at the given breakpoints
-   ============================================================================ */
+/* !orig */
 .section-inner {
-  /* Default (321px → 1279px): 40px gutters */
-  width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
   padding-left: 40px;
   padding-right: 40px;
-  margin: 0 auto; /* in case you ever later add a max-width */
+  /* margin: 0 auto; */
 }
 
-/* ≥1280px → 100px gutters */
-@media (min-width: 1270px) {
+@media (min-width: 1150px) {
   .section-inner {
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 105px;
+    padding-right: 105px;
   }
 }
 
-/* ≤320px → 16px gutters */
-@media (max-width: 550px) {
+@media (max-width: 450px) {
   .section-inner {
     padding-left: 16px;
     padding-right: 16px;
   }
+}
+
+.saved-news,
+.saved-news__grid {
+  overflow-x: hidden; /* clip that stray 1px */
 }

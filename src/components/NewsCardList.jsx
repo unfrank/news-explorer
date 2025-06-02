@@ -39,7 +39,12 @@ function NewsCardList({
             key={`${article.url}-${index}`}
             ref={(el) => (cardRefs.current[index] = el)}
             title={article.title}
-            description={article.description}
+            // description={article.description}
+            description={
+              article.description && article.description.trim().length > 0
+                ? article.description
+                : article.content || "No description available."
+            }
             date={new Date(article.publishedAt).toLocaleDateString("en-US", {
               month: "long",
               day: "numeric",

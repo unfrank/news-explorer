@@ -4,7 +4,7 @@
 html,
 #root,
 body {
-  min-width: 319px;
+  min-width: 315px;
   scroll-behavior: auto;
   /* By default (0 → 319px) we allow horizontal scrolling:
      once viewport ≤ 319px, the browser can scroll sideways. */
@@ -14,7 +14,7 @@ body {
 /* ─────────────────────────────────────────────────────────────────────────────
    2) When the viewport is ≥ 320px, clamp overflow and hide any sideways scroll
    ───────────────────────────────────────────────────────────────────────────── */
-@media (min-width: 320px) {
+@media (min-width: 315px) {
   html,
   #root,
   body {

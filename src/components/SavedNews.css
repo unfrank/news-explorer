@@ -19,10 +19,17 @@
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
+  font-weight: 400;
   margin: 0;
   padding: 0;
   padding-bottom: 28px;
   color: #1a1b2280;
+}
+
+@media (min-width: 550px) and (max-width: 885px) {
+  .saved-news__title {
+    font-size: 14px;
+  }
 }
 
 .saved-news__keywords {
@@ -40,40 +47,40 @@
   margin: 0;
   padding: 0;
   line-height: 46px;
+  font-weight: 400;
+}
+
+@media (min-width: 550px) and (max-width: 885px) {
+  .saved-news__subtitle {
+    font-size: 30px;
+    line-height: 34px;
+  }
 }
 
 .saved-news__grid {
   display: grid;
   gap: 16px;
-
-  /* Always fill exactly 100% of the parent’s content box */
   width: 100%;
   box-sizing: border-box;
-
-  /* Vertical padding only (horizontal gutters live in .section-inner) */
   padding-top: 62px;
   padding-bottom: 62px;
-
-  /* Start with a 3-column layout. Each column is minmax(0, 1fr) so it can shrink. */
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-/* Tablet / small-desktop (768px → 1279px): keep 3 columns */
-@media (max-width: 1279px) and (min-width: 769px) {
+@media (min-width: 766px) and (max-width: 1100px) {
   .saved-news__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding-top: 32px;
+    padding-bottom: 32px;
   }
 }
 
-/* Small tablets / large phones (321px → 768px): 2 columns */
-@media (max-width: 767px) and (min-width: 551px) {
+@media (min-width: 451px) and (max-width: 765px) {
   .saved-news__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-/* Mobile narrow (≤320px): 1 column */
-@media (max-width: 550px) {
+@media (max-width: 450px) {
   .saved-news__grid {
     grid-template-columns: 1fr;
   }

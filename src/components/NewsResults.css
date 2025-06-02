@@ -1,7 +1,7 @@
 .news-results {
   width: 100%;
-  padding-top: 60px;
-  padding-bottom: 60px;
+  padding-top: 80px;
+  padding-bottom: 80px;
   background-color: #f5f6f7;
   display: flex;
   flex-direction: column;
@@ -20,72 +20,30 @@
   margin-bottom: 64px;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   1) GRID: use fixed 3/2/1-column logic with minmax(0,1fr)
-   ───────────────────────────────────────────────────────────────────────────── */
 .news-results__grid {
   display: grid;
   gap: 16px;
-
-  /* Fill exactly 100% of parent’s content box (no overflow) */
   width: 100%;
   box-sizing: border-box;
-
-  /* Vertical padding only—horizontal gutters live in .section-inner */
-  padding-top: 62px;
   padding-bottom: 62px;
-
-  /* Start at 3 columns. minmax(0,1fr) ensures columns shrink instead of forcing overflow */
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-/* Tablet / small-desktop (769px → 1279px): keep 3 columns */
-@media (max-width: 1279px) and (min-width: 769px) {
-  .news-results__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-/* Small tablets / large phones (551px → 768px): 2 columns */
-@media (max-width: 768px) and (min-width: 551px) {
+@media (min-width: 451px) and (max-width: 765px) {
   .news-results__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-/* Mobile narrow (≤550px): 1 column */
-@media (max-width: 550px) {
+@media (max-width: 450px) {
   .news-results__grid {
     grid-template-columns: 1fr;
   }
 }
 
 .news-results__button {
-  margin-top: 40px;
-  padding: 16px 32px;
-  font-size: 16px;
-  border: none;
-  border-radius: 40px;
-  background-color: #2f71e5;
-  color: white;
-  cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.05s ease;
-  outline: none;
-}
-
-.news-results__button:hover {
-  background-color: #254eda;
-  opacity: 0.9;
-}
-
-.news-results__button:active {
-  transform: scale(0.97);
-  outline: none;
-}
-
-.news-results__button {
   display: block;
-  margin: 32px auto 0 auto;
+  margin: 0 auto;
   padding: 12px 24px;
   font-size: 16px;
   border: none;
@@ -98,4 +56,10 @@
 
 .news-results__button:hover {
   background-color: #254eda;
+  opacity: 0.9;
+}
+
+.news-results__button:active {
+  transform: scale(0.97);
+  outline: none;
 }
