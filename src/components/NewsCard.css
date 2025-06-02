@@ -162,6 +162,11 @@
   opacity: 1;
 }
 
+@media screen and (max-width: 1145px) {
+  .news-card__tooltip {
+    opacity: 0;
+  }
+}
 /* ============================
    3) INFO BLOCK: stack children + pin footer
    ============================ */

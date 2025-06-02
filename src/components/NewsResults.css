@@ -1,36 +1,63 @@
 .news-results {
   width: 100%;
-  padding: 60px 104px;
+  padding-top: 60px;
+  padding-bottom: 60px;
   background-color: #f5f6f7;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  /* max-width: 1440px; */
 }
 
 .news-results__title {
-  /* font-family: "Roboto", serif; */
   font-family: "Roboto", "Inter", sans-serif;
   font-size: 40px;
   font-weight: 400;
-  /* margin-bottom: 32px; */
   line-height: 46px;
   align-self: flex-start;
   color: black;
   margin: 0;
-  /* margin-left: 104px; */
   margin-bottom: 64px;
 }
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   1) GRID: use fixed 3/2/1-column logic with minmax(0,1fr)
+   ───────────────────────────────────────────────────────────────────────────── */
 .news-results__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(224px, 400px));
-
   gap: 16px;
+
+  /* Fill exactly 100% of parent’s content box (no overflow) */
   width: 100%;
   box-sizing: border-box;
-  justify-content: center;
+
+  /* Vertical padding only—horizontal gutters live in .section-inner */
+  padding-top: 62px;
+  padding-bottom: 62px;
+
+  /* Start at 3 columns. minmax(0,1fr) ensures columns shrink instead of forcing overflow */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* Tablet / small-desktop (769px → 1279px): keep 3 columns */
+@media (max-width: 1279px) and (min-width: 769px) {
+  .news-results__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Small tablets / large phones (551px → 768px): 2 columns */
+@media (max-width: 768px) and (min-width: 551px) {
+  .news-results__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile narrow (≤550px): 1 column */
+@media (max-width: 550px) {
+  .news-results__grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .news-results__button {
@@ -47,6 +74,7 @@
 }
 
 .news-results__button:hover {
+  background-color: #254eda;
   opacity: 0.9;
 }
 
