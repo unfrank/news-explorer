@@ -33,6 +33,7 @@
   display: flex;
   flex-direction: column;
 
+  /* FIXED‐HEIGHT CARD */
   height: 576px;
   max-height: 576px;
 
@@ -46,6 +47,9 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
+  position: relative;
+  padding-bottom: 21px;
 }
 
 @media screen and (max-width: 551px) {
@@ -173,9 +177,6 @@
     opacity: 0;
   }
 }
-/* ============================
-   3) INFO BLOCK: stack children + pin footer
-   ============================ */
 
 .news-card__info {
   display: flex;
@@ -203,8 +204,8 @@
 .news-card__description {
   color: black;
   margin-top: 16px;
-  margin-bottom: 18px;
   line-height: 22px;
+  font-weight: 400;
 
   max-height: calc(22px * 5);
   overflow: hidden;
@@ -220,22 +221,20 @@
 }
 
 .news-card__footer {
-  margin-top: auto; /* pushes footer to the bottom of .news-card__info */
+  margin-top: auto;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
 }
 
 .news-card__source {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
   font-size: 16px;
-  font-weight: 500;
+  line-height: 22px;
   color: #b6bcbf;
-  line-height: 20px;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  background: white;
 }
 
 .news-card__read-more {
