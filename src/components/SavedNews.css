@@ -42,28 +42,38 @@
   line-height: 46px;
 }
 
-/* 1) Desktop & tablet (≥ 765px): exactly 3 columns */
 .saved-news__grid {
   display: grid;
   gap: 16px;
-  grid-template-columns: repeat(3, 1fr);
-  padding: 62px 0;
+
+  /* Always fill exactly 100% of the parent’s content box */
   width: 100%;
   box-sizing: border-box;
 
-  align-items: stretch;
-  justify-items: stretch;
+  /* Vertical padding only (horizontal gutters live in .section-inner) */
+  padding-top: 62px;
+  padding-bottom: 62px;
+
+  /* Start with a 3-column layout. Each column is minmax(0, 1fr) so it can shrink. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-/* 2) Small tablets / large phones (≤ 764px and ≥ 401px): exactly 2 columns */
-@media (max-width: 764px) and (min-width: 501px) {
+/* Tablet / small-desktop (768px → 1279px): keep 3 columns */
+@media (max-width: 1279px) and (min-width: 769px) {
   .saved-news__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-/* 3) Mobile (≤ 400px): exactly 1 column */
-@media (max-width: 500px) {
+/* Small tablets / large phones (321px → 768px): 2 columns */
+@media (max-width: 767px) and (min-width: 551px) {
+  .saved-news__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile narrow (≤320px): 1 column */
+@media (max-width: 550px) {
   .saved-news__grid {
     grid-template-columns: 1fr;
   }

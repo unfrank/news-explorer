@@ -75,7 +75,8 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
 
       <div className="section-inner">
         <div className="saved-news__grid">
-          {savedArticles.map((article, index) => (
+          {/* {savedArticles.map((article, index) => ( */}
+          {visibleArticles.map((article, index) => (
             <NewsCard
               key={article._id}
               title={article.title}

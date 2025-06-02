@@ -43,25 +43,28 @@
 
 /* todo: investigate everything in here */
 
-/* 1) Desktop (≥ 1025px): 100px gutters on each side */
+/* ============================================================================
+   1) SECTION‐INNER: Enforce 100px / 40px / 16px gutters at the given breakpoints
+   ============================================================================ */
 .section-inner {
+  /* Default (321px → 1279px): 40px gutters */
   width: 100%;
   box-sizing: border-box;
-  padding-left: 100px;
-  padding-right: 100px;
-  margin: 0 auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin: 0 auto; /* in case you ever later add a max-width */
 }
 
-/* 2) Tablet (≤ 1024px and ≥ 401px): 40px gutters on each side */
-@media (max-width: 1024px) and (min-width: 401px) {
+/* ≥1280px → 100px gutters */
+@media (min-width: 1280px) {
   .section-inner {
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 100px;
+    padding-right: 100px;
   }
 }
 
-/* 3) Mobile (≤ 400px): 16px gutters on each side */
-@media (max-width: 400px) {
+/* ≤320px → 16px gutters */
+@media (max-width: 550px) {
   .section-inner {
     padding-left: 16px;
     padding-right: 16px;
