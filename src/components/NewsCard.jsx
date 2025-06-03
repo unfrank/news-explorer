@@ -36,7 +36,6 @@ const NewsCard = forwardRef(
       setMounted(true);
     }, []);
 
-    // Determine which icon to show (save vs. delete)
     const getIcon = () => {
       if (isSavedView) {
         return isHovered ? deleteIconActive : deleteIconInactive;
@@ -47,9 +46,8 @@ const NewsCard = forwardRef(
       return isHovered ? saveIconDark : saveIconLight;
     };
 
-    // When the title is clicked, open the URL in a new tab
     const handleTitleClick = (e) => {
-      e.stopPropagation(); // Prevent triggering any parent 'onClick'
+      e.stopPropagation();
       window.open(url, "_blank", "noopener,noreferrer");
     };
 
@@ -63,9 +61,9 @@ const NewsCard = forwardRef(
           onClick={onClick}
           ref={ref}
         >
-          {/* ===========================
-              1) IMAGE + SAVE/DELETE ICON
-              =========================== */}
+          {/** ───────────────────────────────────────────────
+               1) IMAGE + CONTROL BAR (unchanged)
+               ─────────────────────────────────────────────── */}
           <div className="news-card__image-container">
             <img className="news-card__image" src={image} alt={title} />
 
@@ -105,25 +103,35 @@ const NewsCard = forwardRef(
             </div>
           </div>
 
-          {/* ===========================
-              2) INFO BLOCK: date, title, description, footer
-              =========================== */}
+          {/** ───────────────────────────────────────────────
+               2) INFO BLOCK: THIS PART CHANGED
+               We added ONE extra wrapper (<div className="news-card__content">)
+               so we can flex/clip the description, but never cut off the title.
+               ─────────────────────────────────────────────── */}
           <div className="news-card__info">
-            <p className="news-card__date">{date}</p>
+            {/*
+              ─── NEW: Wrap date/title/description here ───
+              This block can grow/shrink, but never overlap the footer.
+            */}
+            <div className="news-card__content">
+              <p className="news-card__date">{date}</p>
 
-            {/* Title is now the clickable element */}
-            <h3
-              className="news-card__title news-card__title--clickable"
-              onClick={handleTitleClick}
-            >
-              {title}
-            </h3>
+              <h3
+                className="news-card__title news-card__title--clickable"
+                onClick={handleTitleClick}
+              >
+                {title}
+              </h3>
 
-            <p className="news-card__description">{description}</p>
+              <p className="news-card__description">{description}</p>
+            </div>
 
+            {/*
+              ─── Footer remains a sibling of .news-card__content ───
+               .news-card__footer will be “pushed to the bottom” via CSS.
+            */}
             <div className="news-card__footer">
               <span className="news-card__source">{source}</span>
-              {/* Removed the old “Read more →” link entirely */}
             </div>
           </div>
         </article>

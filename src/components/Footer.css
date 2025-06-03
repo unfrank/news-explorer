@@ -45,3 +45,10 @@
 .footer__icon:hover img {
   filter: grayscale(0%);
 }
+
+@media screen and (max-width: 900px) {
+  .footer {
+    padding-top: 24px;
+    padding-bottom: 18px;
+  }
+}

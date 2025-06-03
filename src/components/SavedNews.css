@@ -72,6 +72,17 @@
     padding-top: 32px;
     padding-bottom: 32px;
   }
+  .saved-news__title-container {
+    padding-top: 24px;
+    padding-bottom: 32px;
+  }
+  .saved-news__title {
+    padding-bottom: 16px;
+  }
+
+  .saved-news__grid {
+    gap: 8px;
+  }
 }
 
 @media (min-width: 451px) and (max-width: 765px) {
@@ -85,5 +96,6 @@
     grid-template-columns: 1fr;
     padding-top: 24px;
     padding-bottom: 24px;
+    gap: 10px;
   }
 }

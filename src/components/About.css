@@ -7,14 +7,12 @@
   font-family: "Roboto", "Inter", sans-serif;
   font-weight: 400;
   color: #1a1b22;
-  background-color: blue;
 }
 
 @media screen and (max-width: 885px) {
   .about {
     padding-top: 40px;
     padding-bottom: 61px;
-    background-color: green;
   }
 }
 
