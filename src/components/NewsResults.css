@@ -8,6 +8,12 @@
   align-items: center;
   box-sizing: border-box;
 }
+@media (max-width: 851px) {
+  .news-results {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
 
 .news-results__title {
   font-family: "Roboto", "Inter", sans-serif;
