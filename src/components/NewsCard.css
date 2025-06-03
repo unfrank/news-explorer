@@ -1,4 +1,4 @@
-@keyframes fadeInUp {
+/* @keyframes fadeInUp {
   from {
     opacity: 0;
     transform: translateY(20px);
@@ -263,6 +263,312 @@
     font-size: 22px;
     line-height: 24px;
   }
+  .news-card__tooltip {
+    opacity: 0;
+  }
+} */
+
+/* !~!REMAKE */
+/* ─────────────────────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────────────────────── */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9) translateY(-12px);
+    filter: blur(2px);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   CARD WRAPPER
+───────────────────────────────────────────────────────── */
+
+.news-card__wrapper {
+  justify-self: stretch;
+}
+
+.news-card {
+  opacity: 0;
+  animation: fadeInUp 0.4s ease forwards;
+
+  display: flex;
+  flex-direction: column;
+
+  height: 576px;
+  max-height: 576px;
+
+  background-color: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 3px 11px rgba(0, 0, 0, 0.1);
+  font-family: "Roboto", "Inter", sans-serif;
+
+  width: auto;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  position: relative;
+}
+
+.news-card.fade-in {
+  animation: fadeInUp 0.4s ease-in-out forwards;
+}
+
+.news-card.news-card--fade-out {
+  animation: fadeOut 0.3s ease-in-out forwards;
+  opacity: 1;
+  max-height: 380px;
+  overflow: hidden;
+}
+
+/* ─────────────────────────────────────────────────────────
+   IMAGE + CONTROL BAR
+───────────────────────────────────────────────────────── */
+
+.news-card__image-container {
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  position: relative;
+}
+
+.news-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.news-card__control-bar {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  /* We’ll let the icon “push itself” to the right, instead of using space-between */
+  justify-content: flex-start;
+  gap: 12px;
+  height: 40px;
+}
+
+/* When a keyword badge appears, it sits on the left.
+   We push the icon container to the far right by giving it an auto left margin. */
+.news-card__keyword {
+  /* e.g. “Nature”, “Parks”, etc. */
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 14px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+  white-space: nowrap;
+
+  /* If keyword exists, any following items will be pushed to the right */
+  margin-right: auto;
+}
+
+/* Hover‐tooltip box (“Save to favorites” | “Sign in to save articles” | “Remove from saved”) */
+.news-card__tooltip {
+  position: absolute;
+  right: 45px;
+  /* Allow the tooltip to actually render; remove display:none */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 14px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+  white-space: nowrap;
+  z-index: 3;
+  cursor: default;
+}
+
+.news-card__icon-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* Always push the icon (and its tooltip) to the far right */
+  margin-left: auto;
+  cursor: pointer;
+}
+
+/* Make the save‐icon fully opaque on hover */
+.news-card__save-icon:hover {
+  opacity: 1;
+}
+
+/* ─────────────────────────────────────────────────────────
+   INFO BLOCK (TITLE + DATE + DESCRIPTION)
+───────────────────────────────────────────────────────── */
+
+.news-card__info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 24px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.news-card__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.news-card__date {
+  font-size: 12px;
+  color: #b6bcbf;
+  margin: 0;
+}
+
+.news-card__title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 30px;
+  margin: 8px 0 0 0;
+  padding: 0;
+  word-break: break-word;
+}
+
+.news-card__title--clickable {
+  cursor: pointer;
+}
+
+.news-card__title--clickable:hover {
+  text-decoration: underline;
+}
+
+.news-card__description {
+  color: #111;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 400;
+  margin: 12px 0 0 0;
+  height: calc(22px * 4);
+  flex-shrink: 0;
+  flex-grow: 0;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+/* ─────────────────────────────────────────────────────────
+   FOOTER (SOURCE + OPTIONAL “Read more” LINK)
+───────────────────────────────────────────────────────── */
+
+.news-card__footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.news-card__source {
+  font-size: 16px;
+  line-height: 24px;
+  color: #b6bcbf;
+  background: none;
+}
+
+.news-card__read-more {
+  font-size: 12px;
+  color: #2f71e5;
+  text-decoration: none;
+  line-height: 20px;
+  margin-left: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─────────────────────────────────────────────────────────
+   MEDIA QUERIES (RESPONSIVE ADJUSTMENTS)
+───────────────────────────────────────────────────────── */
+
+@media screen and (max-width: 551px) {
+  .news-card {
+    max-height: 440px;
+  }
+  .news-card__image-container {
+    width: 100%;
+    max-height: 196px;
+  }
+  .news-card__description {
+    max-height: calc(22px * 3);
+  }
+}
+
+@media screen and (min-width: 551px) and (max-width: 850px) {
+  .news-card {
+    max-height: 420px;
+  }
+  .news-card__title {
+    font-size: 22px;
+    line-height: 24px;
+  }
+  .news-card__image-container {
+    width: 100%;
+    max-height: 150px;
+  }
+  .news-card__description {
+    max-height: calc(22px * 3);
+  }
+}
+
+@media screen and (min-width: 851px) and (max-width: 1024px) {
+  .news-card {
+    max-height: 490px;
+  }
+  .news-card__image-container {
+    width: 100%;
+    max-height: 195px;
+  }
+  .news-card__title {
+    font-size: 22px;
+    line-height: 24px;
+  }
+  .news-card__description {
+    height: calc(22px * 4);
+  }
+}
+
+@media screen and (max-width: 1044px) {
+  .news-card__title {
+    font-size: 22px;
+    line-height: 24px;
+  }
+  /* (This hides the tooltip text on narrower screens if desired) */
   .news-card__tooltip {
     opacity: 0;
   }
