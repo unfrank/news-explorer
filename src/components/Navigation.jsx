@@ -76,7 +76,7 @@
 
 // export default Navigation;
 
-//!remake
+//! HAMBURGER NONSENSE !
 
 import React, { useContext, useEffect, useState } from "react";
 import "./Navigation.css";
@@ -116,51 +116,53 @@ function Navigation({ onSignInClick, onLogoutClick }) {
         <img src={hamburgerDark} alt="Menu" className="navigation__hamburger" />
       )}
 
-      <Link
-        to="/"
-        className={`navigation__link-home ${
-          isHome ? "navigation__link--active navigation__link--white" : ""
-        }`}
-      >
-        Home
-      </Link>
-
-      {isLoggedIn && (
+      <div className="navigation__links">
         <Link
-          to="/saved-news"
-          className={`navigation__link-saved ${
-            isSaved ? "navigation__link--active navigation__link--black" : ""
+          to="/"
+          className={`navigation__link-home ${
+            isHome ? "navigation__link--active navigation__link--white" : ""
           }`}
         >
-          Saved Articles
+          Home
         </Link>
-      )}
 
-      {!isLoggedIn ? (
-        <button className="navigation__button" onClick={onSignInClick}>
-          Sign in
-        </button>
-      ) : (
-        <button
-          className={`navigation__button navigation__button--logout ${
-            isHome
-              ? "navigation__button--logout-white"
-              : "navigation__button--logout-black"
-          }`}
-          onClick={onLogoutClick}
-        >
-          <span className="navigation__username">
-            {currentUser?.username?.charAt(0).toUpperCase() +
-              currentUser?.username?.slice(1)}
-          </span>
+        {isLoggedIn && (
+          <Link
+            to="/saved-news"
+            className={`navigation__link-saved ${
+              isSaved ? "navigation__link--active navigation__link--black" : ""
+            }`}
+          >
+            Saved Articles
+          </Link>
+        )}
 
-          <img
-            src={isHome ? logoutIconLight : logoutIconDark}
-            alt="Logout"
-            className="navigation__logout-icon"
-          />
-        </button>
-      )}
+        {!isLoggedIn ? (
+          <button className="navigation__button" onClick={onSignInClick}>
+            Sign in
+          </button>
+        ) : (
+          <button
+            className={`navigation__button navigation__button--logout ${
+              isHome
+                ? "navigation__button--logout-white"
+                : "navigation__button--logout-black"
+            }`}
+            onClick={onLogoutClick}
+          >
+            <span className="navigation__username">
+              {currentUser?.username?.charAt(0).toUpperCase() +
+                currentUser?.username?.slice(1)}
+            </span>
+
+            <img
+              src={isHome ? logoutIconLight : logoutIconDark}
+              alt="Logout"
+              className="navigation__logout-icon"
+            />
+          </button>
+        )}
+      </div>
     </nav>
   );
 }

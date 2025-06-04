@@ -47,5 +47,13 @@
     transform: translateX(0);
   }
 }
+@media (max-width: 646px) {
+  .header {
+    padding-top: 16px;
+  }
+  .header__container {
+    padding-bottom: 16px;
+  }
+}
 
 /* !HAMBURGER! */
