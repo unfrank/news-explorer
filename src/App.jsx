@@ -214,6 +214,8 @@ function App() {
   };
 
   const handleLogin = (credentials) => {
+    console.log("handleLogin received:", credentials);
+
     const token = credentials.token;
     localStorage.setItem("jwt", token);
     setIsLoggedIn(true);

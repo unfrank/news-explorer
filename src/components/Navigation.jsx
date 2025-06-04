@@ -10,13 +10,9 @@ import closeIcon from "../assets/icons/icon-btn-close.svg";
 import hamburgerDark from "../assets/icons/icon-hamburger-dark.svg";
 import hamburgerLight from "../assets/icons/icon-hamburger-light.svg";
 
-export default function Navigation({
-  isLoggedIn,
-  currentUser,
-  onSignInClick,
-  onLogoutClick,
-}) {
-  const { handleLogin } = useContext(CurrentUserContext);
+export default function Navigation({ onSignInClick, onLogoutClick }) {
+  // Pull currentUser & isLoggedIn directly from context
+  const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
   const location = useLocation();
   const [animate, setAnimate] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -25,6 +21,7 @@ export default function Navigation({
   const isHome = location.pathname === "/";
   const isSaved = location.pathname === "/saved-news";
 
+  // Logo animation trigger (optional—mirrors what Header does)
   useEffect(() => {
     if (isLoggedIn) {
       setAnimate(true);
@@ -33,7 +30,7 @@ export default function Navigation({
     }
   }, [isLoggedIn]);
 
-  // Close mobile menu / mobile sign‐in on resize ≥646px
+  // Whenever window is resized ≥ 646px, close any mobile menus
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth >= 646) {
@@ -48,7 +45,8 @@ export default function Navigation({
   return (
     <>
       <nav className={`navigation ${animate ? "navigation--animate" : ""}`}>
-        {isHome && !isLoggedIn && (
+        {/* Show the hamburger icon on “/” only when not logged in and mobileSignIn is closed */}
+        {isHome && !isLoggedIn && !mobileSignInOpen && (
           <img
             src={menuOpen ? closeIcon : hamburgerLight}
             alt={menuOpen ? "Close Menu" : "Menu"}
@@ -57,7 +55,8 @@ export default function Navigation({
           />
         )}
 
-        {isSaved && (
+        {/* Show dark hamburger icon on “/saved-news” (when not logged in) */}
+        {isSaved && !mobileSignInOpen && (
           <img
             src={hamburgerDark}
             alt="Menu"
@@ -65,6 +64,7 @@ export default function Navigation({
           />
         )}
 
+        {/* When the menu is open on “/” and not logged in, render the dropdown */}
         {menuOpen && isHome && !isLoggedIn && (
           <div className="navigation__dropdown">
             <div className="navigation__dropdown-header">
@@ -81,6 +81,7 @@ export default function Navigation({
 
             <div className="navigation__dropdown-item">Home</div>
 
+            {/* Mobile “Sign in” button (opens the new MobileMenuSignIn overlay) */}
             <button
               className="navigation__button navigation__button--dropdown"
               onClick={() => {
@@ -93,6 +94,10 @@ export default function Navigation({
           </div>
         )}
 
+        {/* 
+          The normal nav links (desktop layout). 
+          When viewport is narrow (< 626px), CSS will hide .navigation__links entirely.
+        */}
         <div className="navigation__links">
           <Link
             to="/"
@@ -117,10 +122,12 @@ export default function Navigation({
           )}
 
           {!isLoggedIn ? (
+            /* Desktop “Sign in” — opens your original LoginModal */
             <button className="navigation__button" onClick={onSignInClick}>
               Sign in
             </button>
           ) : (
+            /* When logged in: show Logout button with the capitalized username */
             <button
               className={`navigation__button navigation__button--logout ${
                 isHome
@@ -130,8 +137,11 @@ export default function Navigation({
               onClick={onLogoutClick}
             >
               <span className="navigation__username">
-                {currentUser?.username?.charAt(0).toUpperCase() +
-                  currentUser?.username?.slice(1)}
+                {typeof currentUser?.username === "string" &&
+                currentUser.username.length > 0
+                  ? currentUser.username.charAt(0).toUpperCase() +
+                    currentUser.username.slice(1)
+                  : ""}
               </span>
               <img
                 src={isHome ? logoutIconLight : logoutIconDark}
@@ -143,24 +153,13 @@ export default function Navigation({
         </div>
       </nav>
 
+      {/* 
+        The new mobile “Sign in” overlay (MobileMenuSignIn.jsx). 
+        It handles its own login form and call to handleLogin.
+      */}
       <MobileMenuSignIn
         isOpen={mobileSignInOpen}
         onClose={() => setMobileSignInOpen(false)}
-        onSubmit={(e) => {
-          e.preventDefault();
-
-          const email = e.target["email-mobile"].value;
-          const password = e.target["password-mobile"].value;
-
-          handleLogin({ email, password })
-            .then(() => {
-              setMobileSignInOpen(false);
-            })
-            .catch((err) => {
-              console.error("Mobile login failed:", err);
-            });
-        }}
-        isLoading={false}
       />
     </>
   );

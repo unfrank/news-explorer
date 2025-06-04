@@ -1,14 +1,14 @@
 .mm-signin {
-  position: fixed;
-  inset: 5px;
+  /* inset: 5px; */
   z-index: 1000;
 }
 
 .mm-signin__close-button {
   position: absolute;
-
-  top: 9px;
-  right: 10px;
+  margin: 0;
+  padding: 0;
+  top: 16px;
+  right: 16px;
   background: none;
   border: none;
   cursor: pointer;
@@ -22,7 +22,7 @@
 
 .mm-signin__form-container {
   position: absolute;
-  top: 52px;
+  top: 57px;
   left: -5px;
   right: -5px;
   bottom: 0;

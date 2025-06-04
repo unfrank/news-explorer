@@ -10,7 +10,6 @@ function Header({ onSignInClick, setActiveModal, handleLogout }) {
   const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
   const [logoAnimate, setLogoAnimate] = useState(false);
   const location = useLocation();
-
   const isHome = location.pathname === "/";
 
   useEffect(() => {
@@ -35,9 +34,11 @@ function Header({ onSignInClick, setActiveModal, handleLogout }) {
             NewsExplorer
           </div>
 
+          {/* 
+            Navigation now reads currentUser & isLoggedIn from context,
+            so we only need to pass the callbacks here.
+          */}
           <Navigation
-            isLoggedIn={isLoggedIn}
-            userEmail={currentUser?.email}
             onSignInClick={() => setActiveModal("login")}
             onLogoutClick={handleLogout}
           />
@@ -48,5 +49,3 @@ function Header({ onSignInClick, setActiveModal, handleLogout }) {
 }
 
 export default Header;
-
-// !! HAMBURGER!!

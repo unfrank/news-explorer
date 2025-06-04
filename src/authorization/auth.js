@@ -1,30 +1,5 @@
 const BASE_URL = "http://localhost:3000";
 
-// export const register = (email, username, password) => {
-//   return fetch(`${BASE_URL}/signup`, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({ email, username, password }),
-//   })
-//     .then((res) => {
-//       if (!res.ok) throw new Error("Registration failed");
-//       return res.json();
-//     })
-//     .then((res) => {
-//       if (!res.token || !res.username)
-//         throw new Error("No token or username received");
-//       return {
-//         token: res.token,
-//         user: {
-//           email: res.email,
-//           username: res.username,
-//         },
-//       };
-//     });
-// };
-
 export function register(email, username, password) {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",

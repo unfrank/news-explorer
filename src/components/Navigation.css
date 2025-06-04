@@ -196,14 +196,14 @@
   cursor: pointer;
 }
 
-@media (max-width: 659px) {
+/* @media (max-width: 659px) {
   .navigation__hamburger {
     display: block;
     width: 24px;
     height: 24px;
     margin-left: auto;
   }
-}
+} */
 .navigation__hamburger {
   display: none;
   cursor: pointer;
@@ -220,7 +220,7 @@
   left: 0;
   right: 0;
 
-  bottom: calc(100vh - 190px);
+  bottom: calc(100vh - 230px);
   width: 100vw;
   background-color: #1a1b22;
   border-bottom-left-radius: 12px;
@@ -252,7 +252,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 20px;
+  padding: 16px;
 }
 
 .navigation__dropdown-header h2 {
