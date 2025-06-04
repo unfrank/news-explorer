@@ -4,6 +4,8 @@ import logoutIconDark from "../assets/icons/icon-logout-dark.svg";
 import logoutIconLight from "../assets/icons/icon-logout-light.svg";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import { Link, useLocation } from "react-router-dom";
+import hamburgerDark from "../assets/icons/icon-hamburger-dark.svg";
+import hamburgerLight from "../assets/icons/icon-hamburger-light.svg";
 
 function Navigation({ onSignInClick, onLogoutClick }) {
   const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
