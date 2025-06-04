@@ -117,9 +117,18 @@ function Navigation({ onSignInClick, onLogoutClick }) {
     }
   }, [isLoggedIn]);
 
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth >= 646 && menuOpen) {
+        setMenuOpen(false);
+      }
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [menuOpen]);
+
   return (
     <nav className={`navigation ${animate ? "navigation--animate" : ""}`}>
-      {/* 1. Hamburger toggle (only on “/” when not logged in) */}
       {isHome && !isLoggedIn && (
         <img
           src={menuOpen ? closeIcon : hamburgerLight}
@@ -129,16 +138,14 @@ function Navigation({ onSignInClick, onLogoutClick }) {
         />
       )}
 
-      {/* 2. Dark‐mode hamburger on /saved-news (you can leave this as before) */}
       {isSaved && (
         <img src={hamburgerDark} alt="Menu" className="navigation__hamburger" />
       )}
 
-      {/* 3. Dropdown panel (only when menuOpen && isHome && not logged in) */}
       {menuOpen && isHome && !isLoggedIn && (
         <div className="navigation__dropdown">
           <div className="navigation__dropdown-header">
-            <h2>NewsExplorer</h2>
+            <h2 className="header__logo">NewsExplorer</h2>
             <img
               src={closeIcon}
               alt="Close Menu"
@@ -160,7 +167,6 @@ function Navigation({ onSignInClick, onLogoutClick }) {
         </div>
       )}
 
-      {/* 4. Normal navigation links/buttons (always present except when hidden by CSS at ≤646px) */}
       <div className="navigation__links">
         <Link
           to="/"

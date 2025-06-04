@@ -447,16 +447,18 @@
 }
 
 .navigation__dropdown {
-  position: absolute;
+  position: fixed;
   top: 0;
-  right: 0;
-  left: 0;
-  background-color: #0a0a0a;
+  left: 5px;
+  right: 5px;
+
+  bottom: calc(100vh - 190px);
+  width: 100vw;
+  background-color: #1a1b22;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  overflow: hidden;
-  width: 100%;
-  z-index: 10;
+  overflow-y: auto;
+  z-index: 999;
 }
 
 .navigation__dropdown-title {
@@ -505,7 +507,7 @@
   color: #ffffff;
 }
 
-@media (max-width: 646px) {
+@media (max-width: 626px) {
   .navigation__links {
     display: none;
   }
