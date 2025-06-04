@@ -270,7 +270,7 @@
     opacity: 0;
   }
 }
-@media screen and (max-width: 357px) {
+@media screen and (max-width: 352px) {
   .saved-news .news-card__tooltip {
     opacity: 0;
   }

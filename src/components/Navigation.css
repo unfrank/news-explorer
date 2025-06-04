@@ -190,3 +190,30 @@
 .navigation__button--logout-black {
   border-color: black;
 }
+
+.navigation__hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+@media (max-width: 659px) {
+  .navigation__hamburger {
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin-left: auto;
+  }
+}
+.navigation__hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+@media (max-width: 646px) {
+  .navigation__hamburger {
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin-left: auto;
+  }
+}
