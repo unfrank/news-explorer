@@ -192,23 +192,16 @@
 }
 
 .navigation__hamburger {
-  display: none;
+  width: 24px;
+  height: 24px;
+  margin-left: auto;
   cursor: pointer;
+  display: block;
 }
 
-/* @media (max-width: 659px) {
-  .navigation__hamburger {
-    display: block;
-    width: 24px;
-    height: 24px;
-    margin-left: auto;
-  }
-} */
-.navigation__hamburger {
+.hidden {
   display: none;
-  cursor: pointer;
 }
-
 .navigation__links {
   display: flex;
   align-items: center;
@@ -279,10 +272,22 @@
   .navigation__links {
     display: none;
   }
-  .navigation__hamburger {
-    display: block;
-    width: 24px;
-    height: 24px;
-    margin-left: auto;
-  }
+}
+.navigation__icon-container {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 24px;
+  height: 24px;
+  position: relative; /* Add this */
+  z-index: 1001; /* Add this */
+}
+
+.navigation__hamburger {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 1001; /* Add this */
+  position: relative; /* Add this */
 }

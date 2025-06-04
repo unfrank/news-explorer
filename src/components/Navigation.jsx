@@ -42,40 +42,44 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
   return (
     <>
       <nav className={`navigation ${animate ? "navigation--animate" : ""}`}>
-        {isHome && !isLoggedIn && !mobileSignInOpen && (
-          <img
-            src={menuOpen ? closeIcon : hamburgerLight}
-            alt={menuOpen ? "Close Menu" : "Menu"}
-            className="navigation__hamburger"
-            onClick={() => setMenuOpen((prev) => !prev)}
-          />
-        )}
+        <div className="navigation__icon-container">
+          {isHome && !isLoggedIn && menuOpen && !mobileSignInOpen && (
+            <img
+              src={closeIcon}
+              alt="Close Menu"
+              className="navigation__hamburger"
+              onClick={() => setMenuOpen(false)}
+            />
+          )}
+          {isHome && !isLoggedIn && mobileSignInOpen && (
+            <img
+              src={closeIcon}
+              alt="Close Modal"
+              className="navigation__hamburger"
+              onClick={() => setMobileSignInOpen(false)}
+            />
+          )}
 
-        {isSaved && !mobileSignInOpen && (
-          <img
-            src={hamburgerDark}
-            alt="Menu"
-            className="navigation__hamburger"
-          />
-        )}
+          {isHome && !isLoggedIn && !menuOpen && !mobileSignInOpen && (
+            <img
+              src={hamburgerLight}
+              alt="Menu"
+              className="navigation__hamburger"
+              onClick={() => setMenuOpen(true)}
+            />
+          )}
+        </div>
 
         {menuOpen && isHome && !isLoggedIn && (
           <div className="navigation__dropdown">
             <div className="navigation__dropdown-header">
               <h2 className="header__logo">NewsExplorer</h2>
-              <img
-                src={closeIcon}
-                alt="Close Menu"
-                className="navigation__hamburger"
-                onClick={() => setMenuOpen(false)}
-              />
             </div>
 
             <hr className="navigation__dropdown-divider" />
 
             <div className="navigation__dropdown-item">Home</div>
 
-            {/* Mobile “Sign in” button (opens the new MobileMenuSignIn overlay) */}
             <button
               className="navigation__button navigation__button--dropdown"
               onClick={() => {
@@ -88,10 +92,6 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
           </div>
         )}
 
-        {/* 
-          The normal nav links (desktop layout). 
-          When viewport is narrow (< 626px), CSS will hide .navigation__links entirely.
-        */}
         <div className="navigation__links">
           <Link
             to="/"
@@ -116,12 +116,10 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
           )}
 
           {!isLoggedIn ? (
-            /* Desktop “Sign in” — opens your original LoginModal */
             <button className="navigation__button" onClick={onSignInClick}>
               Sign in
             </button>
           ) : (
-            /* When logged in: show Logout button with the capitalized username */
             <button
               className={`navigation__button navigation__button--logout ${
                 isHome
@@ -147,10 +145,6 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
         </div>
       </nav>
 
-      {/* 
-        The new mobile “Sign in” overlay (MobileMenuSignIn.jsx). 
-        It handles its own login form and call to handleLogin.
-      */}
       <MobileMenuSignIn
         isOpen={mobileSignInOpen}
         onClose={() => setMobileSignInOpen(false)}
