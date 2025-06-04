@@ -11,7 +11,6 @@ import hamburgerDark from "../assets/icons/icon-hamburger-dark.svg";
 import hamburgerLight from "../assets/icons/icon-hamburger-light.svg";
 
 export default function Navigation({ onSignInClick, onLogoutClick }) {
-  // Pull currentUser & isLoggedIn directly from context
   const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
   const location = useLocation();
   const [animate, setAnimate] = useState(false);
@@ -21,7 +20,6 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
   const isHome = location.pathname === "/";
   const isSaved = location.pathname === "/saved-news";
 
-  // Logo animation trigger (optional—mirrors what Header does)
   useEffect(() => {
     if (isLoggedIn) {
       setAnimate(true);
@@ -30,7 +28,6 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
     }
   }, [isLoggedIn]);
 
-  // Whenever window is resized ≥ 646px, close any mobile menus
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth >= 646) {
@@ -45,7 +42,6 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
   return (
     <>
       <nav className={`navigation ${animate ? "navigation--animate" : ""}`}>
-        {/* Show the hamburger icon on “/” only when not logged in and mobileSignIn is closed */}
         {isHome && !isLoggedIn && !mobileSignInOpen && (
           <img
             src={menuOpen ? closeIcon : hamburgerLight}
@@ -55,7 +51,6 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
           />
         )}
 
-        {/* Show dark hamburger icon on “/saved-news” (when not logged in) */}
         {isSaved && !mobileSignInOpen && (
           <img
             src={hamburgerDark}
@@ -64,7 +59,6 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
           />
         )}
 
-        {/* When the menu is open on “/” and not logged in, render the dropdown */}
         {menuOpen && isHome && !isLoggedIn && (
           <div className="navigation__dropdown">
             <div className="navigation__dropdown-header">
