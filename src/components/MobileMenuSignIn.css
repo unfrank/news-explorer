@@ -1,0 +1,97 @@
+.mm-signin {
+  position: fixed;
+  inset: 5px;
+  z-index: 1000;
+}
+
+.mm-signin__close-button {
+  position: absolute;
+
+  top: 9px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.mm-signin__close-button img {
+  width: 24px;
+  height: 24px;
+}
+
+.mm-signin__form-container {
+  position: absolute;
+  top: 52px;
+  left: -5px;
+  right: -5px;
+  bottom: 0;
+  background-color: #fff;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  padding: 24px 20px;
+  overflow-y: auto;
+}
+
+.mm-signin__form-title {
+  margin: 0 0 24px 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #111111;
+}
+
+.mm-signin__label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #2f71e5;
+  margin-bottom: 8px;
+}
+
+.mm-signin__input {
+  width: 100%;
+  font-family: "Roboto", "Inter", sans-serif;
+  font-size: 14px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 0 0 8px;
+  margin-bottom: 20px;
+  outline: none;
+}
+.mm-signin__input:focus {
+  border-bottom: 1px solid #000000;
+}
+
+.mm-signin__submit {
+  width: 100%;
+  padding: 16px 0;
+  background-color: #2f80ed;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+  margin-top: 8px;
+}
+.mm-signin__submit:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.mm-signin__footer {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 14px;
+  color: #444444;
+}
+.mm-signin__signup-link {
+  color: #2f80ed;
+  text-decoration: none;
+  margin-left: 4px;
+}
+.mm-signin__signup-link:hover {
+  text-decoration: underline;
+}
