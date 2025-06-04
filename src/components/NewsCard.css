@@ -270,3 +270,8 @@
     opacity: 0;
   }
 }
+@media screen and (max-width: 357px) {
+  .saved-news .news-card__tooltip {
+    opacity: 0;
+  }
+}
