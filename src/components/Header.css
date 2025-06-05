@@ -12,6 +12,7 @@
 .header--transparent {
   background-color: transparent;
   color: white;
+  border-bottom: none; /* ← add this line */
 }
 
 /* Solid style (anywhere except home page) */

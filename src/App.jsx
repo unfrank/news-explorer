@@ -41,6 +41,7 @@ function App() {
   // Determine if we’re on “/” to toggle header transparently
   const location = useLocation();
   const isHome = location.pathname === "/";
+  const isSaved = location.pathname === "/saved-news";
 
   // ────────────────────────────────────────────────────────────────────────────
   // 2) EFFECTS: SCROLL RESTORATION & AUTH CHECK
@@ -253,23 +254,15 @@ function App() {
     <CurrentUserContext.Provider
       value={{ currentUser, isLoggedIn, handleLogin }}
     >
-      {/* ───────────────────────────────────────────────────────────────────── 
-          A) HEADER (always rendered once, no matter the route)
-      ──────────────────────────────────────────────────────────────────────────── */}
-      <Header
-        isHome={isHome}
-        isLoggedIn={isLoggedIn}
-        currentUser={currentUser}
-        setActiveModal={setActiveModal}
-        handleLogout={handleLogout}
-      />
-
-      {/* ───────────────────────────────────────────────────────────────────── 
-          B) MAIN CONTENT: either the “hero” (Main+About) on “/”, 
-             or the <Routes> for /saved-news and redirects on other paths.
-      ──────────────────────────────────────────────────────────────────────────── */}
       {isHome ? (
         <div className="hero">
+          <Header
+            isHome={isHome}
+            isLoggedIn={isLoggedIn}
+            currentUser={currentUser}
+            setActiveModal={setActiveModal}
+            handleLogout={handleLogout}
+          />
           <Main
             onSearch={handleSearch}
             articles={articles}
@@ -286,30 +279,33 @@ function App() {
           <About />
         </div>
       ) : (
-        <Routes>
-          <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
-            <Route
-              path="/saved-news"
-              element={
-                <SavedNews
-                  savedArticles={savedArticles}
-                  onDeleteArticle={handleDeleteArticle}
-                />
-              }
-            />
-          </Route>
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+        <>
+          <Header
+            isHome={isHome}
+            isLoggedIn={isLoggedIn}
+            currentUser={currentUser}
+            setActiveModal={setActiveModal}
+            handleLogout={handleLogout}
+          />
+          <Routes>
+            <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
+              <Route
+                path="/saved-news"
+                element={
+                  <SavedNews
+                    savedArticles={savedArticles}
+                    onDeleteArticle={handleDeleteArticle}
+                  />
+                }
+              />
+            </Route>
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </>
       )}
 
-      {/* ───────────────────────────────────────────────────────────────────── 
-          C) FOOTER (always rendered once, after main content)
-      ──────────────────────────────────────────────────────────────────────────── */}
       <Footer />
 
-      {/* ───────────────────────────────────────────────────────────────────── 
-          D) GLOBAL MODALS (always rendered once, below everything else)
-      ──────────────────────────────────────────────────────────────────────────── */}
       <LoginModal
         isOpen={activeModal === "login"}
         onClose={() => setActiveModal("")}
