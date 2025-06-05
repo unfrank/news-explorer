@@ -1,63 +1,45 @@
-// File: src/components/Header.jsx
-
 import React, { useContext, useEffect, useState } from "react";
+import Navigation from "./Navigation";
 import "./Header.css";
-import MobileMenuSignIn from "./MobileMenuSignIn";
 import CurrentUserContext from "../contexts/CurrentUserContext";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import closeIcon from "../assets/icons/icon-btn-close.svg";
 import hamburgerLight from "../assets/icons/icon-hamburger-light.svg";
-import logoutIconDark from "../assets/icons/icon-logout-dark.svg";
-import logoutIconLight from "../assets/icons/icon-logout-light.svg";
 
-export default function Header({ handleLogout }) {
-  const { currentUser, isLoggedIn, handleLogin } =
-    useContext(CurrentUserContext);
+function Header({ onSignInClick, setActiveModal, handleLogout }) {
+  const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
+  const [logoAnimate, setLogoAnimate] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === "/";
-  const isSaved = location.pathname === "/saved-news";
 
-  // Animate logo & nav when login state changes
-  const [logoAnimate, setLogoAnimate] = useState(false);
-  const [animateNav, setAnimateNav] = useState(false);
-
-  // Mobile menu / mobile sign-in state
+  // State to control the mobile‐menu dropdown (only shown on Home when not logged in)
   const [menuOpen, setMenuOpen] = useState(false);
-  const [mobileSignInOpen, setMobileSignInOpen] = useState(false);
 
-  // Trigger animations when user logs in
+  // Trigger the “slide‐in” animation on the logo when the user logs in
   useEffect(() => {
     if (isLoggedIn) {
       setLogoAnimate(true);
-      setAnimateNav(true);
-      const timeoutLogo = setTimeout(() => setLogoAnimate(false), 1500);
-      const timeoutNav = setTimeout(() => setAnimateNav(false), 1500);
-      return () => {
-        clearTimeout(timeoutLogo);
-        clearTimeout(timeoutNav);
-      };
+      const timeout = setTimeout(() => setLogoAnimate(false), 1500);
+      return () => clearTimeout(timeout);
     }
   }, [isLoggedIn]);
 
-  // Close mobile menus on window resize ≥ 646px
+  // If viewport is resized to ≥646px, automatically close the mobile menu
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth >= 646) {
         setMenuOpen(false);
-        setMobileSignInOpen(false);
       }
     }
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Clicking the desktop “Sign in” button simply opens the mobile form
-  function handleSignInClick() {
-    setMobileSignInOpen(true);
-  }
-  function handleMobileSignInClose() {
-    setMobileSignInOpen(false);
+  // Called when any “Sign in” is clicked (desktop or mobile) to open the LoginModal
+  function openLoginModal() {
+    setActiveModal("login");
+    setMenuOpen(false);
   }
 
   return (
@@ -67,7 +49,7 @@ export default function Header({ handleLogout }) {
       <div className="section-inner">
         <div className="header__container">
           {/* ───────────────────────────────────────────────────────────── 
-              Logo on the left (with an animation when logging in)
+              Logo (left side). Animates when logging in.
           ───────────────────────────────────────────────────────────── */}
           <div
             className={`header__logo ${
@@ -78,19 +60,19 @@ export default function Header({ handleLogout }) {
           </div>
 
           {/* ───────────────────────────────────────────────────────────── 
-              HAMBURGER / CLOSE ICON (mobile only when on Home & not logged in)
+              HAMBURGER / CLOSE ICON (only on Home && not logged in)
+              Tapping the “hamburger” toggles the mobile dropdown.
           ───────────────────────────────────────────────────────────── */}
           {isHome && !isLoggedIn && (
             <>
-              {menuOpen && !mobileSignInOpen && (
+              {menuOpen ? (
                 <img
                   src={closeIcon}
                   alt="Close Menu"
                   className="navigation__hamburger"
                   onClick={() => setMenuOpen(false)}
                 />
-              )}
-              {!menuOpen && !mobileSignInOpen && (
+              ) : (
                 <img
                   src={hamburgerLight}
                   alt="Menu"
@@ -98,84 +80,22 @@ export default function Header({ handleLogout }) {
                   onClick={() => setMenuOpen(true)}
                 />
               )}
-              {mobileSignInOpen && (
-                <img
-                  src={closeIcon}
-                  alt="Close Modal"
-                  className="navigation__hamburger"
-                  onClick={handleMobileSignInClose}
-                />
-              )}
             </>
           )}
 
           {/* ───────────────────────────────────────────────────────────── 
-              NAVIGATION LINKS (desktop & tablet)
+              TOP‐LEVEL NAVIGATION LINKS (desktop/tablet)
           ───────────────────────────────────────────────────────────── */}
-          <nav
-            className={`navigation ${animateNav ? "navigation--animate" : ""}`}
-          >
-            <div className="navigation__links">
-              <Link
-                to="/"
-                className={`navigation__link-home ${
-                  isHome
-                    ? "navigation__link--active navigation__link--white"
-                    : ""
-                }`}
-              >
-                Home
-              </Link>
-
-              {isLoggedIn && (
-                <Link
-                  to="/saved-news"
-                  className={`navigation__link-saved ${
-                    isSaved
-                      ? "navigation__link--active navigation__link--black"
-                      : ""
-                  }`}
-                >
-                  Saved Articles
-                </Link>
-              )}
-
-              {!isLoggedIn ? (
-                <button
-                  className="navigation__button"
-                  onClick={handleSignInClick}
-                >
-                  Sign in
-                </button>
-              ) : (
-                <button
-                  className={`navigation__button navigation__button--logout ${
-                    isHome
-                      ? "navigation__button--logout-white"
-                      : "navigation__button--logout-black"
-                  }`}
-                  onClick={handleLogout}
-                >
-                  <span className="navigation__username">
-                    {currentUser?.username
-                      ? currentUser.username.charAt(0).toUpperCase() +
-                        currentUser.username.slice(1)
-                      : ""}
-                  </span>
-                  <img
-                    src={isHome ? logoutIconLight : logoutIconDark}
-                    alt="Logout"
-                    className="navigation__logout-icon"
-                  />
-                </button>
-              )}
-            </div>
-          </nav>
+          <Navigation
+            onSignInClick={openLoginModal}
+            onLogoutClick={handleLogout}
+          />
         </div>
       </div>
 
       {/* ───────────────────────────────────────────────────────────── 
-          MOBILE MENU DROPDOWN (only when “hamburger” is clicked on Home)
+          MOBILE MENU DROPDOWN (slides down when “hamburger” is clicked)
+          Only shows on Home AND when not logged in AND when menuOpen===true
       ───────────────────────────────────────────────────────────── */}
       {menuOpen && isHome && !isLoggedIn && (
         <div className="navigation__dropdown">
@@ -186,23 +106,14 @@ export default function Header({ handleLogout }) {
           <div className="navigation__dropdown-item">Home</div>
           <button
             className="navigation__button navigation__button--dropdown"
-            onClick={() => {
-              setMobileSignInOpen(true);
-              setMenuOpen(false);
-            }}
+            onClick={openLoginModal}
           >
             Sign in
           </button>
         </div>
       )}
-
-      {/* ───────────────────────────────────────────────────────────── 
-          MOBILE SIGN-IN MODAL (slides up from below header)
-      ───────────────────────────────────────────────────────────── */}
-      <MobileMenuSignIn
-        isOpen={mobileSignInOpen}
-        onClose={handleMobileSignInClose}
-      />
     </header>
   );
 }
+
+export default Header;

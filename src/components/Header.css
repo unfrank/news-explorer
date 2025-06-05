@@ -1,4 +1,4 @@
-/* File: src/components/Header.css */
+/* Header.css */
 
 .header {
   font-family: "Roboto", "Inter", sans-serif;
@@ -17,21 +17,30 @@
   border-bottom: 1px solid rgba(13, 14, 14, 0.2);
 }
 
-.header__container {
+.section-inner {
+  max-width: 1140px; /* Or whatever wrapper you had before */
   margin: 0 auto;
-  display: flex;
-  justify-content: space-between; /* logo left, icon right */
-  align-items: center;
-  padding-bottom: 14px;
-  height: 56px; /* if your header height is 56px; adjust if needed */
+  padding: 0 16px;
 }
 
+/* ───────────────────────────────────────────────────────────── 
+   Header container: flex row, logo on left, (hamburger + links) on right
+───────────────────────────────────────────────────────────── */
+.header__container {
+  display: flex;
+  justify-content: space-between; /* logo left, controls on right */
+  align-items: center;
+  height: 56px; /* Adjust if your header is a different height */
+  padding-bottom: 14px;
+}
+
+/* Logo styles */
 .header__logo {
   font-size: 20px;
   font-family: "Roboto Slab";
   font-weight: 700;
   line-height: 24px;
-  color: inherit;
+  color: inherit; /* Will be white on home, black on other pages */
 }
 
 .header__logo--animate {
@@ -51,11 +60,6 @@
   }
 }
 
-/* ───────────────────────────────────────────────────────────── 
-   HAMBURGER/CLOSE ICON (lifted into .header__container)
-   Always 24×24, no extra margins needed; 
-   space-between in the parent will keep it flush right.
-───────────────────────────────────────────────────────────── */
 .navigation__hamburger {
   width: 24px;
   height: 24px;

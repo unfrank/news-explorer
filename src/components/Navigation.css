@@ -1,6 +1,6 @@
-/* File: src/components/Navigation.css */
+/* Navigation.css */
 
-/* Slide-in animation for nav (e.g., after login) */
+/* Slide-in animation for navigation links (e.g., after login) */
 @keyframes fadeInSlideLeft {
   0% {
     opacity: 0;
@@ -19,36 +19,39 @@
   position: relative;
 }
 
+.navigation--animate {
+  opacity: 0;
+  transform: translateX(30px);
+  animation: fadeInSlideLeft 1s ease-out forwards;
+}
+
 .navigation__links {
   display: flex;
   align-items: center;
 }
 
-.navigation__link-home {
-  position: relative;
-  margin: 0;
+/* ───────────────────────────────────────────────────────────── 
+   “Home” & “Saved Articles” link styles
+───────────────────────────────────────────────────────────── */
+.navigation__link-home,
+.navigation__link-saved {
   color: inherit;
   text-decoration: none;
   font-size: 18px;
   font-weight: 500;
   line-height: 24px;
   text-align: center;
+}
+
+.navigation__link-home {
   width: 68px;
   margin-right: 16px;
 }
 
 .navigation__link-saved {
-  position: relative;
-  margin: 0;
-  color: inherit;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 24px;
+  width: 178px;
   margin-left: 32px;
   margin-right: 32px;
-  text-align: center;
-  width: 178px;
 }
 
 .navigation__link:hover {
@@ -56,6 +59,7 @@
   color: #2f71e5;
 }
 
+/* Underline for active link */
 .navigation__link--active::after {
   content: "";
   position: absolute;
@@ -63,14 +67,12 @@
   width: 100%;
   height: 3px;
   background-color: currentColor;
-  padding: 0;
 }
 
+/* Position of the underline depends on “white” vs “black” theme */
 .navigation__link--white::after {
   bottom: -25px;
   background-color: white;
-  padding: 0;
-  margin: 0;
 }
 
 .navigation__link--black::after {
@@ -78,6 +80,7 @@
   background-color: black;
 }
 
+/* Adjust link sizes/positions on mid‐range breakpoints */
 @media (min-width: 600px) and (max-width: 1050px) {
   .navigation__link-home {
     font-size: 16px;
@@ -95,46 +98,41 @@
   }
 }
 
-/* “Sign in” / “Logout” buttons */
+/* ───────────────────────────────────────────────────────────── 
+   “Sign in” / “Logout” button styles
+───────────────────────────────────────────────────────────── */
 .navigation__button {
   color: inherit;
   border: 1px solid currentColor;
-  width: 150px;
   background: transparent;
   cursor: pointer;
-  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
   line-height: 24px;
   border-radius: 24px;
-  max-height: 48px;
+  padding: 10px 16px;
+  margin-left: 16px; /* space between links */
+  max-height: 40px;
   display: flex;
-  justify-content: center;
   align-items: center;
-}
-
-@media (min-width: 550px) and (max-width: 885px) {
-  .navigation__button {
-    max-height: 40px;
-  }
+  justify-content: center;
 }
 
 .navigation__button--logout {
   display: flex;
-  line-height: 24px;
   align-items: center;
+  justify-content: space-evenly;
   border: 1px solid #000;
-  border-radius: 24px;
-  background-color: transparent;
-  cursor: pointer;
-  width: 150px;
-  justify-content: space-around;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 200px;
 }
 
 .navigation__logout-icon {
   width: 24px;
   height: 24px;
+  margin-left: 8px;
 }
 
 .navigation__username {
@@ -145,14 +143,9 @@
   white-space: nowrap;
 }
 
-/* Animate nav items when logging in */
-.navigation--animate {
-  opacity: 0;
-  transform: translateX(30px);
-  animation: fadeInSlideLeft 1s ease-out forwards;
-}
-
-/* Dropdown menu (mobile) */
+/* ───────────────────────────────────────────────────────────── 
+   MOBILE DROPDOWN (only when .navigation__dropdown is rendered)
+───────────────────────────────────────────────────────────── */
 .navigation__dropdown {
   position: fixed;
   top: 0;
@@ -207,9 +200,15 @@
   cursor: pointer;
 }
 
-/* Hide standard links on small screens (mobile) */
+/* On small screens, hide the desktop‐style navigation links */
 @media (max-width: 626px) {
   .navigation__links {
+    display: none;
+  }
+}
+
+@media (min-width: 626px) {
+  .navigation__hamburger {
     display: none;
   }
 }

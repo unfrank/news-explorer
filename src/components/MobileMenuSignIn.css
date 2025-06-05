@@ -1,4 +1,4 @@
-/* File: src/components/MobileMenuSignIn.css */
+/* MobileMenuSignIn.css */
 
 .mm-signin {
   position: fixed;
@@ -7,17 +7,13 @@
   right: 0;
   bottom: 0;
   z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.4);
-  /* a semi-transparent backdrop; optional
-     remove or tweak if you don’t want a dark overlay */
+  background-color: rgba(0, 0, 0, 0.4); /* optional dark backdrop */
 }
 
-/* ───────────────────────────────────────────────────────────── 
-   FORM CONTAINER: pinned just under the 56px-tall header (no negative margins)
-───────────────────────────────────────────────────────────── */
+/* Pin the form container directly under the 56px‐tall header */
 .mm-signin__form-container {
   position: absolute;
-  top: 56px; /* height of header__container; adjust if your header is taller/shorter */
+  top: 56px; /* match your header’s height exactly */
   left: 0;
   right: 0;
   bottom: 0;
@@ -28,7 +24,7 @@
   overflow-y: auto;
 }
 
-/* CLOSE ICON inside the modal (top-right corner) */
+/* Close “X” inside the form (top‐right) */
 .mm-signin__close-icon {
   position: absolute;
   top: 16px;

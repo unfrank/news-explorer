@@ -1,5 +1,3 @@
-// File: src/components/MobileMenuSignIn.jsx
-
 import React, { useEffect, useContext, useState } from "react";
 import "./MobileMenuSignIn.css";
 import closeIcon from "../assets/icons/icon-btn-close.svg";
@@ -54,7 +52,7 @@ export default function MobileMenuSignIn({ isOpen, onClose }) {
   return (
     <div className="mm-signin">
       <div className="mm-signin__form-container">
-        {/* CLOSE ICON at top-right of modal */}
+        {/* CLOSE ICON */}
         <img
           src={closeIcon}
           alt="Close Modal"

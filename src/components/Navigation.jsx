@@ -1,5 +1,3 @@
-// File: src/components/Navigation.jsx
-
 import React, { useContext, useEffect, useState } from "react";
 import "./Navigation.css";
 import CurrentUserContext from "../contexts/CurrentUserContext";
