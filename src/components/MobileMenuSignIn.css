@@ -3,23 +3,6 @@
   z-index: 1000;
 }
 
-.mm-signin__close-button {
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  top: 16px;
-  right: 16px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 1001;
-}
-
-.mm-signin__close-button img {
-  width: 24px;
-  height: 24px;
-}
-
 .mm-signin__form-container {
   position: absolute;
   top: 57px;
