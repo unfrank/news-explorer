@@ -1,3 +1,6 @@
+/* File: src/components/Navigation.css */
+
+/* Slide-in animation for nav (e.g., after login) */
 @keyframes fadeInSlideLeft {
   0% {
     opacity: 0;
@@ -16,13 +19,16 @@
   position: relative;
 }
 
+.navigation__links {
+  display: flex;
+  align-items: center;
+}
+
 .navigation__link-home {
   position: relative;
   margin: 0;
   color: inherit;
   text-decoration: none;
-  font-family: "Roboto", "Inter", sans-serif;
-  display: inline-block;
   font-size: 18px;
   font-weight: 500;
   line-height: 24px;
@@ -36,8 +42,6 @@
   margin: 0;
   color: inherit;
   text-decoration: none;
-  font-family: "Roboto", "Inter", sans-serif;
-  display: inline-block;
   font-size: 18px;
   font-weight: 500;
   line-height: 24px;
@@ -76,49 +80,22 @@
 
 @media (min-width: 600px) and (max-width: 1050px) {
   .navigation__link-home {
-    position: relative;
-    color: inherit;
-    text-decoration: none;
-    font-family: "Roboto", "Inter", sans-serif;
-    display: inline-block;
-    text-align: center;
-    justify-content: center;
     font-size: 16px;
   }
   .navigation__link-saved {
-    position: relative;
-    margin: 0;
-    color: inherit;
-    text-decoration: none;
-    font-family: "Roboto", "Inter", sans-serif;
-    display: inline-block;
     margin-left: 16px;
     margin-right: 16px;
     font-size: 16px;
-    font-weight: 500;
-    line-height: 24px;
-
-    text-align: center;
   }
-
-  .navigation__link:last-of-type {
-    margin-right: 16px;
-    width: 160px;
-  }
-
   .navigation__link--white::after {
     bottom: -23px;
-    background-color: white;
-    padding: 0;
-    margin: 0;
   }
-
   .navigation__link--black::after {
     bottom: -23px;
-    background-color: black;
   }
 }
 
+/* “Sign in” / “Logout” buttons */
 .navigation__button {
   color: inherit;
   border: 1px solid currentColor;
@@ -137,15 +114,6 @@
 @media (min-width: 550px) and (max-width: 885px) {
   .navigation__button {
     max-height: 40px;
-  }
-}
-@media (min-width: 886px) and (max-width: 1050px) {
-  .navigation__link--white::after {
-    bottom: -25px;
-  }
-
-  .navigation__link--black::after {
-    bottom: -25px;
   }
 }
 
@@ -177,34 +145,19 @@
   white-space: nowrap;
 }
 
+/* Animate nav items when logging in */
 .navigation--animate {
   opacity: 0;
   transform: translateX(30px);
   animation: fadeInSlideLeft 1s ease-out forwards;
 }
 
-.navigation__button--logout-white {
-  border-color: white;
-}
-
-.navigation__button--logout-black {
-  border-color: black;
-}
-
-.hidden {
-  display: none;
-}
-.navigation__links {
-  display: flex;
-  align-items: center;
-}
-
+/* Dropdown menu (mobile) */
 .navigation__dropdown {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-
   bottom: calc(100vh - 230px);
   width: 100vw;
   background-color: #1a1b22;
@@ -212,25 +165,6 @@
   border-bottom-right-radius: 12px;
   overflow-y: auto;
   z-index: 999;
-}
-
-.navigation__dropdown-title {
-  color: #fff;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.navigation__button--dropdown {
-  width: calc(100% - 40px);
-  margin: 16px 20px;
-  background: none;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  color: #ffffff;
-  padding: 14px 0;
-  border-radius: 24px;
-  font-size: 16px;
-  text-align: center;
-  cursor: pointer;
 }
 
 .navigation__dropdown-header {
@@ -260,26 +194,22 @@
   color: #ffffff;
 }
 
+.navigation__button--dropdown {
+  width: calc(100% - 40px);
+  margin: 16px 20px;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  color: #ffffff;
+  padding: 14px 0;
+  border-radius: 24px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* Hide standard links on small screens (mobile) */
 @media (max-width: 626px) {
   .navigation__links {
     display: none;
   }
-}
-.navigation__icon-container {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: 24px;
-  height: 24px;
-  position: relative; /* Add this */
-  z-index: 1001; /* Add this */
-}
-
-.navigation__hamburger {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  z-index: 1001; /* Add this */
-  position: relative; /* Add this */
 }

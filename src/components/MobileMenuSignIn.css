@@ -1,19 +1,42 @@
+/* File: src/components/MobileMenuSignIn.css */
+
 .mm-signin {
-  /* inset: 5px; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.4);
+  /* a semi-transparent backdrop; optional
+     remove or tweak if you don’t want a dark overlay */
 }
 
+/* ───────────────────────────────────────────────────────────── 
+   FORM CONTAINER: pinned just under the 56px-tall header (no negative margins)
+───────────────────────────────────────────────────────────── */
 .mm-signin__form-container {
   position: absolute;
-  top: 57px;
-  left: -5px;
-  right: -5px;
+  top: 56px; /* height of header__container; adjust if your header is taller/shorter */
+  left: 0;
+  right: 0;
   bottom: 0;
   background-color: #fff;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
   padding: 24px 20px;
   overflow-y: auto;
+}
+
+/* CLOSE ICON inside the modal (top-right corner) */
+.mm-signin__close-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 1001;
 }
 
 .mm-signin__form-title {
@@ -41,6 +64,7 @@
   margin-bottom: 20px;
   outline: none;
 }
+
 .mm-signin__input:focus {
   border-bottom: 1px solid #000000;
 }
@@ -58,6 +82,7 @@
   transition: opacity 0.2s ease, transform 0.1s ease;
   margin-top: 8px;
 }
+
 .mm-signin__submit:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
@@ -70,11 +95,13 @@
   font-size: 14px;
   color: #444444;
 }
+
 .mm-signin__signup-link {
   color: #2f80ed;
   text-decoration: none;
   margin-left: 4px;
 }
+
 .mm-signin__signup-link:hover {
   text-decoration: underline;
 }

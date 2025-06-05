@@ -1,3 +1,5 @@
+// File: src/components/MobileMenuSignIn.jsx
+
 import React, { useEffect, useContext, useState } from "react";
 import "./MobileMenuSignIn.css";
 import closeIcon from "../assets/icons/icon-btn-close.svg";
@@ -52,6 +54,14 @@ export default function MobileMenuSignIn({ isOpen, onClose }) {
   return (
     <div className="mm-signin">
       <div className="mm-signin__form-container">
+        {/* CLOSE ICON at top-right of modal */}
+        <img
+          src={closeIcon}
+          alt="Close Modal"
+          className="mm-signin__close-icon"
+          onClick={onClose}
+        />
+
         <h3 className="mm-signin__form-title">Sign in</h3>
 
         <form className="mm-signin__form" onSubmit={handleSubmit} noValidate>
@@ -90,14 +100,14 @@ export default function MobileMenuSignIn({ isOpen, onClose }) {
           >
             {isSubmitting ? "Signing in…" : "Sign in"}
           </button>
-
-          <div className="mm-signin__footer">
-            or{" "}
-            <a href="#" className="mm-signin__signup-link">
-              Sign up
-            </a>
-          </div>
         </form>
+
+        <div className="mm-signin__footer">
+          or{" "}
+          <a href="#" className="mm-signin__signup-link">
+            Sign up
+          </a>
+        </div>
       </div>
     </div>
   );
