@@ -14,6 +14,7 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
   const isHome = location.pathname === "/";
   const isSaved = location.pathname === "/saved-news";
 
+  // Animate navigation links when user logs in
   useEffect(() => {
     if (isLoggedIn) {
       setAnimate(true);
@@ -46,7 +47,13 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
         )}
 
         {!isLoggedIn ? (
-          <button className="navigation__button" onClick={onSignInClick}>
+          <button
+            className="navigation__button"
+            onClick={() => {
+              console.log("Navigation button clicked"); // ← debug log
+              onSignInClick();
+            }}
+          >
             Sign in
           </button>
         ) : (

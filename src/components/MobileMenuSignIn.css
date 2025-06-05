@@ -7,7 +7,7 @@
   right: 0;
   bottom: 0;
   z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.4); /* optional backdrop */
+  /* background-color: rgba(0, 0, 0, 0.4);  */
 }
 
 /* The form container still needs to be pushed down below the header. */
