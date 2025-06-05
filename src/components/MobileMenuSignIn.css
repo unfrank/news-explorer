@@ -7,33 +7,25 @@
   right: 0;
   bottom: 0;
   z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.4); /* optional dark backdrop */
+  background-color: rgba(0, 0, 0, 0.4); /* optional backdrop */
 }
 
-/* Pin the form container directly under the 56px‐tall header */
+/* The form container still needs to be pushed down below the header. */
 .mm-signin__form-container {
-  position: absolute;
-  top: 56px; /* match your header’s height exactly */
+  position: relative; /* so the panel’s own children are positioned normally */
+  top: 56px; /* match the header’s height exactly */
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #fff;
+  background-color: #ffffff;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
   padding: 24px 20px;
   overflow-y: auto;
+  z-index: 1000;
 }
 
-/* Close “X” inside the form (top‐right) */
-.mm-signin__close-icon {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  z-index: 1001;
-}
+/* All of the visual styling for the form itself remains unchanged: */
 
 .mm-signin__form-title {
   margin: 0 0 24px 0;
@@ -96,8 +88,4 @@
   color: #2f80ed;
   text-decoration: none;
   margin-left: 4px;
-}
-
-.mm-signin__signup-link:hover {
-  text-decoration: underline;
 }

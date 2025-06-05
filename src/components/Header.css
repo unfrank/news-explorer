@@ -18,29 +18,24 @@
 }
 
 .section-inner {
-  max-width: 1140px; /* Or whatever wrapper you had before */
+  max-width: 1140px; /* Or whatever wrapper width you need */
   margin: 0 auto;
   padding: 0 16px;
 }
 
-/* ───────────────────────────────────────────────────────────── 
-   Header container: flex row, logo on left, (hamburger + links) on right
-───────────────────────────────────────────────────────────── */
 .header__container {
   display: flex;
-  justify-content: space-between; /* logo left, controls on right */
+  justify-content: space-between; /* logo left, (icon + navigation) on the right */
   align-items: center;
-  height: 56px; /* Adjust if your header is a different height */
   padding-bottom: 14px;
 }
 
-/* Logo styles */
 .header__logo {
   font-size: 20px;
   font-family: "Roboto Slab";
   font-weight: 700;
   line-height: 24px;
-  color: inherit; /* Will be white on home, black on other pages */
+  color: inherit; /* white on home, black elsewhere */
 }
 
 .header__logo--animate {
@@ -60,6 +55,16 @@
   }
 }
 
+/* This wrapper always sits at the right edge of the header__container */
+.header__icon-slot {
+  display: flex;
+  align-items: center;
+  /* padding-left: auto; */
+  margin-left: auto;
+  /* no width specified—flex will size it to fit the <img> inside */
+}
+
+/* All three icons (hamburger, close dropdown, close modal) use this same class */
 .navigation__hamburger {
   width: 24px;
   height: 24px;

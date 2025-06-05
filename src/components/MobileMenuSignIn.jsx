@@ -1,7 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
 import "./MobileMenuSignIn.css";
-import closeIcon from "../assets/icons/icon-btn-close.svg";
-
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import { login } from "../authorization/auth";
 
@@ -52,14 +50,7 @@ export default function MobileMenuSignIn({ isOpen, onClose }) {
   return (
     <div className="mm-signin">
       <div className="mm-signin__form-container">
-        {/* CLOSE ICON */}
-        <img
-          src={closeIcon}
-          alt="Close Modal"
-          className="mm-signin__close-icon"
-          onClick={onClose}
-        />
-
+        {/* Remove the close icon here—it's now up in Header.jsx */}
         <h3 className="mm-signin__form-title">Sign in</h3>
 
         <form className="mm-signin__form" onSubmit={handleSubmit} noValidate>
