@@ -101,35 +101,18 @@
   }
 }
 
-/* ───────────────────────────────────────────────────────────── 
-   “Sign in” / “Logout” button styles
-───────────────────────────────────────────────────────────── */
-.navigation__button {
-  color: inherit;
-  border: 1px solid currentColor;
+.navigation__button-signin {
+  width: 120px;
   background: transparent;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 24px;
-  border-radius: 24px;
-  padding: 10px 16px;
-  margin-left: 16px; /* space between links */
-  max-height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border: 1px solid white;
+  border-radius: 20px;
 }
 
-.navigation__button--logout {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  border: 1px solid #000;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 200px;
+.navigation__button-logout {
+  width: 120px;
+  background: transparent;
+  border: 1px solid #d1d2d6;
+  border-radius: 20px;
 }
 
 .navigation__logout-icon {
@@ -146,9 +129,6 @@
   white-space: nowrap;
 }
 
-/* ───────────────────────────────────────────────────────────── 
-   MOBILE DROPDOWN (only when .navigation__dropdown is rendered)
-───────────────────────────────────────────────────────────── */
 .navigation__dropdown {
   position: fixed;
   top: 0;
@@ -203,7 +183,18 @@
   cursor: pointer;
 }
 
-/* On small screens, hide the desktop‐style navigation links */
+.navigation__hamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 1001;
+  margin-left: auto;
+  background-color: transparent;
+}
+
 @media (max-width: 626px) {
   .navigation__links {
     display: none;

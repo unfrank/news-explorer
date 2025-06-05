@@ -5,7 +5,7 @@
 .header--transparent {
   background-color: transparent;
   color: white;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* ← match Figma */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .header--solid {
@@ -52,10 +52,4 @@
   margin-left: auto;
 }
 
-.navigation__hamburger {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  z-index: 1001;
-  margin-left: auto;
-}
+/* remake */
