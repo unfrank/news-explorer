@@ -191,14 +191,6 @@
   border-color: black;
 }
 
-.navigation__hamburger {
-  width: 24px;
-  height: 24px;
-  margin-left: auto;
-  cursor: pointer;
-  display: block;
-}
-
 .hidden {
   display: none;
 }
