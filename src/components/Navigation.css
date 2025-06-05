@@ -35,12 +35,15 @@
 ───────────────────────────────────────────────────────────── */
 .navigation__link-home,
 .navigation__link-saved {
+  display: inline-block; /* ← critical */
+  position: relative;
   color: inherit;
   text-decoration: none;
   font-size: 18px;
   font-weight: 500;
   line-height: 24px;
   text-align: center;
+  margin: 0 16px;
 }
 
 .navigation__link-home {
@@ -63,14 +66,14 @@
 .navigation__link--active::after {
   content: "";
   position: absolute;
+  bottom: -8px;
   left: 0;
   width: 100%;
   height: 3px;
   background-color: currentColor;
 }
 
-/* Position of the underline depends on “white” vs “black” theme */
-.navigation__link--white::after {
+/* .navigation__link--white::after {
   bottom: -25px;
   background-color: white;
 }
@@ -78,7 +81,7 @@
 .navigation__link--black::after {
   bottom: -25px;
   background-color: black;
-}
+} */
 
 /* Adjust link sizes/positions on mid‐range breakpoints */
 @media (min-width: 600px) and (max-width: 1050px) {

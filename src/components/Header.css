@@ -1,25 +1,17 @@
-/* Header.css */
-
-/* ───────────────────────────────────────────────────────────────────────────
-   1) BASE HEADER STYLES
-─────────────────────────────────────────────────────────────────────────── */
 .header {
   font-family: "Roboto", "Inter", sans-serif;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Transparent style (only on home page over the hero image) */
 .header--transparent {
   background-color: transparent;
   color: white;
-  border-bottom: none; /* ← add this line */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* ← match Figma */
 }
 
-/* Solid style (anywhere except home page) */
 .header--solid {
   background-color: #ffffff;
   color: black;
-  border-bottom: 1px solid rgba(13, 14, 14, 0.2);
+  border-bottom: 1px solid rgba(11, 11, 11, 0.2);
 }
 
 .header__container {
@@ -29,11 +21,6 @@
   padding-bottom: 14px;
 }
 
-/* 
-  .header__logo: your “NewsExplorer” text. 
-  • Uses a slab font and 700 weight. 
-  • Inherits color (white over hero, black elsewhere).
-*/
 .header__logo {
   font-size: 20px;
   font-family: "Roboto Slab";
@@ -42,10 +29,6 @@
   color: inherit;
 }
 
-/* 
-  Fade-in animation for the logo when logging in. 
-  (Users see a slide from left + fade in.)
-*/
 .header__logo--animate {
   opacity: 0;
   transform: translateX(-30px);
@@ -63,21 +46,12 @@
   }
 }
 
-/* 
-  .header__icon-slot: always sits at the right edge of the .header__container. 
-  • margin-left:auto pushes it as far right as possible. 
-  • The <img> inside will be 24×24px. 
-*/
 .header__icon-slot {
   display: flex;
   align-items: center;
   margin-left: auto;
 }
 
-/* 
-  All three icons (hamburger, close‐modal, close‐dropdown) share this class. 
-  • 24×24px, clickable, z-index:1001 so it floats above header elements 
-*/
 .navigation__hamburger {
   width: 24px;
   height: 24px;
