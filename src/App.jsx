@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import "./components/Hero.css";
+
 import Main from "./components/Main";
 import About from "./components/About";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import LoginModal from "./components/LoginModal";
 import RegisterModal from "./components/RegisterModal";
-import ProtectedRoute from "./authorization/ProtectedRoute";
 import RegisterSuccessModal from "./components/RegisterSuccessModal";
 import SavedNews from "./components/SavedNews";
 
+import ProtectedRoute from "./authorization/ProtectedRoute";
+
 import { fetchNewsArticles } from "./utils/newsApi";
 import { checkToken, register, login } from "./authorization/auth";
+
 import CurrentUserContext from "./contexts/CurrentUserContext";
 
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
@@ -20,7 +23,10 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Preloader from "./components/Preloader";
 
 function App() {
-  const [activeModal, setActiveModal] = useState("");
+  // ────────────────────────────────────────────────────────────────────────────
+  // 1) APP‐LEVEL STATE
+  // ────────────────────────────────────────────────────────────────────────────
+  const [activeModal, setActiveModal] = useState(""); // "login" | "register" | "register-success"
   const [isLoading, setIsLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [savedArticles, setSavedArticles] = useState([]);
@@ -32,9 +38,13 @@ function App() {
   const [pendingLogin, setPendingLogin] = useState(null);
   const [articles, setArticles] = useState([]);
 
+  // Determine if we’re on “/” to toggle header transparently
   const location = useLocation();
   const isHome = location.pathname === "/";
 
+  // ────────────────────────────────────────────────────────────────────────────
+  // 2) EFFECTS: SCROLL RESTORATION & AUTH CHECK
+  // ────────────────────────────────────────────────────────────────────────────
   useEffect(() => {
     window.history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
@@ -42,7 +52,6 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
-
     if (!token) {
       setIsLoggedIn(false);
       setCurrentUser(null);
@@ -50,7 +59,6 @@ function App() {
     }
 
     setIsLoggedIn(true);
-
     checkToken(token)
       .then((res) => {
         setCurrentUser({ email: res.email, username: res.username });
@@ -68,6 +76,9 @@ function App() {
       });
   }, []);
 
+  // ────────────────────────────────────────────────────────────────────────────
+  // 3) HANDLERS
+  // ────────────────────────────────────────────────────────────────────────────
   const handleSearch = (query) => {
     setFetchError(false);
     setIsLoading(true);
@@ -86,7 +97,7 @@ function App() {
 
     fetchNewsArticles({ query, from: lastWeek, to: today })
       .then(async (data) => {
-        const articles = data.articles.slice(0, 12);
+        const results = data.articles.slice(0, 12);
         const validated = [];
 
         const validateImage = (url) =>
@@ -97,7 +108,7 @@ function App() {
             img.src = url;
           });
 
-        for (let article of articles) {
+        for (let article of results) {
           const imageUrl = article.urlToImage || article.image || "";
           const isValid = await validateImage(imageUrl);
           if (isValid) validated.push(article);
@@ -114,7 +125,6 @@ function App() {
       .finally(() => {
         const elapsed = Date.now() - startTime;
         const delay = Math.max(0, MIN_SPINNER_TIME - elapsed);
-
         setTimeout(() => {
           setIsLoading(false);
         }, delay);
@@ -125,11 +135,9 @@ function App() {
     const token = localStorage.getItem("jwt");
     if (!token) return;
 
-    const isAlreadySaved = savedArticles.some(
-      (a) => a.link === articleData.url
-    );
+    const alreadySaved = savedArticles.some((a) => a.link === articleData.url);
 
-    if (isAlreadySaved) {
+    if (alreadySaved) {
       const saved = savedArticles.find((a) => a.link === articleData.url);
       fetch(`http://localhost:3000/articles/${saved._id}`, {
         method: "DELETE",
@@ -173,16 +181,13 @@ function App() {
 
   const handleDeleteArticle = (id) => {
     const token = localStorage.getItem("jwt");
-
     fetch(`http://localhost:3000/articles/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {
         if (res.ok) {
-          setSavedArticles((prev) =>
-            prev.filter((article) => article._id !== id)
-          );
+          setSavedArticles((prev) => prev.filter((a) => a._id !== id));
         } else {
           throw new Error("Failed to delete");
         }
@@ -199,8 +204,8 @@ function App() {
     register(email, username, password)
       .then(() => {
         setPendingLogin({ email, password });
-        setEmailError(""); // ✅ Clear error on success
-        onClose(); // ✅ Only close on success
+        setEmailError("");
+        onClose();
         setActiveModal("register-success");
       })
       .catch((err) => {
@@ -214,8 +219,6 @@ function App() {
   };
 
   const handleLogin = (credentials) => {
-    console.log("handleLogin received:", credentials);
-
     const token = credentials.token;
     localStorage.setItem("jwt", token);
     setIsLoggedIn(true);
@@ -224,11 +227,7 @@ function App() {
 
     checkToken(token)
       .then((userInfo) => {
-        setCurrentUser({
-          email: userInfo.email,
-          username: userInfo.username,
-        });
-
+        setCurrentUser({ email: userInfo.email, username: userInfo.username });
         return fetch("http://localhost:3000/articles", {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -247,16 +246,30 @@ function App() {
     setCurrentUser(null);
   };
 
+  // ────────────────────────────────────────────────────────────────────────────
+  // 4) RENDER
+  // ────────────────────────────────────────────────────────────────────────────
   return (
-    <CurrentUserContext.Provider value={{ currentUser, isLoggedIn }}>
+    <CurrentUserContext.Provider
+      value={{ currentUser, isLoggedIn, handleLogin }}
+    >
+      {/* ───────────────────────────────────────────────────────────────────── 
+          A) HEADER (always rendered once, no matter the route)
+      ──────────────────────────────────────────────────────────────────────────── */}
+      <Header
+        isHome={isHome}
+        isLoggedIn={isLoggedIn}
+        currentUser={currentUser}
+        setActiveModal={setActiveModal}
+        handleLogout={handleLogout}
+      />
+
+      {/* ───────────────────────────────────────────────────────────────────── 
+          B) MAIN CONTENT: either the “hero” (Main+About) on “/”, 
+             or the <Routes> for /saved-news and redirects on other paths.
+      ──────────────────────────────────────────────────────────────────────────── */}
       {isHome ? (
         <div className="hero">
-          <Header
-            isLoggedIn={isLoggedIn}
-            currentUser={currentUser}
-            setActiveModal={setActiveModal}
-            handleLogout={handleLogout}
-          />
           <Main
             onSearch={handleSearch}
             articles={articles}
@@ -273,32 +286,30 @@ function App() {
           <About />
         </div>
       ) : (
-        <>
-          <Header
-            isLoggedIn={isLoggedIn}
-            currentUser={currentUser}
-            setActiveModal={setActiveModal}
-            handleLogout={handleLogout}
-          />
-          <Routes>
-            <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
-              <Route
-                path="/saved-news"
-                element={
-                  <SavedNews
-                    savedArticles={savedArticles}
-                    onDeleteArticle={handleDeleteArticle}
-                  />
-                }
-              />
-            </Route>
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
-        </>
+        <Routes>
+          <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
+            <Route
+              path="/saved-news"
+              element={
+                <SavedNews
+                  savedArticles={savedArticles}
+                  onDeleteArticle={handleDeleteArticle}
+                />
+              }
+            />
+          </Route>
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
       )}
 
+      {/* ───────────────────────────────────────────────────────────────────── 
+          C) FOOTER (always rendered once, after main content)
+      ──────────────────────────────────────────────────────────────────────────── */}
       <Footer />
 
+      {/* ───────────────────────────────────────────────────────────────────── 
+          D) GLOBAL MODALS (always rendered once, below everything else)
+      ──────────────────────────────────────────────────────────────────────────── */}
       <LoginModal
         isOpen={activeModal === "login"}
         onClose={() => setActiveModal("")}
@@ -307,7 +318,6 @@ function App() {
         isLoading={false}
         buttonText="Sign In"
       />
-
       <RegisterModal
         isOpen={activeModal === "register"}
         onClose={() => setActiveModal("")}
@@ -318,7 +328,6 @@ function App() {
         pendingLogin={pendingLogin}
         setActiveModal={setActiveModal}
       />
-
       <RegisterSuccessModal
         isOpen={activeModal === "register-success"}
         onClose={() => setActiveModal("")}

@@ -1,33 +1,36 @@
 // File: src/components/Header.jsx
 
 import React, { useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+
 import Navigation from "./Navigation";
-import "./Header.css";
+import LoginModal from "./LoginModal";
+import MobileMenuSignIn from "./MobileMenuSignIn";
 
 import CurrentUserContext from "../contexts/CurrentUserContext";
-import { useLocation } from "react-router-dom";
+
+import "./Header.css";
 
 import closeIcon from "../assets/icons/icon-btn-close.svg";
 import hamburgerLight from "../assets/icons/icon-hamburger-light.svg";
 
-// These two components must exist in the same folder:
-import LoginModal from "./LoginModal";
-import MobileMenuSignIn from "./MobileMenuSignIn";
+export default function Header({
+  isHome,
+  isLoggedIn,
+  currentUser,
+  setActiveModal,
+  handleLogout,
+}) {
+  // Grab handleLogin from context so we can call it after desktop sign-in:
+  const { handleLogin } = useContext(CurrentUserContext);
 
-export default function Header({ handleLogout }) {
-  const { currentUser, isLoggedIn, handleLogin } =
-    useContext(CurrentUserContext);
-  const location = useLocation();
-  const isHome = location.pathname === "/";
-
+  // Local UI state:
   const [logoAnimate, setLogoAnimate] = useState(false);
-
   const [menuOpen, setMenuOpen] = useState(false);
-
   const [desktopLoginOpen, setDesktopLoginOpen] = useState(false);
-
   const [mobileSignInOpen, setMobileSignInOpen] = useState(false);
 
+  // Animate logo when user logs in:
   useEffect(() => {
     if (isLoggedIn) {
       setLogoAnimate(true);
@@ -36,6 +39,7 @@ export default function Header({ handleLogout }) {
     }
   }, [isLoggedIn]);
 
+  // Close dropdown / mobile form if the screen becomes ≥ 646px wide
   useEffect(() => {
     function onResize() {
       if (window.innerWidth >= 646) {
@@ -48,53 +52,47 @@ export default function Header({ handleLogout }) {
   }, []);
 
   // ────────────────────────────────────────────────────────────────────────────
-  // 3) Handlers
+  // 1) HANDLERS
   // ────────────────────────────────────────────────────────────────────────────
 
-  // Opens the desktop LoginModal
+  // Open the desktop “Sign In” modal
   function openLoginModal() {
-    console.log("openLoginModal() called");
     setDesktopLoginOpen(true);
-    // Always close the mobile dropdown if it was open:
     setMenuOpen(false);
   }
 
-  // Closes the desktop LoginModal
+  // Close the desktop modal
   function closeLoginModal() {
-    console.log("closeLoginModal() called");
     setDesktopLoginOpen(false);
   }
 
-  // Opens the mobile slide‐up sign‐in form
-  function openMobileSignIn() {
-    console.log("openMobileSignIn() called");
-    setMobileSignInOpen(true);
-    // Close the dropdown that contained this button
-    setMenuOpen(false);
-  }
-
-  // Closes the mobile slide‐up sign‐in form
-  function closeMobileSignIn() {
-    console.log("closeMobileSignIn() called");
-    setMobileSignInOpen(false);
-  }
-
-  // Called after a successful login (desktop)
+  // When desktop login succeeds, call context’s handleLogin() + close modal
   function onDesktopLoginSuccess({ token, user }) {
-    console.log("onDesktopLoginSuccess() called with user:", user);
     handleLogin({ token, user });
     closeLoginModal();
   }
 
+  // Open the mobile slide-up sign-in panel
+  function openMobileSignIn() {
+    setMobileSignInOpen(true);
+    setMenuOpen(false);
+  }
+
+  // Close the mobile slide-up panel
+  function closeMobileSignIn() {
+    setMobileSignInOpen(false);
+  }
+
+  // ────────────────────────────────────────────────────────────────────────────
+  // 2) RENDER
+  // ────────────────────────────────────────────────────────────────────────────
   return (
     <header
       className={`header ${isHome ? "header--transparent" : "header--solid"}`}
     >
       <div className="section-inner">
         <div className="header__container">
-          {/* ─────────────────────────────────────────────────────────
-              1) LOGO (left side). Animates when the user signs in.
-          ───────────────────────────────────────────────────────── */}
+          {/* ─────────────── 1) LOGO ────────────────────── */}
           <div
             className={`header__logo ${
               logoAnimate ? "header__logo--animate" : ""
@@ -103,13 +101,7 @@ export default function Header({ handleLogout }) {
             NewsExplorer
           </div>
 
-          {/* ─────────────────────────────────────────────────────────
-              2) ICON SLOT (always flush right, same container):
-                 - If mobileSignInOpen → show “Close Modal” (closes mobile form)
-                 - Else if menuOpen       → show “Close Menu” (closes dropdown)
-                 - Else if isHome && !isLoggedIn → show “Hamburger” (opens dropdown)
-                 - Otherwise (logged in or not on Home) → show nothing
-          ───────────────────────────────────────────────────────── */}
+          {/* ─────────────── 2) ICON SLOT (far right) ────────────────────── */}
           <div className="header__icon-slot">
             {mobileSignInOpen ? (
               <img
@@ -135,10 +127,7 @@ export default function Header({ handleLogout }) {
             ) : null}
           </div>
 
-          {/* ─────────────────────────────────────────────────────────
-              3) TOP‐LEVEL NAVIGATION (desktop/tablet):
-                 Home / Saved Articles (if logged in) / Sign in or Logout
-          ───────────────────────────────────────────────────────── */}
+          {/* ─────────────── 3) DESKTOP NAV LINKS ────────────────────── */}
           <Navigation
             onSignInClick={openLoginModal}
             onLogoutClick={handleLogout}
@@ -146,10 +135,7 @@ export default function Header({ handleLogout }) {
         </div>
       </div>
 
-      {/* ─────────────────────────────────────────────────────────
-          4) MOBILE MENU DROPDOWN (dark panel under header)
-             Only if: isHome && !isLoggedIn && menuOpen === true
-      ───────────────────────────────────────────────────────── */}
+      {/* ─────────────── 4) MOBILE DROPDOWN PANEL (below header) ────────────────────── */}
       {menuOpen && isHome && !isLoggedIn && (
         <div className="navigation__dropdown">
           <div className="navigation__dropdown-header">
@@ -159,7 +145,7 @@ export default function Header({ handleLogout }) {
 
           <div className="navigation__dropdown-item">Home</div>
 
-          {/* ─ This “Sign in” button inside the dropdown now opens the mobile form ─ */}
+          {/* Clicking this “Sign in” opens the mobile slide-up form */}
           <button
             className="navigation__button navigation__button--dropdown"
             onClick={openMobileSignIn}
@@ -169,23 +155,17 @@ export default function Header({ handleLogout }) {
         </div>
       )}
 
-      {/* ─────────────────────────────────────────────────────────
-          5) DESKTOP LoginModal (overlay) – shown when desktopLoginOpen === true
-      ───────────────────────────────────────────────────────── */}
+      {/* ─────────────── 5) DESKTOP LoginModal (overlay) ────────────────────── */}
       {desktopLoginOpen && (
-        <>
-          <LoginModal
-            isOpen={desktopLoginOpen}
-            onClose={closeLoginModal}
-            onAuthSuccess={onDesktopLoginSuccess}
-            buttonText="Sign In"
-          />
-        </>
+        <LoginModal
+          isOpen={desktopLoginOpen}
+          onClose={closeLoginModal}
+          onAuthSuccess={onDesktopLoginSuccess}
+          buttonText="Sign In"
+        />
       )}
 
-      {/* ─────────────────────────────────────────────────────────
-          6) MOBILE slide‐up Sign‐In (white panel) – shown when mobileSignInOpen === true
-      ───────────────────────────────────────────────────────── */}
+      {/* ─────────────── 6) MOBILE slide-up Sign-In panel ────────────────────── */}
       {mobileSignInOpen && (
         <MobileMenuSignIn
           isOpen={mobileSignInOpen}

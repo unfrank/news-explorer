@@ -1,43 +1,50 @@
 /* Header.css */
 
+/* ───────────────────────────────────────────────────────────────────────────
+   1) BASE HEADER STYLES
+─────────────────────────────────────────────────────────────────────────── */
 .header {
   font-family: "Roboto", "Inter", sans-serif;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  /* padding-top: 20px; */
 }
 
+/* Transparent style (only on home page over the hero image) */
 .header--transparent {
   background-color: transparent;
   color: white;
 }
 
+/* Solid style (anywhere except home page) */
 .header--solid {
   background-color: #ffffff;
   color: black;
   border-bottom: 1px solid rgba(13, 14, 14, 0.2);
 }
 
-.section-inner {
-  max-width: 1140px; /* Or whatever wrapper width you need */
-  margin: 0 auto;
-  padding: 0 16px;
-}
-
 .header__container {
   display: flex;
-  justify-content: space-between; /* logo left, (icon + navigation) on the right */
+  justify-content: space-between;
   align-items: center;
   padding-bottom: 14px;
 }
 
+/* 
+  .header__logo: your “NewsExplorer” text. 
+  • Uses a slab font and 700 weight. 
+  • Inherits color (white over hero, black elsewhere).
+*/
 .header__logo {
   font-size: 20px;
   font-family: "Roboto Slab";
   font-weight: 700;
   line-height: 24px;
-  color: inherit; /* white on home, black elsewhere */
+  color: inherit;
 }
 
+/* 
+  Fade-in animation for the logo when logging in. 
+  (Users see a slide from left + fade in.)
+*/
 .header__logo--animate {
   opacity: 0;
   transform: translateX(-30px);
@@ -55,16 +62,21 @@
   }
 }
 
-/* This wrapper always sits at the right edge of the header__container */
+/* 
+  .header__icon-slot: always sits at the right edge of the .header__container. 
+  • margin-left:auto pushes it as far right as possible. 
+  • The <img> inside will be 24×24px. 
+*/
 .header__icon-slot {
   display: flex;
   align-items: center;
-  /* padding-left: auto; */
   margin-left: auto;
-  /* no width specified—flex will size it to fit the <img> inside */
 }
 
-/* All three icons (hamburger, close dropdown, close modal) use this same class */
+/* 
+  All three icons (hamburger, close‐modal, close‐dropdown) share this class. 
+  • 24×24px, clickable, z-index:1001 so it floats above header elements 
+*/
 .navigation__hamburger {
   width: 24px;
   height: 24px;
