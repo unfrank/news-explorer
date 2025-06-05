@@ -11,6 +11,7 @@ function LoginModal({
   buttonText,
   setActiveModal,
 }) {
+  if (!isOpen) return null;
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
@@ -65,7 +66,8 @@ function LoginModal({
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              setActiveModal("register");
+              onClose(); // close LoginModal first
+              setTimeout(() => setActiveModal("register"), 0); // open RegisterModal
             }}
           >
             Sign up

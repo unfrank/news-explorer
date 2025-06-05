@@ -18,8 +18,8 @@ export default function Header({
   isHome,
   isLoggedIn,
   currentUser,
-  setActiveModal,
   handleLogout,
+  setActiveModal,
 }) {
   // Grab handleLogin from context so we can call it after desktop sign-in:
   const { handleLogin } = useContext(CurrentUserContext);
@@ -161,6 +161,7 @@ export default function Header({
           isOpen={desktopLoginOpen}
           onClose={closeLoginModal}
           onAuthSuccess={onDesktopLoginSuccess}
+          setActiveModal={setActiveModal}
           buttonText="Sign In"
         />
       )}
