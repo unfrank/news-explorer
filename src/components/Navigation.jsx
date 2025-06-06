@@ -24,7 +24,7 @@ export default function Navigation({
   const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
   const location = useLocation();
   const isHome = location.pathname === "/";
-  const isSaved = location.pathname === "/saved-news";
+  const isSaved = location.pathname === "/saved-articles";
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSignInOpen, setMobileSignInOpen] = useState(false);
@@ -157,7 +157,18 @@ export default function Navigation({
               className="navigation__button-logout"
               onClick={handleLogoutClick}
             >
-              <span className="navigation__username">{displayName}</span>
+              <span
+                className={`navigation__username ${
+                  isHome
+                    ? "navigation__username--light"
+                    : isSaved
+                    ? "navigation__username--dark"
+                    : ""
+                }`}
+              >
+                {displayName}
+              </span>
+
               <img
                 src={isHome ? logoutIconLight : logoutIconDark}
                 alt="Logout"

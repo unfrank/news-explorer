@@ -85,15 +85,6 @@ export default function Header({
             NewsExplorer
           </div>
 
-          {/* <Navigation
-            onSignInClick={() => {
-              setMenuOpen(false);
-              setActiveModal("login");
-            }}
-            onLogoutClick={handleLogout}
-            isLoginOpen={activeModal === "login"}
-            onLoginClose={() => setActiveModal("")}
-          /> */}
           <Navigation
             onSignInClick={() => {
               setMenuOpen(false);
@@ -104,9 +95,7 @@ export default function Header({
               setActiveModal("register");
             }}
             onLogoutClick={handleLogout}
-            // NEW — tell Navigation whether *any* modal is open:
             isAnyModalOpen={activeModal !== ""}
-            // NEW — how to close *any* modal:
             onModalClose={() => setActiveModal("")}
           />
         </div>

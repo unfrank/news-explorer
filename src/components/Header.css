@@ -57,3 +57,14 @@
 }
 
 /* remake */
+/* Header.css */
+
+/* On “/” (transparent header), make the username white */
+.header--transparent .navigation__username {
+  color: #fff;
+}
+
+/* On “/saved-news” or any other solid header, make the username black */
+.header--solid .navigation__username {
+  color: #000;
+}

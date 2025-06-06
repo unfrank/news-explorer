@@ -82,7 +82,14 @@
   bottom: -25px;
   background-color: black;
 } */
+.navigation__username--light {
+  color: #ffffff;
+}
 
+/* Black username on the Saved Articles route */
+.navigation__username--dark {
+  color: #000000;
+}
 /* Adjust link sizes/positions on mid‐range breakpoints */
 @media (min-width: 600px) and (max-width: 1050px) {
   .navigation__link-home {
