@@ -1,6 +1,6 @@
 .header {
   font-family: "Roboto", "Inter", sans-serif;
-  /* height: 56px; */
+  z-index: 9000;
 }
 
 .header--transparent {

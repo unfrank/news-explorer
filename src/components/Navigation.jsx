@@ -49,13 +49,8 @@ export default function Navigation({
     onLogoutClick();
   }
 
-  // Determine whether we should show the header's Close-(X) icon:
-  // Show it if either the dropdown menu is open _or_ the Login Modal is open.
-  const showHeaderClose = menuOpen || isLoginOpen;
+  const showHeaderClose = isLoginOpen;
 
-  // Click handler for the header Close-(X) icon:
-  // If the dropdown menu is open, we close it. Otherwise, if the Login Modal is open,
-  // we call onLoginClose() to dismiss the Login Modal.
   function handleHeaderClose() {
     if (menuOpen) {
       setMenuOpen(false);
@@ -67,24 +62,15 @@ export default function Navigation({
   return (
     <>
       <nav className="navigation">
-        {/* ─────────────────────────────────────────────────────────────────────
-            ICON WRAPPER (still where the hamburger used to live).
-            We will show exactly one of these three buttons at a time:
-            • Light-hamburger  (only when on "/" and nothing else open)
-            • Dark-hamburger   (only when on "/saved-news" and nothing else open)
-            • Close-icon       (when either menuOpen or isLoginOpen is true)
-          ───────────────────────────────────────────────────────────────────── */}
         <div className="icon-wrapper">
-          {/* 1) Light-hamburger (show only if on “/” AND no dropdown or login is open) */}
+          {/* ───────────────────────────────────────────────────────────
+       1) Light‐Hamburger (shown only when on “/” AND modal is closed)
+    ───────────────────────────────────────────────────────────── */}
           <button
             className={`navigation__hamburger ${
-              !isHome || showHeaderClose ? "is-hidden" : ""
+              !isHome || isLoginOpen ? "is-hidden" : ""
             }`}
-            onClick={() => {
-              // If the Login Modal happens to be open, do nothing special here—
-              // the Close-icon would be visible instead, so this button is hidden anyway.
-              setMenuOpen(true);
-            }}
+            onClick={() => setMenuOpen(true)}
             aria-label="Open menu"
           >
             <img
@@ -94,10 +80,12 @@ export default function Navigation({
             />
           </button>
 
-          {/* 2) Dark-hamburger (show only if on "/saved-news" AND no dropdown/login is open) */}
+          {/* ───────────────────────────────────────────────────────────
+       2) Dark‐Hamburger (shown only when on “/saved-news” AND modal is closed)
+    ───────────────────────────────────────────────────────────── */}
           <button
             className={`navigation__hamburger ${
-              !isSaved || showHeaderClose ? "is-hidden" : ""
+              !isSaved || isLoginOpen ? "is-hidden" : ""
             }`}
             onClick={() => setMenuOpen(true)}
             aria-label="Open menu"
@@ -109,15 +97,34 @@ export default function Navigation({
             />
           </button>
 
-          {/* 3) Close-icon (show if either the dropdown menu OR the login modal is open) */}
+          {/* ───────────────────────────────────────────────────────────
+       3) Menu‐Close (X) INSIDE the dropdown panel — we leave this here 
+          so it can cover the hamburger whenever the dropdown is open.
+          (You already positioned it via CSS inside the dropdown.)
+          It does NOT affect the new “modal‐close” logic below.
+    ───────────────────────────────────────────────────────────── */}
           <button
             className={`navigation__hamburger--close ${
-              !showHeaderClose ? "is-hidden" : ""
+              !menuOpen ? "is-hidden" : ""
             }`}
-            onClick={handleHeaderClose}
-            aria-label="Close"
+            onClick={() => setMenuOpen(false)}
+            aria-label="Close menu"
           >
-            <img src={closeIcon} alt="Close" />
+            <img src={closeIcon} alt="Close menu" />
+          </button>
+
+          {/* ───────────────────────────────────────────────────────────
+       4) NEW: Modal‐Close (X) in the header, shown only when the LOGIN MODAL is open.
+          Clicking this calls onLoginClose() to dismiss the modal. 
+    ───────────────────────────────────────────────────────────── */}
+          <button
+            className={`navigation__modal-close ${
+              !isLoginOpen ? "is-hidden" : ""
+            }`}
+            onClick={onLoginClose}
+            aria-label="Close login modal"
+          >
+            <img src={closeIcon} alt="Close login" />
           </button>
         </div>
 
@@ -168,16 +175,11 @@ export default function Navigation({
         </div>
       </nav>
 
-      {/* ─────────────────────────────────────────────────────────────────────
-        DROPDOWN MENU: only rendered when menuOpen === true
-        We have inserted a Close-icon in the dropdown's header, so the user
-        can tap “X” inside the sliding panel itself.
-      ───────────────────────────────────────────────────────────────────── */}
       {menuOpen && isHome && !isLoggedIn && (
         <div className="navigation__dropdown">
           <div className="navigation__dropdown-header">
             <h2 className="navigation__dropdown-logo">NewsExplorer</h2>
-            {/* ─── NEW: Close-icon inside the dropdown header ─── */}
+
             <button
               className="navigation__dropdown-close"
               onClick={() => setMenuOpen(false)}

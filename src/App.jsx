@@ -261,6 +261,7 @@ function App() {
             isLoggedIn={isLoggedIn}
             currentUser={currentUser}
             setActiveModal={setActiveModal}
+            activeModal={activeModal}
             handleLogout={handleLogout}
           />
           <Main

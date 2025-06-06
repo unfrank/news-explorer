@@ -6,6 +6,7 @@
   justify-content: center;
   align-items: center;
   font-family: "Roboto", "Inter", sans-serif;
+  pointer-events: none;
 }
 
 .modal__overlay {
@@ -187,16 +188,15 @@
   }
 
   .modal__close {
-    position: absolute;
-    top: -48px;
-    right: 16px;
-    color: #ffffff;
-    background: none;
+    display: none;
   }
 
   .modal__title {
     margin-top: 0;
     margin-bottom: 16px;
     font-size: 20px;
+  }
+  .modal__overlay {
+    background-color: transparent;
   }
 }
