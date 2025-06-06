@@ -24,17 +24,8 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
   const isSaved = location.pathname === "/saved-news";
 
   useEffect(() => {
-    if (isLoggedIn) {
-      setAnimate(true);
-      const timeout = setTimeout(() => setAnimate(false), 1500);
-      return () => clearTimeout(timeout);
-    }
-  }, [isLoggedIn]);
-
-  function handleSignInClick() {
-    setMenuOpen(false);
-    setMobileSignInOpen(true);
-  }
+    // (existing resize/animation logic here)
+  }, [menuOpen]);
 
   function handleLogoutClick() {
     setMenuOpen(false);
@@ -64,26 +55,22 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
           className="navigation__hamburger"
           onClick={() => setMenuOpen(true)}
         >
-          <img src={isHome ? hamburgerLight : hamburgerDark} alt="Open Menu" />
+          <img
+            src={isHome ? hamburgerLight : hamburgerDark}
+            alt="Menu"
+            className="navigation__hamburger-icon"
+          />
         </button>
 
         <div className="navigation__links">
-          <Link
-            to="/"
-            className={`navigation__link-home ${
-              isHome ? "navigation__link--active" : ""
-            }`}
-          >
-            Home
-          </Link>
+          {isSaved && (
+            <Link to="/" className="navigation__link">
+              Home
+            </Link>
+          )}
 
-          {isLoggedIn && (
-            <Link
-              to="/saved-news"
-              className={`navigation__link-saved ${
-                isSaved ? "navigation__link--active" : ""
-              }`}
-            >
+          {!isSaved && isLoggedIn && (
+            <Link to="/saved-news" className="navigation__link">
               Saved Articles
             </Link>
           )}
@@ -111,7 +98,8 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
         </div>
       </nav>
 
-      {menuOpen && (
+      {/* Dropdown: three scenarios based on isHome, isSaved, and isLoggedIn */}
+      {menuOpen && isHome && !isLoggedIn && (
         <div className="navigation__dropdown">
           <div className="navigation__dropdown-header">
             <h2 className="navigation__dropdown-logo">NewsExplorer</h2>
@@ -125,47 +113,97 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
 
           <hr className="navigation__dropdown-divider" />
 
-          <ul className="navigation__dropdown-list">
-            <li>
-              <Link
-                to="/"
-                className="navigation__dropdown-item"
-                onClick={() => setMenuOpen(false)}
-              >
-                Home
-              </Link>
-            </li>
+          {/* Home title (static text) */}
+          <div className="navigation__dropdown-item">Home</div>
 
-            {isLoggedIn && (
-              <li>
-                <Link
-                  to="/saved-news"
-                  className="navigation__dropdown-item"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Saved Articles
-                </Link>
-              </li>
-            )}
+          {/* Sign In button */}
+          <button
+            className="navigation__button navigation__button--dropdown"
+            onClick={() => {
+              setMenuOpen(false);
+              onSignInClick();
+            }}
+          >
+            Sign In
+          </button>
+        </div>
+      )}
 
-            <li>
-              {!isLoggedIn ? (
-                <button
-                  className="navigation__dropdown-item navigation__dropdown-signin"
-                  onClick={handleSignInClick}
-                >
-                  Sign In
-                </button>
-              ) : (
-                <button
-                  className="navigation__dropdown-item navigation__dropdown-logout"
-                  onClick={handleLogoutClick}
-                >
-                  Log Out
-                </button>
-              )}
-            </li>
-          </ul>
+      {menuOpen && isHome && isLoggedIn && (
+        <div className="navigation__dropdown">
+          <div className="navigation__dropdown-header">
+            <h2 className="navigation__dropdown-logo">NewsExplorer</h2>
+            <button
+              className="navigation__hamburger--close"
+              onClick={() => setMenuOpen(false)}
+            >
+              <img src={closeIcon} alt="Close Menu" />
+            </button>
+          </div>
+
+          <hr className="navigation__dropdown-divider" />
+
+          {/* Home title (static text) */}
+          <div className="navigation__dropdown-item">Home</div>
+
+          {/* Link to Saved Articles */}
+          <Link
+            to="/saved-news"
+            className="navigation__dropdown-item navigation__dropdown-link"
+            onClick={() => setMenuOpen(false)}
+          >
+            Saved Articles
+          </Link>
+
+          {/* Sign Out button */}
+          <button
+            className="navigation__button navigation__button--dropdown"
+            onClick={() => {
+              setMenuOpen(false);
+              onLogoutClick();
+            }}
+          >
+            Sign Out
+          </button>
+        </div>
+      )}
+
+      {menuOpen && isSaved && isLoggedIn && (
+        <div className="navigation__dropdown">
+          <div className="navigation__dropdown-header">
+            <h2 className="navigation__dropdown-logo">NewsExplorer</h2>
+            <button
+              className="navigation__hamburger--close"
+              onClick={() => setMenuOpen(false)}
+            >
+              <img src={closeIcon} alt="Close Menu" />
+            </button>
+          </div>
+
+          <hr className="navigation__dropdown-divider" />
+
+          {/* Saved Articles title (static text) */}
+          <div className="navigation__dropdown-item">Saved Articles</div>
+
+          {/* Link to Home */}
+          <Link
+            to="/"
+            className="navigation__dropdown-item navigation__dropdown-link"
+            onClick={() => setMenuOpen(false)}
+          >
+            Home
+          </Link>
+
+          {/* Sign Out button */}
+          <button
+            className="navigation__button navigation__button--dropdown"
+            onClick={() => {
+              setMenuOpen(false);
+              onLogoutClick();
+            }}
+          >
+            Sign Out
+          </button>
         </div>
       )}
 

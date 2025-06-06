@@ -194,7 +194,13 @@
   margin-left: auto;
   background-color: transparent;
 }
-
+.navigation__hamburger--close {
+  background-color: transparent;
+  border: none;
+}
+.navigation__hamburger--close:hover {
+  opacity: 0.8;
+}
 @media (max-width: 626px) {
   .navigation__links {
     display: none;
