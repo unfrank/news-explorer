@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "./ModalWithForm.css";
 import closeIcon from "../assets/icons/icon-btn-close.svg";
+import useMediaQuery from "../hooks/useMediaQuery";
 
 function ModalWithForm({
   title,
@@ -12,7 +13,7 @@ function ModalWithForm({
   footer,
   disabled,
 }) {
-  if (!isOpen) return null;
+  const isMobile = useMediaQuery("(max-width: 500px)");
 
   useEffect(() => {
     function handleKeyDown(e) {
@@ -20,18 +21,21 @@ function ModalWithForm({
         onClose();
       }
     }
-
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
+
+  if (!isOpen) return null;
 
   return (
     <div className="modal">
       <div className="modal__overlay" onClick={onClose} />
       <div className="modal__content">
-        <button className="modal__close" onClick={onClose}>
-          <img src={closeIcon} alt="Close" />
-        </button>
+        {!isMobile && (
+          <button className="modal__close" onClick={onClose} aria-label="Close">
+            <img src={closeIcon} alt="Close" />
+          </button>
+        )}
         <h2 className="modal__title">{title}</h2>
         <form onSubmit={onSubmit} className="modal__form" noValidate>
           {children}

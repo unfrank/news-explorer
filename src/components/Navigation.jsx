@@ -1,4 +1,3 @@
-// Navigation.jsx
 import React, { useContext, useEffect, useState } from "react";
 import "./Navigation.css";
 
@@ -12,11 +11,13 @@ import closeIcon from "../assets/icons/icon-btn-close.svg";
 import hamburgerDark from "../assets/icons/icon-hamburger-dark.svg";
 import hamburgerLight from "../assets/icons/icon-hamburger-light.svg";
 
+import useMediaQuery from "../hooks/useMediaQuery";
+
 export default function Navigation({
   onSignInClick,
   onLogoutClick,
-  isLoginOpen, // NEW PROP: true if the Login Modal (ModalWithForm) is currently visible
-  onLoginClose, // NEW PROP: function to call when we want to close the Login Modal
+  isLoginOpen,
+  onLoginClose,
 }) {
   const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
   const location = useLocation();
@@ -27,7 +28,10 @@ export default function Navigation({
   const isHome = location.pathname === "/";
   const isSaved = location.pathname === "/saved-news";
 
-  // Whenever the window resizes above 625px, automatically close the dropdown if open.
+  // ! Media query hook to check screen width
+  const isMobile = useMediaQuery("(max-width: 500px)");
+  const showHeaderHamburgerClose = isLoginOpen;
+
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth > 625 && menuOpen) {
@@ -63,9 +67,6 @@ export default function Navigation({
     <>
       <nav className="navigation">
         <div className="icon-wrapper">
-          {/* ───────────────────────────────────────────────────────────
-       1) Light‐Hamburger (shown only when on “/” AND modal is closed)
-    ───────────────────────────────────────────────────────────── */}
           <button
             className={`navigation__hamburger ${
               !isHome || isLoginOpen ? "is-hidden" : ""
@@ -80,9 +81,6 @@ export default function Navigation({
             />
           </button>
 
-          {/* ───────────────────────────────────────────────────────────
-       2) Dark‐Hamburger (shown only when on “/saved-news” AND modal is closed)
-    ───────────────────────────────────────────────────────────── */}
           <button
             className={`navigation__hamburger ${
               !isSaved || isLoginOpen ? "is-hidden" : ""
@@ -96,13 +94,6 @@ export default function Navigation({
               className="navigation__hamburger-icon"
             />
           </button>
-
-          {/* ───────────────────────────────────────────────────────────
-       3) Menu‐Close (X) INSIDE the dropdown panel — we leave this here 
-          so it can cover the hamburger whenever the dropdown is open.
-          (You already positioned it via CSS inside the dropdown.)
-          It does NOT affect the new “modal‐close” logic below.
-    ───────────────────────────────────────────────────────────── */}
           <button
             className={`navigation__hamburger--close ${
               !menuOpen ? "is-hidden" : ""
@@ -113,19 +104,15 @@ export default function Navigation({
             <img src={closeIcon} alt="Close menu" />
           </button>
 
-          {/* ───────────────────────────────────────────────────────────
-       4) NEW: Modal‐Close (X) in the header, shown only when the LOGIN MODAL is open.
-          Clicking this calls onLoginClose() to dismiss the modal. 
-    ───────────────────────────────────────────────────────────── */}
-          <button
-            className={`navigation__modal-close ${
-              !isLoginOpen ? "is-hidden" : ""
-            }`}
-            onClick={onLoginClose}
-            aria-label="Close login modal"
-          >
-            <img src={closeIcon} alt="Close login" />
-          </button>
+          {isLoginOpen && isMobile && (
+            <button
+              className="navigation__modal-close"
+              onClick={onLoginClose}
+              aria-label="Close login modal"
+            >
+              <img src={closeIcon} alt="Close login" />
+            </button>
+          )}
         </div>
 
         <div className="navigation__links">
@@ -209,7 +196,6 @@ export default function Navigation({
         <div className="navigation__dropdown">
           <div className="navigation__dropdown-header">
             <h2 className="navigation__dropdown-logo">NewsExplorer</h2>
-            {/* ─── NEW: Close-icon inside this dropdown’s header ─── */}
             <button
               className="navigation__dropdown-close"
               onClick={() => setMenuOpen(false)}
@@ -244,7 +230,6 @@ export default function Navigation({
         <div className="navigation__dropdown">
           <div className="navigation__dropdown-header">
             <h2 className="navigation__dropdown-logo">NewsExplorer</h2>
-            {/* ─── NEW: Close-icon inside this dropdown’s header ─── */}
             <button
               className="navigation__dropdown-close"
               onClick={() => setMenuOpen(false)}
