@@ -160,20 +160,8 @@
   text-decoration: underline;
 }
 
-@media (max-width: 500px) {
-  .modal {
-    display: fixed;
-    justify-content: flex-start
-    align-items: center;
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    font-family: "Roboto", "Inter", sans-serif;
-    bottom: 0;
-  }
-
+/* @media (max-width: 500px) {
   .modal__content {
-    position: relative;
     background: white;
     max-width: none;
     width: 100%;
@@ -183,6 +171,7 @@
     flex-direction: column;
     z-index: 1;
     overflow: auto;
+    padding: 16px;
   }
 
   .modal__close {
@@ -192,6 +181,53 @@
     background: none;
   }
 
+  .modal__title {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 20px;
+  }
+} */
+
+/* ─── Updated Mobile Override in ModalWithForm.css ─────────────────────────── */
+@media (max-width: 500px) {
+  /* 1) Ensure the parent .modal pushes the content down by the header height */
+  .modal {
+    align-items: flex-start; /* existing override */
+    padding-top: 60px; /* same as before—pushes modal__content down 60px */
+  }
+
+  /* 2) Revised .modal__content to prevent horizontal overflow */
+  .modal__content {
+    position: absolute;
+    top: 42px;
+    bottom: 0; /* stretch to the very bottom of the viewport */
+    left: 0; /* anchor left edge */
+    right: 0; /* anchor right edge */
+    /*  → NO width: 100% here; using left/right = 0 + box-sizing avoids overflow */
+
+    box-sizing: border-box; /* include padding in overall width calculation */
+    max-width: none; /* remove desktop cap */
+    border-radius: 20px 20px 0 0; /* round only the top corners on mobile */
+    margin: 0; /* clear any auto‐margins */
+    padding: 16px; /* preserve existing inner padding */
+    background: white; /* unchanged */
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    overflow-y: auto; /* allow vertical scrolling if needed */
+  }
+
+  /* 3) Keep the close button roughly where it was (above the modal) */
+  .modal__close {
+    position: absolute; /* already absolute in base rules */
+    top: -48px; /* same as before :contentReference[oaicite:0]{index=0} */
+    right: 16px;
+    color: #ffffff;
+    background: none;
+  }
+
+  /* 4) Maintain the adjusted title sizing already in the file */
   .modal__title {
     margin-top: 0;
     margin-bottom: 16px;
