@@ -18,18 +18,19 @@ export default function Navigation({
   onLogoutClick,
   isLoginOpen,
   onLoginClose,
+  isAnyModalOpen,
+  onModalClose,
 }) {
   const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
   const location = useLocation();
-
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [mobileSignInOpen, setMobileSignInOpen] = useState(false);
-
   const isHome = location.pathname === "/";
   const isSaved = location.pathname === "/saved-news";
 
-  // ! Media query hook to check screen width
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileSignInOpen, setMobileSignInOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width: 500px)");
+
+  // ! Media query hook to check screen width
   const showHeaderHamburgerClose = isLoginOpen;
 
   useEffect(() => {
@@ -67,50 +68,55 @@ export default function Navigation({
     <>
       <nav className="navigation">
         <div className="icon-wrapper">
-          <button
-            className={`navigation__hamburger ${
-              !isHome || isLoginOpen ? "is-hidden" : ""
-            }`}
-            onClick={() => setMenuOpen(true)}
-            aria-label="Open menu"
-          >
-            <img
-              src={hamburgerLight}
-              alt="Open menu"
-              className="navigation__hamburger-icon"
-            />
-          </button>
+          {/* 1) Light hamburger: only on “/” AND no modal */}
+          {!isAnyModalOpen && isHome && (
+            <button
+              className="navigation__hamburger"
+              onClick={() => setMenuOpen(true)}
+              aria-label="Open menu"
+            >
+              <img
+                src={hamburgerLight}
+                alt="Open menu"
+                className="navigation__hamburger-icon"
+              />
+            </button>
+          )}
 
-          <button
-            className={`navigation__hamburger ${
-              !isSaved || isLoginOpen ? "is-hidden" : ""
-            }`}
-            onClick={() => setMenuOpen(true)}
-            aria-label="Open menu"
-          >
-            <img
-              src={hamburgerDark}
-              alt="Open menu"
-              className="navigation__hamburger-icon"
-            />
-          </button>
-          <button
-            className={`navigation__hamburger--close ${
-              !menuOpen ? "is-hidden" : ""
-            }`}
-            onClick={() => setMenuOpen(false)}
-            aria-label="Close menu"
-          >
-            <img src={closeIcon} alt="Close menu" />
-          </button>
+          {/* 2) Dark hamburger: only on “/saved-news” AND no modal */}
+          {!isAnyModalOpen && isSaved && (
+            <button
+              className="navigation__hamburger"
+              onClick={() => setMenuOpen(true)}
+              aria-label="Open menu"
+            >
+              <img
+                src={hamburgerDark}
+                alt="Open menu"
+                className="navigation__hamburger-icon"
+              />
+            </button>
+          )}
 
-          {isLoginOpen && isMobile && (
+          {/* 3) Dropdown‐close (inside the sliding menu): only when menuOpen AND no modal */}
+          {!isAnyModalOpen && menuOpen && (
+            <button
+              className="navigation__hamburger--close"
+              onClick={() => setMenuOpen(false)}
+              aria-label="Close menu"
+            >
+              <img src={closeIcon} alt="Close menu" />
+            </button>
+          )}
+
+          {/* 4) Modal‐close in header: only when a modal *is* open AND on mobile */}
+          {isAnyModalOpen && isMobile && (
             <button
               className="navigation__modal-close"
-              onClick={onLoginClose}
-              aria-label="Close login modal"
+              onClick={onModalClose}
+              aria-label="Close modal"
             >
-              <img src={closeIcon} alt="Close login" />
+              <img src={closeIcon} alt="Close modal" />
             </button>
           )}
         </div>
