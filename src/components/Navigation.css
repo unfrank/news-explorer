@@ -222,3 +222,83 @@
     display: none;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Utility to hide any element completely
+──────────────────────────────────────────────────────────────────────────────── */
+.is-hidden {
+  display: none !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   1) Icon­replacement in the header: 
+      .icon-wrapper will be sized exactly to your hamburger’s width/height.
+──────────────────────────────────────────────────────────────────────────────── */
+.icon-wrapper {
+  display: inline-flex;
+  width: 32px; /* ← Adjust to match your actual SVG size (e.g. 32px × 32px) */
+  height: 32px;
+  position: relative; /* (children do not need absolute positioning now) */
+}
+
+.icon-wrapper button {
+  all: unset; /* remove default <button> styling */
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure any <img> inside that button fully fills the wrapper */
+.icon-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Override any leftover padding/font‐size from existing .navigation__hamburger, etc. */
+.navigation__hamburger,
+.navigation__hamburger--close {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   2) Style for the new “X” inside dropdown headers:
+──────────────────────────────────────────────────────────────────────────────── */
+
+.navigation__dropdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px; /* adjust to match your design */
+  background-color: #0a0b10;
+}
+
+.navigation__dropdown-logo {
+  font-size: 20px;
+  color: #ffffff;
+  margin: 0;
+}
+
+/* Close button inside dropdown header (top-right “X”) */
+.navigation__dropdown-close {
+  all: unset;
+  cursor: pointer;
+  width: 24px; /* adjust if you want a slightly smaller “X” than the header */
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navigation__dropdown-close img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

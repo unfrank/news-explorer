@@ -1,3 +1,4 @@
+// Navigation.jsx
 import React, { useContext, useEffect, useState } from "react";
 import "./Navigation.css";
 
@@ -11,11 +12,14 @@ import closeIcon from "../assets/icons/icon-btn-close.svg";
 import hamburgerDark from "../assets/icons/icon-hamburger-dark.svg";
 import hamburgerLight from "../assets/icons/icon-hamburger-light.svg";
 
-export default function Navigation({ onSignInClick, onLogoutClick }) {
+export default function Navigation({
+  onSignInClick,
+  onLogoutClick,
+  isLoginOpen, // NEW PROP: true if the Login Modal (ModalWithForm) is currently visible
+  onLoginClose, // NEW PROP: function to call when we want to close the Login Modal
+}) {
   const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
   const location = useLocation();
-
-  const [animate, setAnimate] = useState(false);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSignInOpen, setMobileSignInOpen] = useState(false);
@@ -23,15 +27,7 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
   const isHome = location.pathname === "/";
   const isSaved = location.pathname === "/saved-news";
 
-  useEffect(() => {
-    // (existing resize/animation logic here)
-  }, [menuOpen]);
-
-  function handleLogoutClick() {
-    setMenuOpen(false);
-    onLogoutClick();
-  }
-
+  // Whenever the window resizes above 625px, automatically close the dropdown if open.
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth > 625 && menuOpen) {
@@ -48,29 +44,100 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
       ? rawUsername.charAt(0).toUpperCase() + rawUsername.slice(1)
       : "";
 
+  function handleLogoutClick() {
+    setMenuOpen(false);
+    onLogoutClick();
+  }
+
+  // Determine whether we should show the header's Close-(X) icon:
+  // Show it if either the dropdown menu is open _or_ the Login Modal is open.
+  const showHeaderClose = menuOpen || isLoginOpen;
+
+  // Click handler for the header Close-(X) icon:
+  // If the dropdown menu is open, we close it. Otherwise, if the Login Modal is open,
+  // we call onLoginClose() to dismiss the Login Modal.
+  function handleHeaderClose() {
+    if (menuOpen) {
+      setMenuOpen(false);
+    } else if (isLoginOpen) {
+      onLoginClose();
+    }
+  }
+
   return (
     <>
-      <nav className={`navigation ${animate ? "navigation--animate" : ""}`}>
-        <button
-          className="navigation__hamburger"
-          onClick={() => setMenuOpen(true)}
-        >
-          <img
-            src={isHome ? hamburgerLight : hamburgerDark}
-            alt="Menu"
-            className="navigation__hamburger-icon"
-          />
-        </button>
+      <nav className="navigation">
+        {/* ─────────────────────────────────────────────────────────────────────
+            ICON WRAPPER (still where the hamburger used to live).
+            We will show exactly one of these three buttons at a time:
+            • Light-hamburger  (only when on "/" and nothing else open)
+            • Dark-hamburger   (only when on "/saved-news" and nothing else open)
+            • Close-icon       (when either menuOpen or isLoginOpen is true)
+          ───────────────────────────────────────────────────────────────────── */}
+        <div className="icon-wrapper">
+          {/* 1) Light-hamburger (show only if on “/” AND no dropdown or login is open) */}
+          <button
+            className={`navigation__hamburger ${
+              !isHome || showHeaderClose ? "is-hidden" : ""
+            }`}
+            onClick={() => {
+              // If the Login Modal happens to be open, do nothing special here—
+              // the Close-icon would be visible instead, so this button is hidden anyway.
+              setMenuOpen(true);
+            }}
+            aria-label="Open menu"
+          >
+            <img
+              src={hamburgerLight}
+              alt="Open menu"
+              className="navigation__hamburger-icon"
+            />
+          </button>
+
+          {/* 2) Dark-hamburger (show only if on "/saved-news" AND no dropdown/login is open) */}
+          <button
+            className={`navigation__hamburger ${
+              !isSaved || showHeaderClose ? "is-hidden" : ""
+            }`}
+            onClick={() => setMenuOpen(true)}
+            aria-label="Open menu"
+          >
+            <img
+              src={hamburgerDark}
+              alt="Open menu"
+              className="navigation__hamburger-icon"
+            />
+          </button>
+
+          {/* 3) Close-icon (show if either the dropdown menu OR the login modal is open) */}
+          <button
+            className={`navigation__hamburger--close ${
+              !showHeaderClose ? "is-hidden" : ""
+            }`}
+            onClick={handleHeaderClose}
+            aria-label="Close"
+          >
+            <img src={closeIcon} alt="Close" />
+          </button>
+        </div>
 
         <div className="navigation__links">
           {isSaved && (
-            <Link to="/" className="navigation__link">
+            <Link
+              to="/"
+              className="navigation__link"
+              onClick={() => setMenuOpen(false)}
+            >
               Home
             </Link>
           )}
 
           {!isSaved && isLoggedIn && (
-            <Link to="/saved-news" className="navigation__link">
+            <Link
+              to="/saved-news"
+              className="navigation__link"
+              onClick={() => setMenuOpen(false)}
+            >
               Saved Articles
             </Link>
           )}
@@ -78,14 +145,17 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
           {!isLoggedIn ? (
             <button
               className="navigation__button-signin"
-              onClick={onSignInClick}
+              onClick={() => {
+                setMenuOpen(false);
+                onSignInClick();
+              }}
             >
               Sign In
             </button>
           ) : (
             <button
               className="navigation__button-logout"
-              onClick={onLogoutClick}
+              onClick={handleLogoutClick}
             >
               <span className="navigation__username">{displayName}</span>
               <img
@@ -98,25 +168,29 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
         </div>
       </nav>
 
-      {/* Dropdown: three scenarios based on isHome, isSaved, and isLoggedIn */}
+      {/* ─────────────────────────────────────────────────────────────────────
+        DROPDOWN MENU: only rendered when menuOpen === true
+        We have inserted a Close-icon in the dropdown's header, so the user
+        can tap “X” inside the sliding panel itself.
+      ───────────────────────────────────────────────────────────────────── */}
       {menuOpen && isHome && !isLoggedIn && (
         <div className="navigation__dropdown">
           <div className="navigation__dropdown-header">
             <h2 className="navigation__dropdown-logo">NewsExplorer</h2>
+            {/* ─── NEW: Close-icon inside the dropdown header ─── */}
             <button
-              className="navigation__hamburger--close"
+              className="navigation__dropdown-close"
               onClick={() => setMenuOpen(false)}
+              aria-label="Close menu"
             >
-              <img src={closeIcon} alt="Close Menu" />
+              <img src={closeIcon} alt="Close menu" />
             </button>
           </div>
 
           <hr className="navigation__dropdown-divider" />
 
-          {/* Home title (static text) */}
           <div className="navigation__dropdown-item">Home</div>
 
-          {/* Sign In button */}
           <button
             className="navigation__button navigation__button--dropdown"
             onClick={() => {
@@ -133,20 +207,20 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
         <div className="navigation__dropdown">
           <div className="navigation__dropdown-header">
             <h2 className="navigation__dropdown-logo">NewsExplorer</h2>
+            {/* ─── NEW: Close-icon inside this dropdown’s header ─── */}
             <button
-              className="navigation__hamburger--close"
+              className="navigation__dropdown-close"
               onClick={() => setMenuOpen(false)}
+              aria-label="Close menu"
             >
-              <img src={closeIcon} alt="Close Menu" />
+              <img src={closeIcon} alt="Close menu" />
             </button>
           </div>
 
           <hr className="navigation__dropdown-divider" />
 
-          {/* Home title (static text) */}
           <div className="navigation__dropdown-item">Home</div>
 
-          {/* Link to Saved Articles */}
           <Link
             to="/saved-news"
             className="navigation__dropdown-item navigation__dropdown-link"
@@ -155,13 +229,9 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
             Saved Articles
           </Link>
 
-          {/* Sign Out button */}
           <button
             className="navigation__button navigation__button--dropdown"
-            onClick={() => {
-              setMenuOpen(false);
-              onLogoutClick();
-            }}
+            onClick={handleLogoutClick}
           >
             Sign Out
           </button>
@@ -172,20 +242,20 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
         <div className="navigation__dropdown">
           <div className="navigation__dropdown-header">
             <h2 className="navigation__dropdown-logo">NewsExplorer</h2>
+            {/* ─── NEW: Close-icon inside this dropdown’s header ─── */}
             <button
-              className="navigation__hamburger--close"
+              className="navigation__dropdown-close"
               onClick={() => setMenuOpen(false)}
+              aria-label="Close menu"
             >
-              <img src={closeIcon} alt="Close Menu" />
+              <img src={closeIcon} alt="Close menu" />
             </button>
           </div>
 
           <hr className="navigation__dropdown-divider" />
 
-          {/* Saved Articles title (static text) */}
           <div className="navigation__dropdown-item">Saved Articles</div>
 
-          {/* Link to Home */}
           <Link
             to="/"
             className="navigation__dropdown-item navigation__dropdown-link"
@@ -194,13 +264,9 @@ export default function Navigation({ onSignInClick, onLogoutClick }) {
             Home
           </Link>
 
-          {/* Sign Out button */}
           <button
             className="navigation__button navigation__button--dropdown"
-            onClick={() => {
-              setMenuOpen(false);
-              onLogoutClick();
-            }}
+            onClick={handleLogoutClick}
           >
             Sign Out
           </button>

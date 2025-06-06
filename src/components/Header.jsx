@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import Navigation from "./Navigation";
-import LoginModal from "./LoginModal";
+// import LoginModal from "./LoginModal";
 import MobileMenuSignIn from "./MobileMenuSignIn";
 
 import CurrentUserContext from "../contexts/CurrentUserContext";
@@ -16,6 +16,7 @@ export default function Header({
   currentUser,
   handleLogout,
   setActiveModal,
+  activeModal,
 }) {
   const { handleLogin } = useContext(CurrentUserContext);
 
@@ -58,7 +59,7 @@ export default function Header({
 
   function onDesktopLoginSuccess({ token, user }) {
     handleLogin({ token, user });
-    closeLoginModal();
+    // closeLoginModal();
   }
 
   function openMobileSignIn() {
@@ -85,48 +86,16 @@ export default function Header({
           </div>
 
           <Navigation
-            menuOpen={menuOpen}
-            setMenuOpen={setMenuOpen}
-            onSignInClick={openLoginModal}
+            onSignInClick={() => {
+              setMenuOpen(false);
+              setActiveModal("login");
+            }}
             onLogoutClick={handleLogout}
+            isLoginOpen={activeModal === "login"}
+            onLoginClose={() => setActiveModal("")}
           />
         </div>
       </div>
-
-      {menuOpen && isHome && !isLoggedIn && (
-        <div className="navigation__dropdown">
-          <div className="navigation__dropdown-header">
-            <h2 className="header__logo">NewsExplorer</h2>
-          </div>
-          <hr className="navigation__dropdown-divider" />
-
-          <div className="navigation__dropdown-item">Home</div>
-
-          <button
-            className="navigation__button navigation__button--dropdown"
-            onClick={openMobileSignIn}
-          >
-            Sign in
-          </button>
-        </div>
-      )}
-
-      {desktopLoginOpen && (
-        <LoginModal
-          isOpen={desktopLoginOpen}
-          onClose={closeLoginModal}
-          onAuthSuccess={onDesktopLoginSuccess}
-          setActiveModal={setActiveModal}
-          buttonText="Sign In"
-        />
-      )}
-
-      {mobileSignInOpen && (
-        <MobileMenuSignIn
-          isOpen={mobileSignInOpen}
-          onClose={closeMobileSignIn}
-        />
-      )}
     </header>
   );
 }
