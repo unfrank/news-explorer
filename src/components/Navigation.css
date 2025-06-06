@@ -135,7 +135,8 @@
   left: 0;
   right: 0;
   bottom: calc(100vh - 230px);
-  width: 100vw;
+  /* width: 100vw; */
+  width: 100%;
   background-color: #1a1b22;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
@@ -148,14 +149,19 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px;
+  font-family: "Roboto", "Inter", sans-serif;
+  font-weight: 700;
+  line-height: 24px;
+  color: inherit;
+  font-size: 16px;
 }
 
-.navigation__dropdown-header h2 {
+/* .navigation__dropdown-header h2 {
   margin: 0;
   color: #ffffff;
   font-size: 20px;
   font-weight: 700;
-}
+} */
 
 .navigation__dropdown-divider {
   margin: 0;
@@ -211,17 +217,20 @@
 .navigation__hamburger--close:hover {
   opacity: 0.8;
 }
-@media (max-width: 495px) {
+@media (max-width: 501px) {
   .navigation__links {
     display: none;
   }
 }
 
-@media (min-width: 495px) {
-  .navigation__hamburger {
-    display: none;
+@media (min-width: 501px) {
+
+  .navigation__hamburger-icon{
+  display: none;
   }
 }
+
+
 
 /* ─────────────────────────────────────────────────────────────────────────────
    Utility to hide any element completely
@@ -236,9 +245,9 @@
 ──────────────────────────────────────────────────────────────────────────────── */
 .icon-wrapper {
   display: inline-flex;
-  width: 32px; /* ← Adjust to match your actual SVG size (e.g. 32px × 32px) */
-  height: 32px;
-  position: relative; /* (children do not need absolute positioning now) */
+  width: 24px; 
+  height: 24px;
+  position: relative; /
 }
 
 .icon-wrapper button {
@@ -272,18 +281,19 @@
    2) Style for the new “X” inside dropdown headers:
 ──────────────────────────────────────────────────────────────────────────────── */
 
-.navigation__dropdown-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px; /* adjust to match your design */
-  background-color: #0a0b10;
-}
-
 .navigation__dropdown-logo {
-  font-size: 20px;
-  color: #ffffff;
+    color: #ffffff;
+  
   margin: 0;
+   font-weight: 700;
+  line-height: 24px;
+  color: inherit;
+  font-size: 16px;
+  font-size: 16px;
+    font-family: "Roboto Slab";
+    font-weight: 700;
+    line-height: 24px;
+    color: inherit;
 }
 
 /* Close button inside dropdown header (top-right “X”) */
