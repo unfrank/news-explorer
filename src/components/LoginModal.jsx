@@ -66,7 +66,7 @@ function LoginModal({
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              onClose(); // close LoginModal first
+              onClose();
               setTimeout(() => setActiveModal("register"), 0); // open RegisterModal
             }}
           >

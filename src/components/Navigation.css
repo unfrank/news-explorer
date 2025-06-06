@@ -201,13 +201,13 @@
 .navigation__hamburger--close:hover {
   opacity: 0.8;
 }
-@media (max-width: 626px) {
+@media (max-width: 450px) {
   .navigation__links {
     display: none;
   }
 }
 
-@media (min-width: 626px) {
+@media (min-width: 450px) {
   .navigation__hamburger {
     display: none;
   }
