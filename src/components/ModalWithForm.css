@@ -160,10 +160,10 @@
   text-decoration: underline;
 }
 
-@media (max-width: 420px) {
+@media (max-width: 500px) {
   .modal {
     display: fixed;
-    justify-content: center;
+    justify-content: flex-start
     align-items: center;
     position: fixed;
     inset: 0;
@@ -186,10 +186,10 @@
   }
 
   .modal__close {
-    top: -48px; /* half of header’s height minus half the button size */
-    right: 16px; /* inset from right edge — adjust if your header padding differs */
-    color: #ffffff; /* white “X” to stand out in the header bar */
-    background: none; /* keep it transparent */
+    top: -48px;
+    right: 16px;
+    color: #ffffff;
+    background: none;
   }
 
   .modal__title {

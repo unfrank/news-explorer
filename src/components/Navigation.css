@@ -187,13 +187,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  height: 100%;
+  width: 100%;
   cursor: pointer;
   z-index: 1001;
   margin-left: auto;
   background-color: transparent;
+  margin: 0;
+  padding: 0;
 }
+
+.navigation__hamburger-icon {
+  padding: 0;
+  margin: 0;
+  width: 24px;
+  height: 24px;
+}
+
 .navigation__hamburger--close {
   background-color: transparent;
   border: none;
@@ -201,13 +211,13 @@
 .navigation__hamburger--close:hover {
   opacity: 0.8;
 }
-@media (max-width: 450px) {
+@media (max-width: 495px) {
   .navigation__links {
     display: none;
   }
 }
 
-@media (min-width: 450px) {
+@media (min-width: 495px) {
   .navigation__hamburger {
     display: none;
   }
