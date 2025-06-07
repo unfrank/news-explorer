@@ -1,6 +1,6 @@
+// Navigation.jsx
 import React, { useContext, useEffect, useState } from "react";
 import "./Navigation.css";
-
 import MobileMenuSignIn from "./MobileMenuSignIn";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import { Link, useLocation } from "react-router-dom";
@@ -30,9 +30,6 @@ export default function Navigation({
   const [mobileSignInOpen, setMobileSignInOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width: 500px)");
 
-  // ! Media query hook to check screen width
-  const showHeaderHamburgerClose = isLoginOpen;
-
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth > 625 && menuOpen) {
@@ -54,8 +51,6 @@ export default function Navigation({
     onLogoutClick();
   }
 
-  const showHeaderClose = isLoginOpen;
-
   function handleHeaderClose() {
     if (menuOpen) {
       setMenuOpen(false);
@@ -68,7 +63,6 @@ export default function Navigation({
     <>
       <nav className="navigation">
         <div className="icon-wrapper">
-          {/* 1) Light hamburger: only on “/” AND no modal */}
           {!isAnyModalOpen && isHome && (
             <button
               className="navigation__hamburger"
@@ -83,7 +77,6 @@ export default function Navigation({
             </button>
           )}
 
-          {/* 2) Dark hamburger: only on “/saved-news” AND no modal */}
           {!isAnyModalOpen && isSaved && (
             <button
               className="navigation__hamburger"
@@ -98,7 +91,6 @@ export default function Navigation({
             </button>
           )}
 
-          {/* 3) Dropdown‐close (inside the sliding menu): only when menuOpen AND no modal */}
           {!isAnyModalOpen && menuOpen && (
             <button
               className="navigation__hamburger--close"
@@ -109,7 +101,6 @@ export default function Navigation({
             </button>
           )}
 
-          {/* 4) Modal‐close in header: only when a modal *is* open AND on mobile */}
           {isAnyModalOpen && isMobile && (
             <button
               className="navigation__modal-close"
@@ -161,14 +152,11 @@ export default function Navigation({
                 className={`navigation__username ${
                   isHome
                     ? "navigation__username--light"
-                    : isSaved
-                    ? "navigation__username--dark"
-                    : ""
+                    : "navigation__username--dark"
                 }`}
               >
                 {displayName}
               </span>
-
               <img
                 src={isHome ? logoutIconLight : logoutIconDark}
                 alt="Logout"
@@ -179,11 +167,11 @@ export default function Navigation({
         </div>
       </nav>
 
+      {/* DROPDOWN MENUS (mobile) */}
       {menuOpen && isHome && !isLoggedIn && (
         <div className="navigation__dropdown">
           <div className="navigation__dropdown-header">
             <h2 className="navigation__dropdown-logo">NewsExplorer</h2>
-
             <button
               className="navigation__dropdown-close"
               onClick={() => setMenuOpen(false)}
@@ -192,11 +180,8 @@ export default function Navigation({
               <img src={closeIcon} alt="Close menu" />
             </button>
           </div>
-
           <hr className="navigation__dropdown-divider" />
-
           <div className="navigation__dropdown-item">Home</div>
-
           <button
             className="navigation__button navigation__button--dropdown"
             onClick={() => {
@@ -221,11 +206,8 @@ export default function Navigation({
               <img src={closeIcon} alt="Close menu" />
             </button>
           </div>
-
           <hr className="navigation__dropdown-divider" />
-
           <div className="navigation__dropdown-item">Home</div>
-
           <Link
             to="/saved-news"
             className="navigation__dropdown-item navigation__dropdown-link"
@@ -233,7 +215,6 @@ export default function Navigation({
           >
             Saved Articles
           </Link>
-
           <button
             className="navigation__button navigation__button--dropdown"
             onClick={handleLogoutClick}
@@ -255,11 +236,8 @@ export default function Navigation({
               <img src={closeIcon} alt="Close menu" />
             </button>
           </div>
-
           <hr className="navigation__dropdown-divider" />
-
           <div className="navigation__dropdown-item">Saved Articles</div>
-
           <Link
             to="/"
             className="navigation__dropdown-item navigation__dropdown-link"
@@ -267,7 +245,6 @@ export default function Navigation({
           >
             Home
           </Link>
-
           <button
             className="navigation__button navigation__button--dropdown"
             onClick={handleLogoutClick}
