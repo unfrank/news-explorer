@@ -1,6 +1,3 @@
-/* Navigation.css */
-
-/* Slide-in animation for navigation links (e.g., after login) */
 @keyframes fadeInSlideLeft {
   0% {
     opacity: 0;
@@ -30,12 +27,8 @@
   align-items: center;
 }
 
-/* ───────────────────────────────────────────────────────────── 
-   “Home” & “Saved Articles” link styles
-───────────────────────────────────────────────────────────── */
 .navigation__link-home,
 .navigation__link-saved {
-  display: inline-block; /* ← critical */
   position: relative;
   color: inherit;
   text-decoration: none;
@@ -43,30 +36,29 @@
   font-weight: 500;
   line-height: 24px;
   text-align: center;
-  margin: 0 16px;
+}
+
+.navigation__link-home:hover,
+.navigation__link-saved:hover {
+  color: inherit;
+  opacity: 0.8;
+  transform: scale(1.05);
 }
 
 .navigation__link-home {
-  width: 68px;
-  margin-right: 16px;
+  min-width: 68px;
+  margin-right: 18px;
 }
 
 .navigation__link-saved {
-  width: 178px;
-  margin-left: 32px;
+  min-width: 178px;
   margin-right: 32px;
 }
 
-.navigation__link:hover {
-  opacity: 0.8;
-  color: #2f71e5;
-}
-
-/* Underline for active link */
 .navigation__link--active::after {
   content: "";
   position: absolute;
-  bottom: -8px;
+  bottom: -28px;
   left: 0;
   width: 100%;
   height: 3px;
@@ -87,63 +79,59 @@
   color: #ffffff;
 }
 
-/* Black username on the Saved Articles route */
 .navigation__username--dark {
   color: #000000;
 }
-/* Adjust link sizes/positions on mid‐range breakpoints */
-@media (min-width: 600px) and (max-width: 1050px) {
-  .navigation__link-home {
-    font-size: 16px;
-  }
-  .navigation__link-saved {
-    margin-left: 16px;
-    margin-right: 16px;
-    font-size: 16px;
-  }
-  .navigation__link--white::after {
-    bottom: -23px;
-  }
-  .navigation__link--black::after {
-    bottom: -23px;
-  }
-}
 
 .navigation__button-signin {
-  width: 120px;
+  font-size: 18px;
+  padding: 12px 18px;
+  min-width: 152px;
   background: transparent;
   border: 1px solid white;
-  border-radius: 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navigation__button-logout {
-  width: 120px;
+  min-width: 120px;
+  font-size: 18px;
+  padding: 12px 18px;
   background: transparent;
   border: 1px solid #d1d2d6;
-  border-radius: 20px;
+  border-radius: 25px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .navigation__logout-icon {
   width: 24px;
   height: 24px;
-  margin-left: 8px;
+  margin-left: 0;
 }
 
 .navigation__username {
-  display: inline-block;
-  max-width: 100px;
+  font-family: "Roboto", "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  max-width: 100px;
 }
-
 .navigation__dropdown {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: calc(100vh - 230px);
-  /* width: 100vw; */
   width: 100%;
   background-color: #1a1b22;
   border-bottom-left-radius: 12px;
@@ -230,17 +218,10 @@
   }
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   Utility to hide any element completely
-──────────────────────────────────────────────────────────────────────────────── */
 .is-hidden {
   display: none !important;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   1) Icon­replacement in the header: 
-      .icon-wrapper will be sized exactly to your hamburger’s width/height.
-──────────────────────────────────────────────────────────────────────────────── */
 .icon-wrapper {
   display: inline-flex;
   width: 24px;
@@ -285,9 +266,7 @@
 .icon-wrapper {
   cursor: pointer;
 }
-.navigation__button-signin {
-  cursor: pointer;
-}
+
 .navigation__links {
   cursor: pointer;
 }
@@ -323,4 +302,22 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.navigation__link {
+  position: relative;
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: center;
+  margin: 0 16px;
+}
+
+.navigation__button-logout:hover {
+  color: inherit;
+  opacity: 0.8;
+  transform: scale(1.05);
 }

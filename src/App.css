@@ -3,7 +3,7 @@
   /* margin: 5px; */
 }
 
-.logo {
+/* .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
@@ -14,7 +14,7 @@
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
-}
+} */
 
 @keyframes logo-spin {
   from {
@@ -50,8 +50,8 @@
 
 @media (min-width: 1200px) {
   .section-inner {
-    padding-left: 105px;
-    padding-right: 105px;
+    padding-left: 100px;
+    padding-right: 100px;
   }
 }
 

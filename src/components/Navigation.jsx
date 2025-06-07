@@ -58,7 +58,6 @@ export default function Navigation({
       onLoginClose();
     }
   }
-
   return (
     <>
       <nav className="navigation">
@@ -113,27 +112,53 @@ export default function Navigation({
         </div>
 
         <div className="navigation__links">
-          {isSaved && (
-            <Link
-              to="/"
-              className="navigation__link"
-              onClick={() => setMenuOpen(false)}
-            >
-              Home
-            </Link>
+          <Link
+            to="/"
+            className={`navigation__link-home ${
+              location.pathname === "/" ? "navigation__link--active" : ""
+            }`}
+            onClick={() => setMenuOpen(false)}
+          >
+            Home
+          </Link>
+
+          {isLoggedIn && (
+            <>
+              <Link
+                to="/saved-news"
+                className={`navigation__link-saved ${
+                  location.pathname === "/saved-news"
+                    ? "navigation__link--active"
+                    : ""
+                }`}
+                onClick={() => setMenuOpen(false)}
+              >
+                Saved Articles
+              </Link>
+
+              <button
+                className="navigation__button-logout"
+                onClick={handleLogoutClick}
+              >
+                <span
+                  className={`navigation__username ${
+                    isHome
+                      ? "navigation__username--light"
+                      : "navigation__username--dark"
+                  }`}
+                >
+                  {displayName}
+                </span>
+                <img
+                  src={isHome ? logoutIconLight : logoutIconDark}
+                  alt="Logout"
+                  className="navigation__logout-icon"
+                />
+              </button>
+            </>
           )}
 
-          {!isSaved && isLoggedIn && (
-            <Link
-              to="/saved-news"
-              className="navigation__link"
-              onClick={() => setMenuOpen(false)}
-            >
-              Saved Articles
-            </Link>
-          )}
-
-          {!isLoggedIn ? (
+          {!isLoggedIn && (
             <button
               className="navigation__button-signin"
               onClick={() => {
@@ -142,26 +167,6 @@ export default function Navigation({
               }}
             >
               Sign In
-            </button>
-          ) : (
-            <button
-              className="navigation__button-logout"
-              onClick={handleLogoutClick}
-            >
-              <span
-                className={`navigation__username ${
-                  isHome
-                    ? "navigation__username--light"
-                    : "navigation__username--dark"
-                }`}
-              >
-                {displayName}
-              </span>
-              <img
-                src={isHome ? logoutIconLight : logoutIconDark}
-                alt="Logout"
-                className="navigation__logout-icon"
-              />
             </button>
           )}
         </div>
