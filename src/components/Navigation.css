@@ -310,13 +310,9 @@
   margin: 0;
   font-weight: 700;
   line-height: 24px;
-  color: inherit;
-  font-size: 16px;
+
   font-size: 16px;
   font-family: "Roboto Slab";
-  font-weight: 700;
-  line-height: 24px;
-  color: inherit;
 }
 
 .navigation__dropdown-close {

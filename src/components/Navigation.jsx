@@ -24,7 +24,7 @@ export default function Navigation({
   const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
   const location = useLocation();
   const isHome = location.pathname === "/";
-  const isSaved = location.pathname === "/saved-articles";
+  const isSaved = location.pathname === "/saved-news";
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSignInOpen, setMobileSignInOpen] = useState(false);
