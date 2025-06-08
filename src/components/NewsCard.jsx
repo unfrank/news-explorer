@@ -26,7 +26,6 @@ const NewsCard = forwardRef(
       isSavedView,
       extraClass,
       keyword,
-      isRemoving,
     },
     ref
   ) => {
@@ -56,15 +55,12 @@ const NewsCard = forwardRef(
       <div className="news-card__wrapper">
         <article
           className={`news-card ${mounted ? "fade-in" : ""} ${
-            isRemoving ? "news-card--fade-out" : ""
-          } ${extraClass || ""}`}
+            extraClass || ""
+          }`}
           style={style}
           onClick={onClick}
           ref={ref}
         >
-          {/** ───────────────────────────────────────────────
-               1) IMAGE + CONTROL BAR (unchanged)
-               ─────────────────────────────────────────────── */}
           <div className="news-card__image-container">
             <img className="news-card__image" src={image} alt={title} />
 

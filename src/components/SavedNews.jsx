@@ -1,9 +1,9 @@
 import "./SavedNews.css";
 import NewsCard from "./NewsCard";
-import React, { useContext, useState, useRef, useMemo } from "react";
+import React, { useContext, useState, useMemo, useRef } from "react";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
-function SavedNews({ savedArticles, onDeleteArticle, isFading }) {
+function SavedNews({ savedArticles, onDeleteArticle }) {
   const { currentUser } = useContext(CurrentUserContext);
   const displayName =
     currentUser?.username?.charAt(0).toUpperCase() +
@@ -17,8 +17,6 @@ function SavedNews({ savedArticles, onDeleteArticle, isFading }) {
       savedArticles.filter((article) => !fadingCardIds.includes(article._id)),
     [savedArticles, fadingCardIds]
   );
-
-  const isUnsaving = (id) => fadingCardIds.includes(id);
 
   const keywordCounts = useMemo(() => {
     const counts = {};
@@ -78,34 +76,36 @@ function SavedNews({ savedArticles, onDeleteArticle, isFading }) {
 
       <div className="section-inner">
         <div className="saved-news__grid">
-          {/* {savedArticles.map((article, index) => ( */}
-          {visibleArticles.map((article, index) => (
-            <NewsCard
-              key={`${article.url}-${index}`}
-              ref={(el) => (cardRefs.current[index] = el)}
-              title={article.title}
-              description={article.text}
-              date={article.date}
-              source={article.source}
-              keyword={article.keyword}
-              image={article.image}
-              url={article.link}
-              isSaved={!isFading}
-              isSavedView={true}
-              isLoggedIn={true}
-              onSave={() => {
-                if (!isFading) {
-                  setFadingCardIds((prev) => [...prev, article._id]);
-                  setTimeout(() => {
-                    onDeleteArticle(article._id);
-                  }, 600); // Only for fade-out
-                }
-              }}
-              style={{ animationDelay: `${index * 0.25}s` }}
-              extraClass={isFading ? "news-card--fade-out" : ""}
-              isRemoving={false} // force false here; only needed in NewsCardList
-            />
-          ))}
+          {visibleArticles.map((article, index) => {
+            const isFading = fadingCardIds.includes(article._id);
+
+            return (
+              <NewsCard
+                key={`${article.url}-${index}`}
+                ref={(el) => (cardRefs.current[index] = el)}
+                title={article.title}
+                description={article.text}
+                date={article.date}
+                source={article.source}
+                keyword={article.keyword}
+                image={article.image}
+                url={article.link}
+                isSaved={!isFading}
+                isSavedView={true}
+                isLoggedIn={true}
+                onSave={() => {
+                  if (!isFading) {
+                    setFadingCardIds((prev) => [...prev, article._id]);
+                    setTimeout(() => {
+                      onDeleteArticle(article._id);
+                    }, 600); // Match fadeOut animation duration
+                  }
+                }}
+                style={{ animationDelay: `${index * 0.25}s` }}
+                extraClass={isFading ? "news-card--fade-out" : ""}
+              />
+            );
+          })}
         </div>
       </div>
     </section>

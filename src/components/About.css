@@ -3,6 +3,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 1.5rem;
+  /* todo: address this gap */
 }
 
 .about {
@@ -38,7 +39,7 @@
   font-size: 16px;
 }
 
-@media (max-width: 610px) {
+@media (max-width: 612px) {
   .about__container {
     flex-direction: column;
     text-align: center;
@@ -59,13 +60,13 @@
   }
 }
 
-@media screen and (min-width: 613px) and (max-width: 1050px) {
+@media screen and (min-width: 606px) and (max-width: 1050px) {
   .about {
     padding-top: 61px;
     padding-bottom: 61px;
   }
 }
-@media screen and (min-width: 380px) and (max-width: 612px) {
+@media screen and (min-width: 380px) and (max-width: 606px) {
   .about {
     padding-top: 40px;
     padding-bottom: 40px;

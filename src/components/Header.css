@@ -68,4 +68,7 @@
   .header__container {
     padding: 16px 0;
   }
+  .header__logo {
+    font-size: 16px;
+  }
 }

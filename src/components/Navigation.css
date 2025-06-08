@@ -226,7 +226,7 @@
   }
 }
 
-@media (min-width: 613px) {
+@media (min-width: 612px) {
   .navigation__hamburger-icon {
     display: none;
   }

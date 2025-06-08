@@ -52,7 +52,7 @@
   animation: fadeInUp 1.4s ease-in-out forwards;
 }
 
-.news-card.news-card--fade-out {
+.news-card--fade-out {
   animation: fadeOutDown 1.4s ease-in forwards;
 }
 
@@ -260,7 +260,7 @@
   }
 }
 
-@media screen and (min-width: 549px) and (max-width: 1044px) {
+@media screen and (min-width: 549px) and (max-width: 1186px) {
   .saved-news .news-card__tooltip {
     opacity: 0;
   }
