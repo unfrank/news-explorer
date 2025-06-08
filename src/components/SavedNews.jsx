@@ -1,21 +1,24 @@
 import "./SavedNews.css";
 import NewsCard from "./NewsCard";
-import React, { useContext, useState, useMemo } from "react";
+import React, { useContext, useState, useRef, useMemo } from "react";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
-function SavedNews({ savedArticles, onDeleteArticle }) {
+function SavedNews({ savedArticles, onDeleteArticle, isFading }) {
   const { currentUser } = useContext(CurrentUserContext);
   const displayName =
     currentUser?.username?.charAt(0).toUpperCase() +
       currentUser?.username?.slice(1) || "You";
 
   const [fadingCardIds, setFadingCardIds] = useState([]);
+  const cardRefs = useRef([]);
 
   const visibleArticles = useMemo(
     () =>
       savedArticles.filter((article) => !fadingCardIds.includes(article._id)),
     [savedArticles, fadingCardIds]
   );
+
+  const isUnsaving = (id) => fadingCardIds.includes(id);
 
   const keywordCounts = useMemo(() => {
     const counts = {};
@@ -78,7 +81,8 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
           {/* {savedArticles.map((article, index) => ( */}
           {visibleArticles.map((article, index) => (
             <NewsCard
-              key={article._id}
+              key={`${article.url}-${index}`}
+              ref={(el) => (cardRefs.current[index] = el)}
               title={article.title}
               description={article.text}
               date={article.date}
@@ -86,21 +90,20 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
               keyword={article.keyword}
               image={article.image}
               url={article.link}
-              isSaved={true}
+              isSaved={!isFading}
               isSavedView={true}
               isLoggedIn={true}
               onSave={() => {
-                if (!fadingCardIds.includes(article._id)) {
+                if (!isFading) {
                   setFadingCardIds((prev) => [...prev, article._id]);
                   setTimeout(() => {
                     onDeleteArticle(article._id);
-                  }, 600);
+                  }, 600); // Only for fade-out
                 }
               }}
               style={{ animationDelay: `${index * 0.25}s` }}
-              extraClass={
-                fadingCardIds.includes(article._id) ? "news-card--fade-out" : ""
-              }
+              extraClass={isFading ? "news-card--fade-out" : ""}
+              isRemoving={false} // force false here; only needed in NewsCardList
             />
           ))}
         </div>

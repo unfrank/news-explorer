@@ -23,23 +23,15 @@ function NewsCardList({
     }
   }, [scrollToIndex]);
 
-  const handleSave = (article) => {
-    if (isLoggedIn) {
-      onSaveArticle(article);
-    }
-  };
-
   return (
     <section className="news-results__list">
       <h2 className="news-results__title">Search results</h2>
-      {/* <div className="testing"> */}
       <div className="news-results__grid">
         {articles.map((article, index) => (
           <NewsCard
             key={`${article.url}-${index}`}
             ref={(el) => (cardRefs.current[index] = el)}
             title={article.title}
-            // description={article.description}
             description={
               article.description && article.description.trim().length > 0
                 ? article.description
@@ -55,12 +47,11 @@ function NewsCardList({
             url={article.url}
             style={{ animationDelay: `${index * 0.33}s` }}
             onClick={() => onCardClick && onCardClick(article)}
-            onSave={() => handleSave(article)}
+            onSave={() => onSaveArticle(article)}
             isSaved={savedArticles.some((a) => a.link === article.url)}
             isLoggedIn={isLoggedIn}
           />
         ))}
-        {/* </div> */}
       </div>
     </section>
   );
