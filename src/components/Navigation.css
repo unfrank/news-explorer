@@ -25,14 +25,17 @@
 .navigation__links {
   display: flex;
   align-items: center;
-  /* gap: 44px; */
   justify-content: flex-start;
-  /* padding-inline: 16px;  */
   box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* gap: 44px; */
 }
 
 .navigation__link-home,
-.navigation__link-saved {
+.navigation__link-saved,
+.navigation__link {
   position: relative;
   color: inherit;
   text-decoration: none;
@@ -40,51 +43,43 @@
   font-weight: 500;
   line-height: 24px;
   text-align: center;
-  min-width: 68px;
-  text-align: center;
   margin: 0;
+  min-width: 68px;
+}
+
+.navigation__link-home {
+  margin-right: 44px;
+}
+
+.navigation__link-saved {
+  margin-right: 32px;
+  padding: 0 22px;
 }
 
 .navigation__link-home:hover,
-.navigation__link-saved:hover {
+.navigation__link-saved:hover,
+.navigation__button-logout:hover,
+.navigation__modal-close:hover,
+.navigation__hamburger--close:hover {
   color: inherit;
   opacity: 0.8;
   transform: scale(1.05);
 }
 
-.navigation__link-home {
-  min-width: 68px;
-  /* margin-right: 44px; */
-  margin-right: 44px;
-}
-
-.navigation__link-saved {
-  /* min-width: 178px; */
-  /* margin-left: 22px; */
-  /* margin-right: 32px; */
-  padding-left: 22px;
-  padding-right: 22px;
-  margin-right: 32px;
-}
-
-.navigation__link--active::after {
+.navigation__link--active::after,
+.navigation__link--white::after,
+.navigation__link--black::after {
   content: "";
   position: absolute;
-  bottom: -26px;
+  bottom: -25px;
   left: 0;
   width: 100%;
   height: 3px;
   background-color: currentColor;
 }
 
-.navigation__link--white::after {
-  bottom: -25px;
-  background-color: white;
-}
-
-.navigation__link--black::after {
-  bottom: -25px;
-  background-color: black;
+.navigation__link--active::after {
+  bottom: -26px;
 }
 
 .navigation__username--light {
@@ -93,40 +88,6 @@
 
 .navigation__username--dark {
   color: #000000;
-}
-
-.navigation__button-signin {
-  font-size: 18px;
-  padding: 12px 18px;
-  min-width: 152px;
-  background: transparent;
-  border: 1px solid white;
-  border-radius: 25px;
-  cursor: pointer;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.navigation__button-logout {
-  min-width: 120px;
-  font-size: 18px;
-  padding: 12px 18px;
-  background: transparent;
-  border: 1px solid #d1d2d6;
-  border-radius: 25px;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-left: auto; /* ← pushes it to the end, but still respects padding */
-}
-
-.navigation__logout-icon {
-  width: 24px;
-  height: 24px;
-  margin-left: 0;
 }
 
 .navigation__username {
@@ -139,6 +100,38 @@
   text-overflow: ellipsis;
   max-width: 100px;
 }
+
+.navigation__button-signin,
+.navigation__button-logout {
+  font-size: 18px;
+  padding: 12px 18px;
+  border-radius: 25px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+.navigation__button-signin {
+  min-width: 152px;
+  border: 1px solid white;
+}
+
+.navigation__button-logout {
+  min-width: 120px;
+  border: 1px solid #d1d2d6;
+  justify-content: space-between;
+  margin-left: auto;
+}
+
+.navigation__logout-icon {
+  width: 24px;
+  height: 24px;
+  margin-left: 0;
+}
+
 .navigation__dropdown {
   position: fixed;
   top: 0;
@@ -147,8 +140,7 @@
   bottom: calc(100vh - 230px);
   width: 100%;
   background-color: #1a1b22;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+  border-radius: 0 0 12px 12px;
   overflow-y: auto;
   z-index: 999;
 }
@@ -160,9 +152,9 @@
   padding: 16px;
   font-family: "Roboto", "Inter", sans-serif;
   font-weight: 700;
+  font-size: 16px;
   line-height: 24px;
   color: inherit;
-  font-size: 16px;
 }
 
 .navigation__dropdown-divider {
@@ -195,37 +187,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  width: 100%;
-  cursor: pointer;
-  z-index: 1001;
-  margin-left: auto;
-  background-color: transparent;
-  margin: 0;
+  margin: 0 auto 0 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  background-color: transparent;
+  z-index: 1001;
 }
 
 .navigation__hamburger-icon {
-  padding: 0;
-  margin: 0;
   width: 24px;
   height: 24px;
+  margin: 0;
+  padding: 0;
 }
 
 .navigation__hamburger--close {
   background-color: transparent;
   border: none;
 }
-.navigation__hamburger--close:hover {
-  opacity: 0.8;
-}
-@media (max-width: 501px) {
+
+@media (max-width: 625px) {
   .navigation__links {
     display: none;
   }
 }
 
-@media (min-width: 501px) {
+@media (min-width: 625px) {
   .navigation__hamburger-icon {
     display: none;
   }
@@ -240,6 +229,7 @@
   width: 24px;
   height: 24px;
   position: relative;
+  cursor: pointer;
 }
 
 .icon-wrapper button {
@@ -252,10 +242,13 @@
   justify-content: center;
 }
 
-.icon-wrapper img {
+.icon-wrapper img,
+.navigation__modal-close img,
+.navigation__dropdown-close img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  cursor: pointer;
 }
 
 .navigation__modal-close {
@@ -268,33 +261,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   background: none;
   border: none;
-}
-.navigation__modal-close:hover {
-  background-color: pink;
-}
-
-.icon-wrapper {
-  cursor: pointer;
-}
-
-.navigation__modal-close img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
   cursor: pointer;
 }
 
 .navigation__dropdown-logo {
+  font-family: "Roboto Slab";
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
   color: #ffffff;
   margin: 0;
-  font-weight: 700;
-  line-height: 24px;
-
-  font-size: 16px;
-  font-family: "Roboto Slab";
 }
 
 .navigation__dropdown-close {
@@ -305,27 +283,4 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.navigation__dropdown-close img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-.navigation__link {
-  position: relative;
-  display: inline-block;
-  color: inherit;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 24px;
-  text-align: center;
-  margin: 0; /* use gap in parent instead */
-}
-
-.navigation__button-logout:hover {
-  color: inherit;
-  opacity: 0.8;
-  transform: scale(1.05);
 }

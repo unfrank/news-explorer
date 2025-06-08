@@ -48,7 +48,7 @@
   /* margin: 0 auto; */
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 905px) {
   .section-inner {
     padding-left: 100px;
     padding-right: 100px;
