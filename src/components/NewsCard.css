@@ -26,7 +26,7 @@
 
 .news-card {
   opacity: 0;
-  animation: fadeInUp 1.4s ease forwards;
+  animation: fadeInUp 0.8s ease forwards;
 
   display: flex;
   flex-direction: column;
@@ -49,11 +49,11 @@
 }
 
 .news-card.fade-in {
-  animation: fadeInUp 1.4s ease-in-out forwards;
+  animation: fadeInUp 1s ease-in-out forwards;
 }
 
 .news-card--fade-out {
-  animation: fadeOutDown 1.4s ease-in forwards;
+  animation: fadeOutDown 1s ease-in forwards;
 }
 
 .news-card__image-container {

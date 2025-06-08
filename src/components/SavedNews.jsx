@@ -12,11 +12,7 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
   const [fadingCardIds, setFadingCardIds] = useState([]);
   const cardRefs = useRef([]);
 
-  const visibleArticles = useMemo(
-    () =>
-      savedArticles.filter((article) => !fadingCardIds.includes(article._id)),
-    [savedArticles, fadingCardIds]
-  );
+  const visibleArticles = savedArticles;
 
   const keywordCounts = useMemo(() => {
     const counts = {};
@@ -79,6 +75,27 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
           {visibleArticles.map((article, index) => {
             const isFading = fadingCardIds.includes(article._id);
 
+            if (isFading) {
+              return (
+                <NewsCard
+                  key={`${article.url}-${index}`}
+                  title={article.title}
+                  description={article.text}
+                  date={article.date}
+                  source={article.source}
+                  keyword={article.keyword}
+                  image={article.image}
+                  url={article.link}
+                  isSaved={false}
+                  isSavedView={true}
+                  isLoggedIn={true}
+                  onSave={() => {}}
+                  style={{ animationDelay: `${index * 0.25}s` }}
+                  shouldFadeOut={isFading}
+                />
+              );
+            }
+
             return (
               <NewsCard
                 key={`${article.url}-${index}`}
@@ -90,19 +107,16 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
                 keyword={article.keyword}
                 image={article.image}
                 url={article.link}
-                isSaved={!isFading}
+                isSaved={true}
                 isSavedView={true}
                 isLoggedIn={true}
                 onSave={() => {
-                  if (!isFading) {
-                    setFadingCardIds((prev) => [...prev, article._id]);
-                    setTimeout(() => {
-                      onDeleteArticle(article._id);
-                    }, 600); // Match fadeOut animation duration
-                  }
+                  setFadingCardIds((prev) => [...prev, article._id]);
+                  setTimeout(() => {
+                    onDeleteArticle(article._id);
+                  }, 600);
                 }}
                 style={{ animationDelay: `${index * 0.25}s` }}
-                extraClass={isFading ? "news-card--fade-out" : ""}
               />
             );
           })}

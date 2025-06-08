@@ -36,7 +36,7 @@
 .header__logo--animate {
   opacity: 0;
   transform: translateY(24px) scale(0.94);
-  animation: fadeInScaleDown 1s ease-out forwards;
+  animation: fadeInScaleDown 0.8s ease-out forwards;
 }
 
 @keyframes fadeInScaleDown {

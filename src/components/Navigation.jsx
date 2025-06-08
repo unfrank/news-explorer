@@ -1,4 +1,5 @@
-// Navigation.jsx
+// todo: navigation__hamburger is floating around and is clickable
+
 import React, { useContext, useEffect, useState } from "react";
 import "./Navigation.css";
 import MobileMenuSignIn from "./MobileMenuSignIn";

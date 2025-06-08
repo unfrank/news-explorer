@@ -24,7 +24,7 @@ const NewsCard = forwardRef(
       isSaved,
       isLoggedIn,
       isSavedView,
-      extraClass,
+      shouldFadeOut,
       keyword,
     },
     ref
@@ -54,8 +54,8 @@ const NewsCard = forwardRef(
     return (
       <div className="news-card__wrapper">
         <article
-          className={`news-card ${mounted ? "fade-in" : ""} ${
-            extraClass || ""
+          className={`news-card ${mounted && !shouldFadeOut ? "fade-in" : ""} ${
+            shouldFadeOut ? "news-card--fade-out" : ""
           }`}
           style={style}
           onClick={onClick}
