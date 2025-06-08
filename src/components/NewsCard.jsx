@@ -19,6 +19,7 @@ const NewsCard = forwardRef(
       image,
       url,
       onClick,
+      onRemove,
       style,
       onSave,
       isSaved,
@@ -59,8 +60,13 @@ const NewsCard = forwardRef(
           className={`news-card ${mounted && !shouldFadeOut ? "fade-in" : ""} ${
             shouldFadeOut ? "news-card--fade-out" : ""
           }`}
-          style={appliedStyle}
+          style={style}
           onClick={onClick}
+          onAnimationEnd={(e) => {
+            if (shouldFadeOut && e.animationName === "fadeOutDown") {
+              onRemove();
+            }
+          }}
           ref={ref}
         >
           <div className="news-card__image-container">

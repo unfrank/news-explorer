@@ -78,7 +78,7 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
             if (isFading) {
               return (
                 <NewsCard
-                  key={`${article.url}-${index}`}
+                  key={article._id} // use stable key
                   title={article.title}
                   description={article.text}
                   date={article.date}
@@ -90,6 +90,7 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
                   isSavedView={true}
                   isLoggedIn={true}
                   onSave={() => {}}
+                  onRemove={() => onDeleteArticle(article._id)} // ← hook into animation end
                   style={{ animationDelay: `${index * 0.25}s` }}
                   shouldFadeOut={isFading}
                 />
@@ -110,12 +111,10 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
                 isSaved={true}
                 isSavedView={true}
                 isLoggedIn={true}
-                onSave={() => {
-                  setFadingCardIds((prev) => [...prev, article._id]);
-                  setTimeout(() => {
-                    onDeleteArticle(article._id);
-                  }, 600);
-                }}
+                onSave={() =>
+                  setFadingCardIds((prev) => [...prev, article._id])
+                }
+                onRemove={() => onDeleteArticle(article._id)}
                 style={{ animationDelay: `${index * 0.25}s` }}
               />
             );
