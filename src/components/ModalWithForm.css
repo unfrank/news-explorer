@@ -223,7 +223,7 @@
 }
 
 .modal__content {
-  animation: modalFadeIn 0.66s ease-out;
+  animation: modalFadeIn 0.22s ease-out;
 } */
 
 @keyframes modalFadeInScale {
@@ -238,6 +238,6 @@
 }
 
 .modal__content {
-  animation: modalFadeInScale 0.66s ease-out;
+  animation: modalFadeInScale 0.22s ease-out;
   transition: all 0.3s ease; /* enables smooth morph on resize */
 }

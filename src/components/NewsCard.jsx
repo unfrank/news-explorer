@@ -51,13 +51,15 @@ const NewsCard = forwardRef(
       window.open(url, "_blank", "noopener,noreferrer");
     };
 
+    const appliedStyle = shouldFadeOut ? { animationDelay: "0s" } : style;
+
     return (
       <div className="news-card__wrapper">
         <article
           className={`news-card ${mounted && !shouldFadeOut ? "fade-in" : ""} ${
             shouldFadeOut ? "news-card--fade-out" : ""
           }`}
-          style={style}
+          style={appliedStyle}
           onClick={onClick}
           ref={ref}
         >
