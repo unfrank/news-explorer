@@ -39,7 +39,7 @@ export default function Header({
 
   useEffect(() => {
     function onResize() {
-      if (window.innerWidth >= 646) {
+      if (window.innerWidth >= 420) {
         setMenuOpen(false);
         setMobileSignInOpen(false);
       }

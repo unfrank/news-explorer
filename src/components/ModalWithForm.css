@@ -43,8 +43,8 @@
 
 .modal__close {
   position: absolute;
-  top: -60px;
-  right: -40px;
+  top: -35px;
+  right: -25px;
   width: 40px;
   height: 40px;
   background: none;
@@ -161,11 +161,11 @@
   text-decoration: underline;
 }
 
-@media (max-width: 500px) {
-  /* .modal {
+@media (max-width: 501px) {
+  .modal {
     align-items: flex-start;
     padding-top: 60px;
-  } */
+  }
 
   .modal__content {
     position: absolute;
@@ -204,12 +204,10 @@
     pointer-events: none;
   }
 
-  /* 2) Also disable pointer‐events on the overlay (redundant if wrapper none) */
   .modal__overlay {
     pointer-events: none;
   }
 
-  /* 3) Re-enable pointer‐events inside the white form area */
   .modal__content {
     pointer-events: auto;
   }

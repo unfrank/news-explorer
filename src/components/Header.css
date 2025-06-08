@@ -35,18 +35,18 @@
 
 .header__logo--animate {
   opacity: 0;
-  transform: translateX(-30px);
-  animation: fadeInSlideRight 1s ease-out forwards;
+  transform: translateY(24px) scale(0.94);
+  animation: fadeInScaleUp 1s ease-out forwards;
 }
 
-@keyframes fadeInSlideRight {
+@keyframes fadeInScaleUp {
   0% {
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translateY(24px) scale(0.94);
   }
   100% {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0) scale(1);
   }
 }
 
