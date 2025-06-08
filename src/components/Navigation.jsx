@@ -20,6 +20,7 @@ export default function Navigation({
   onLoginClose,
   isAnyModalOpen,
   onModalClose,
+  animationTriggered,
 }) {
   const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
   const location = useLocation();
@@ -111,7 +112,11 @@ export default function Navigation({
           )}
         </div>
 
-        <div className="navigation__links">
+        <div
+          className={`navigation__links ${
+            animationTriggered ? "navigation__links--animate" : ""
+          }`}
+        >
           <Link
             to="/"
             className={`navigation__link-home ${

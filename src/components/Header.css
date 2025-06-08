@@ -36,17 +36,17 @@
 .header__logo--animate {
   opacity: 0;
   transform: translateY(24px) scale(0.94);
-  animation: fadeInScaleUp 1s ease-out forwards;
+  animation: fadeInScaleDown 1s ease-out forwards;
 }
 
-@keyframes fadeInScaleUp {
+@keyframes fadeInScaleDown {
   0% {
     opacity: 0;
-    transform: translateY(24px) scale(0.94);
+    transform: translateY(-24px) scale(0.94); /* starts above */
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0) scale(1); /* ends in place */
   }
 }
 

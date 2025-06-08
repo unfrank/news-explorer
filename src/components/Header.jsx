@@ -29,11 +29,34 @@ export default function Header({
   const isHome = location.pathname === "/";
   const isSaved = location.pathname === "/saved-news";
 
+  const [animationTriggered, setAnimationTriggered] = useState(false);
+
   useEffect(() => {
     if (isLoggedIn) {
+      const timeout = setTimeout(() => setAnimationTriggered(true), 50);
+      return () => clearTimeout(timeout);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      // Trigger both logo and nav animations
       setLogoAnimate(true);
-      const t = setTimeout(() => setLogoAnimate(false), 1500);
-      return () => clearTimeout(t);
+      const animateIn = setTimeout(() => {
+        setAnimationTriggered(true);
+      }, 50);
+      const resetLogo = setTimeout(() => {
+        setLogoAnimate(false);
+      }, 1500);
+
+      return () => {
+        clearTimeout(animateIn);
+        clearTimeout(resetLogo);
+      };
+    } else {
+      // Reset both on logout
+      setAnimationTriggered(false);
+      setLogoAnimate(false);
     }
   }, [isLoggedIn]);
 
@@ -97,6 +120,7 @@ export default function Header({
             onLogoutClick={handleLogout}
             isAnyModalOpen={activeModal !== ""}
             onModalClose={() => setActiveModal("")}
+            animationTriggered={animationTriggered}
           />
         </div>
       </div>
