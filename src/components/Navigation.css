@@ -26,8 +26,8 @@
   display: flex;
   align-items: center;
   /* gap: 44px; */
-  justify-content: flex-start; /* ← aligns everything left */
-  padding-inline: 16px; /* or 40px if matching .section-inner */
+  justify-content: flex-start;
+  /* padding-inline: 16px;  */
   box-sizing: border-box;
 }
 

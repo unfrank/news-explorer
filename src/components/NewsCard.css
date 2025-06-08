@@ -28,7 +28,7 @@
 
 .news-card {
   opacity: 0;
-  animation: fadeInUp 0.4s ease forwards;
+  animation: fadeInUp 1.4s ease forwards;
 
   display: flex;
   flex-direction: column;
@@ -51,11 +51,11 @@
 }
 
 .news-card.fade-in {
-  animation: fadeInUp 0.4s ease-in-out forwards;
+  animation: fadeInUp 1.4s ease-in-out forwards;
 }
 
 .news-card.news-card--fade-out {
-  animation: fadeOut 0.3s ease-in-out forwards;
+  animation: fadeOut 1.3s ease-in-out forwards;
   opacity: 1;
   max-height: 380px;
   overflow: hidden;
