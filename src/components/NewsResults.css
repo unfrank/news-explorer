@@ -77,15 +77,15 @@
   font-size: 16px;
   border: none;
   border-radius: 20px;
-  background-color: #3366ff;
+  background-color: #2f71e5;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .news-results__button:hover {
-  background-color: #254eda;
-  opacity: 0.9;
+  opacity: 0.8;
+  transform: scale(1.05);
 }
 
 .news-results__button:active {

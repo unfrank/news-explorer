@@ -19,7 +19,7 @@
   font-family: "Roboto", "Inter", sans-serif;
   background-color: white;
   color: black;
-  /* outline: none; */
+  outline: none;
 }
 
 .search-form__button {
