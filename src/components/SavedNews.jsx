@@ -90,7 +90,7 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
                   isSavedView={true}
                   isLoggedIn={true}
                   onSave={() => {}}
-                  onRemove={() => onDeleteArticle(article._id)} // ← hook into animation end
+                  onRemove={() => onDeleteArticle(article._id)}
                   style={{ animationDelay: `${index * 0.25}s` }}
                   shouldFadeOut={isFading}
                 />

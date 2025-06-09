@@ -51,10 +51,22 @@
     margin: 16px 0 48px;
   }
 }
+@media screen and (max-width: 419px) {
+  .main {
+    padding: 30px 16px;
+    gap: 0;
+  }
+}
 
 @media screen and (max-width: 419px) {
   .main__overlay {
-    max-width: 288px;
+    max-width: 285px;
+  }
+  .main__title {
+    padding: 0;
+  }
+  .main__subtitle {
+    padding: 0;
   }
 }
 
