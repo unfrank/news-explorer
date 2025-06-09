@@ -1,12 +1,11 @@
 import React from "react";
 import "./Preloader.css";
 
-function Preloader() {
+function Preloader({ className }) {
   return (
-    <section className="preloader">
+    <div className={className}>
       <div className="preloader__spinner circle-preloader"></div>
-      {/* <p className="preloader__text">Searching for news...</p> */}
-    </section>
+    </div>
   );
 }
 

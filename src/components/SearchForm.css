@@ -56,7 +56,7 @@
   transition: opacity 0.2s ease;
   text-align: left;
   padding-left: 12px;
-  /* margin: 0; */
+  line-height: 14px;
   height: 14px;
   display: block;
 }
@@ -69,11 +69,11 @@
   .search-form__container {
     display: flex;
     flex-direction: column;
-    gap: 16px; /* vertical space between the two pills */
-    width: 100%; /* fill the overlay’s width */
-    background: transparent; /* remove the shared white capsule */
+    gap: 16px;
+    width: 100%;
+    background: transparent;
     border-radius: 0;
-    padding: 0; /* ensure no extra inset */
+    padding: 0;
   }
   .search-form__error {
     text-align: left;

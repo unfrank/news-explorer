@@ -59,10 +59,13 @@ function Main({
             Find the latest news on any topic and save them in your personal
             account.
           </p>
+          {/* {isLoading && <Preloader />} */}
+          <Preloader
+            className={isLoading ? "preloader preloader--visible" : "preloader"}
+          />
 
           <div className="main__form-wrapper">
             <SearchForm onSearch={handleSearch} />
-            {isLoading && <Preloader />}
           </div>
         </div>
       </section>

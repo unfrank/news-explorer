@@ -71,37 +71,14 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
       </div>
 
       <div className="section-inner">
-        {visibleArticles.length > 0 && (
-          <div className="saved-news__grid">
-            {visibleArticles.map((article, index) => {
-              const isFading = fadingCardIds.includes(article._id);
+        <div className="saved-news__grid">
+          {visibleArticles.map((article, index) => {
+            const isFading = fadingCardIds.includes(article._id);
 
-              if (isFading) {
-                return (
-                  <NewsCard
-                    key={article._id} // use stable key
-                    title={article.title}
-                    description={article.text}
-                    date={article.date}
-                    source={article.source}
-                    keyword={article.keyword}
-                    image={article.image}
-                    url={article.link}
-                    isSaved={false}
-                    isSavedView={true}
-                    isLoggedIn={true}
-                    onSave={() => {}}
-                    onRemove={() => onDeleteArticle(article._id)}
-                    style={{ animationDelay: `${index * 0.25}s` }}
-                    shouldFadeOut={isFading}
-                  />
-                );
-              }
-
+            if (isFading) {
               return (
                 <NewsCard
-                  key={`${article.url}-${index}`}
-                  ref={(el) => (cardRefs.current[index] = el)}
+                  key={article._id} // use stable key
                   title={article.title}
                   description={article.text}
                   date={article.date}
@@ -109,19 +86,40 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
                   keyword={article.keyword}
                   image={article.image}
                   url={article.link}
-                  isSaved={true}
+                  isSaved={false}
                   isSavedView={true}
                   isLoggedIn={true}
-                  onSave={() =>
-                    setFadingCardIds((prev) => [...prev, article._id])
-                  }
+                  onSave={() => {}}
                   onRemove={() => onDeleteArticle(article._id)}
                   style={{ animationDelay: `${index * 0.25}s` }}
+                  shouldFadeOut={isFading}
                 />
               );
-            })}
-          </div>
-        )}
+            }
+
+            return (
+              <NewsCard
+                key={`${article.url}-${index}`}
+                ref={(el) => (cardRefs.current[index] = el)}
+                title={article.title}
+                description={article.text}
+                date={article.date}
+                source={article.source}
+                keyword={article.keyword}
+                image={article.image}
+                url={article.link}
+                isSaved={true}
+                isSavedView={true}
+                isLoggedIn={true}
+                onSave={() =>
+                  setFadingCardIds((prev) => [...prev, article._id])
+                }
+                onRemove={() => onDeleteArticle(article._id)}
+                style={{ animationDelay: `${index * 0.25}s` }}
+              />
+            );
+          })}
+        </div>
       </div>
     </section>
   );
