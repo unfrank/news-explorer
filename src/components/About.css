@@ -21,6 +21,12 @@
   object-fit: cover;
   min-width: 200px;
   aspect-ratio: 1 / 1;
+  opacity: 0.5;
+}
+
+.about__image:hover {
+  opacity: 1;
+  transition: opacity 0.66s ease-in-out;
 }
 
 .about__text {
@@ -62,21 +68,21 @@
 
 @media screen and (min-width: 606px) and (max-width: 1050px) {
   .about {
-    padding-top: 61px;
-    padding-bottom: 61px;
+    padding-top: 40px;
+    padding-bottom: 45px;
   }
 }
 @media screen and (min-width: 380px) and (max-width: 606px) {
   .about {
     padding-top: 40px;
-    padding-bottom: 40px;
+    padding-bottom: 45px;
   }
 }
 
 @media screen and (max-width: 379px) {
   .about {
     padding-top: 32px;
-    padding-bottom: 0;
+    padding-bottom: 126px;
   }
 }
 /* “Collapse” (hide) paragraphs 2 and 3 between 610px and 764px */
