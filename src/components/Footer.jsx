@@ -23,7 +23,7 @@ function Footer() {
               TripleTen
             </a>
             <a
-              href="https://github.com"
+              href="https://github.com/unfrank/news-explorer-frontend"
               target="_blank"
               rel="noreferrer"
               className="footer__icon"

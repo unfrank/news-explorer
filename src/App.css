@@ -39,13 +39,11 @@
   color: #888;
 }
 
-/* !orig */
 .section-inner {
   max-width: 100%;
   box-sizing: border-box;
   padding-left: 40px;
   padding-right: 40px;
-  /* margin: 0 auto; */
 }
 
 @media (min-width: 905px) {

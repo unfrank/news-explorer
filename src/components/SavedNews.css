@@ -117,7 +117,7 @@
   .saved-news__grid {
     grid-template-columns: 1fr;
     padding-top: 24px;
-    padding-bottom: 24px;
+    padding-bottom: 12px;
     gap: 10px;
   }
 }
