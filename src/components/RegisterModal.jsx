@@ -1,3 +1,4 @@
+// RegisterModal.jsx
 import React, { useState, useEffect } from "react";
 import ModalWithForm from "./ModalWithForm";
 import { useFormAndValidation } from "../hooks/useFormValidation";
@@ -10,8 +11,7 @@ function RegisterModal({
   isLoading,
   setActiveModal,
 }) {
-  const { values, setValues, setErrors, errors, isValid } =
-    useFormAndValidation();
+  const { setValues, setErrors, errors } = useFormAndValidation();
 
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -22,45 +22,44 @@ function RegisterModal({
   useEffect(() => {
     if (!isOpen) {
       setEmail("");
-      setPassword("");
-      setUsername("");
       setEmailError("");
+      setPassword("");
       setPasswordError("");
+      setUsername("");
       setErrors({});
     }
   }, [isOpen, setErrors]);
 
   const validateEmail = (value) => {
-    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-    const msg = isValid ? "" : "Invalid email address";
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    const msg = ok ? "" : "Invalid email address";
     setEmailError(msg);
     setErrors((prev) => ({ ...prev, email: msg }));
     setValues((prev) => ({ ...prev, email: value }));
   };
 
   const validatePassword = (value) => {
-    const isValid = value.length >= 2 && value.length <= 30;
-    const msg = isValid ? "" : "Password must be 2–30 characters";
+    const ok = value.length >= 2 && value.length <= 30;
+    const msg = ok ? "" : "Password must be 2–30 characters";
     setPasswordError(msg);
     setErrors((prev) => ({ ...prev, password: msg }));
     setValues((prev) => ({ ...prev, password: value }));
   };
 
   const validateUsername = (value) => {
-    const isValid = value.length >= 2 && value.length <= 30;
-    const msg = isValid ? "" : "Username must be 2–30 characters";
+    const ok = value.length >= 2 && value.length <= 30;
+    const msg = ok ? "" : "Username must be 2–30 characters";
     setErrors((prev) => ({ ...prev, name: msg }));
     setValues((prev) => ({ ...prev, name: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await onRegister({ email, username, password }, setEmailError);
-    } catch (err) {
-      console.error("Registration failed:", err);
-    }
+    await onRegister({ email, username, password }, setEmailError);
   };
+
+  // Show server error if it's anything _besides_ our "Invalid email address"
+  const isServerError = emailError && emailError !== "Invalid email address";
 
   return (
     <ModalWithForm
@@ -68,7 +67,7 @@ function RegisterModal({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      buttonText={isLoading ? "Saving..." : "Sign up"}
+      buttonText={isLoading ? "Saving." : "Sign up"}
       disabled={
         !email ||
         !password ||
@@ -94,6 +93,7 @@ function RegisterModal({
         </>
       }
     >
+      {/* — Email Field */}
       <div className="modal__field">
         <label className="modal__label" htmlFor="email">
           Email
@@ -114,13 +114,16 @@ function RegisterModal({
         />
         <span
           className={`modal__error ${
-            emailError ? "modal__error--visible" : ""
+            emailError === "Invalid email address"
+              ? "modal__error--visible"
+              : ""
           }`}
         >
-          {emailError || " "}
+          {emailError === "Invalid email address" ? emailError : " "}
         </span>
       </div>
 
+      {/* — Password Field */}
       <div className="modal__field">
         <label className="modal__label" htmlFor="password">
           Password
@@ -128,8 +131,8 @@ function RegisterModal({
         <input
           type="password"
           id="password"
-          maxLength={31}
           name="password"
+          maxLength={31}
           placeholder="Enter password"
           value={password}
           onChange={(e) => {
@@ -148,6 +151,7 @@ function RegisterModal({
         </span>
       </div>
 
+      {/* — Username Field */}
       <div className="modal__field">
         <label className="modal__label" htmlFor="name">
           Username
@@ -155,8 +159,8 @@ function RegisterModal({
         <input
           type="text"
           id="name"
-          maxLength={31}
           name="name"
+          maxLength={31}
           placeholder="Enter your username"
           value={username}
           onChange={(e) => {
@@ -174,6 +178,15 @@ function RegisterModal({
           {errors.name || " "}
         </span>
       </div>
+
+      {/* — Server‐side “already taken” email error, reserved space */}
+      <span
+        className={`modal__error-server ${
+          isServerError ? "modal__error--visible" : ""
+        }`}
+      >
+        {isServerError ? "This email is not available" : " "}
+      </span>
     </ModalWithForm>
   );
 }
