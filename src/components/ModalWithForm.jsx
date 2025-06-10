@@ -13,7 +13,7 @@ function ModalWithForm({
   footer,
   disabled,
 }) {
-  const isMobile = useMediaQuery("(max-width: 500px)");
+  const isMobile = useMediaQuery("(max-width: 513px)");
 
   useEffect(() => {
     function handleKeyDown(e) {

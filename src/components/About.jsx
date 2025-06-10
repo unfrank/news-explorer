@@ -1,5 +1,6 @@
-import "./About.css";
+// src/components/About.jsx
 import React from "react";
+import "./About.css";
 import lolaImage from "../assets/images/lola.jpg";
 import authorBio from "../utils/Bio.js";
 
@@ -12,13 +13,14 @@ function About() {
           <div className="about__text">
             <h2 className="about__title">About the author</h2>
 
-            <p className="about__paragraph">
+            {/* replace the outer <p> with a <div> and map directly to <p> */}
+            <div className="about__paragraphs">
               {authorBio.map((paragraph, idx) => (
                 <p className="about__paragraph" key={idx}>
                   {paragraph}
                 </p>
               ))}
-            </p>
+            </div>
           </div>
         </div>
       </div>

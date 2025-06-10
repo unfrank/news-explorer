@@ -30,7 +30,7 @@ export default function Navigation({
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSignInOpen, setMobileSignInOpen] = useState(false);
-  const isMobile = useMediaQuery("(max-width: 500px)");
+  const isMobile = useMediaQuery("(max-width: 512px)");
 
   useEffect(() => {
     function handleResize() {
