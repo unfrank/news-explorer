@@ -286,7 +286,6 @@ function App() {
             isLoggedIn={isLoggedIn}
             currentUser={currentUser}
             setActiveModal={setActiveModal}
-            // todo: these props too similar in name, refactor later.
             activeModal={activeModal}
             handleLogout={handleLogout}
           />
