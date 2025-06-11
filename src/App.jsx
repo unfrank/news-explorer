@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import "./components/Hero.css";
 
@@ -20,13 +20,8 @@ import CurrentUserContext from "./contexts/CurrentUserContext";
 
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
-import Preloader from "./components/Preloader";
-
 function App() {
-  // ────────────────────────────────────────────────────────────────────────────
-  // 1) APP‐LEVEL STATE
-  // ────────────────────────────────────────────────────────────────────────────
-  const [activeModal, setActiveModal] = useState(""); // "login" | "register" | "register-success"
+  const [activeModal, setActiveModal] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [savedArticles, setSavedArticles] = useState([]);
@@ -38,14 +33,10 @@ function App() {
   const [pendingLogin, setPendingLogin] = useState(null);
   const [articles, setArticles] = useState([]);
 
-  // Determine if we’re on “/” to toggle header transparently
   const location = useLocation();
   const isHome = location.pathname === "/";
   const isSaved = location.pathname === "/saved-news";
 
-  // ────────────────────────────────────────────────────────────────────────────
-  // 2) EFFECTS: SCROLL RESTORATION & AUTH CHECK
-  // ────────────────────────────────────────────────────────────────────────────
   useEffect(() => {
     window.history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
@@ -77,9 +68,6 @@ function App() {
       });
   }, []);
 
-  // ────────────────────────────────────────────────────────────────────────────
-  // 3) HANDLERS
-  // ────────────────────────────────────────────────────────────────────────────
   const handleSearch = (query) => {
     setFetchError(false);
     setIsLoading(true);
@@ -125,7 +113,7 @@ function App() {
       })
       .finally(() => {
         const elapsed = Date.now() - startTime;
-        const delay = Math.max(0, MIN_SPINNER_TIME - elapsed);
+        const delay = Math.max(0, 1500 - elapsed);
         setTimeout(() => {
           setIsLoading(false);
         }, delay);
