@@ -2,7 +2,7 @@
 import React from "react";
 import "./About.css";
 import lolaImage from "../assets/images/lola.jpg";
-import authorBio from "../utils/Bio.js";
+import authorBio from "../utils/bio.js";
 
 function About() {
   return (
