@@ -67,7 +67,7 @@ function LoginModal({
             onClick={(e) => {
               e.preventDefault();
               onClose();
-              setTimeout(() => setActiveModal("register"), 0); // open RegisterModal
+              setTimeout(() => setActiveModal("register"), 0);
             }}
           >
             Sign up
@@ -120,8 +120,9 @@ function LoginModal({
           }}
           required
         />
+
         <span
-          className={`modal__error ${
+          className={`modal__error modal__error-last ${
             passwordError ? "modal__error--visible" : ""
           }`}
         >
