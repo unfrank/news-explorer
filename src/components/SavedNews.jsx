@@ -55,7 +55,7 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
   return (
     <section className="saved-news">
       <div className="saved-news__title-container">
-        <div className="section-inner">
+        <div className="layout__container">
           <h1 className="saved-news__title">Saved Articles</h1>
           <p className="saved-news__subtitle">
             {displayName}, you have {visibleArticles.length} saved article
@@ -70,7 +70,7 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
         </div>
       </div>
 
-      <div className="section-inner">
+      <div className="layout__container">
         <div className="saved-news__grid">
           {visibleArticles.map((article, index) => {
             const isFading = fadingCardIds.includes(article._id);

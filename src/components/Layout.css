@@ -1,0 +1,20 @@
+.layout__container {
+  max-width: 100%;
+  box-sizing: border-box;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+@media (min-width: 905px) {
+  .layout__container {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}
+
+@media (max-width: 612px) {
+  .layout__container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
