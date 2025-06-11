@@ -11,8 +11,7 @@ function RegisterModal({
   isLoading,
   setActiveModal,
 }) {
-  const { setValues, setErrors, errors } = useFormAndValidation();
-
+  const { setValues, setErrors } = useFormAndValidation();
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
@@ -46,13 +45,6 @@ function RegisterModal({
     setValues((prev) => ({ ...prev, password: value }));
   };
 
-  const validateUsername = (value) => {
-    const ok = value.length >= 2 && value.length <= 30;
-    const msg = ok ? "" : "Username must be 2–30 characters";
-    setErrors((prev) => ({ ...prev, name: msg }));
-    setValues((prev) => ({ ...prev, name: value }));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     await onRegister({ email, username, password }, setEmailError);
@@ -67,14 +59,13 @@ function RegisterModal({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      buttonText={isLoading ? "Saving." : "Sign up"}
+      buttonText={isLoading ? "Saving..." : "Sign up"}
       disabled={
         !email ||
         !password ||
         !username ||
         emailError ||
         passwordError ||
-        errors.name ||
         isLoading
       }
       footer={
@@ -151,7 +142,7 @@ function RegisterModal({
         </span>
       </div>
 
-      {/* — Username Field */}
+      {/* — Username Field (no error span) */}
       <div className="modal__field">
         <label className="modal__label" htmlFor="name">
           Username
@@ -165,18 +156,10 @@ function RegisterModal({
           value={username}
           onChange={(e) => {
             setUsername(e.target.value);
-            validateUsername(e.target.value);
           }}
           className="modal__input"
           required
         />
-        <span
-          className={`modal__error ${
-            errors.name ? "modal__error--visible" : ""
-          }`}
-        >
-          {errors.name || " "}
-        </span>
       </div>
 
       {/* — Server‐side “already taken” email error, reserved space */}
