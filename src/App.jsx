@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
+import "./components/Hero/Hero.css";
+import "./components/Layout/Layout.css";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import About from "./components/About/About";
@@ -242,7 +244,7 @@ function App() {
       value={{ currentUser, isLoggedIn, handleLogin }}
     >
       {isHome ? (
-        <div className="app__hero">
+        <div className="hero">
           <Header
             isHome={isHome}
             isLoggedIn={isLoggedIn}

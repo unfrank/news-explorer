@@ -5,7 +5,7 @@ import authorBio from "../../utils/bio.js";
 function About() {
   return (
     <section className="about">
-      <div className="app__layout-container">
+      <div className="layout-container">
         <div className="about__container">
           <img className="about__image" src={lolaImage} alt="Author" />
           <div className="about__text">

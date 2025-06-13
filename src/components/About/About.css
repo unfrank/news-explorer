@@ -1,15 +1,15 @@
-.about__container {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-}
-
 .about {
   background-color: white;
   color: black;
   padding-top: 80px;
   padding-bottom: 80px;
+}
+
+.about__container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
 
 .about__image {
@@ -21,16 +21,15 @@
   min-width: 200px;
   aspect-ratio: 1 / 1;
   opacity: 0.3;
+  transition: opacity 0.4s ease-in-out;
 }
 
 .about__image:hover {
   opacity: 1;
-  transition: opacity 0.4s ease-in-out;
 }
 
 .about__text {
   flex: 1 1 0;
-
   min-width: 200px;
 }
 
@@ -44,49 +43,51 @@
   font-size: 16px;
 }
 
-@media (max-width: 612px) {
+/* XS: max-width: 379px */
+@media (max-width: 379px) {
+  .about {
+    padding-top: 32px;
+    padding-bottom: 126px;
+  }
+}
+
+/* SM: 380px - 599px */
+@media (min-width: 380px) and (max-width: 599px) {
+  .about {
+    padding-top: 40px;
+    padding-bottom: 45px;
+  }
+}
+
+/* MD: 600px - 899px */
+@media (min-width: 600px) and (max-width: 899px) {
+  .about {
+    padding-top: 40px;
+    padding-bottom: 45px;
+  }
+
   .about__container {
     flex-direction: column;
     text-align: center;
-  }
-
-  .about {
-    padding-top: 32px;
-    padding-bottom: 32px;
   }
 
   .about__image {
     width: 272px;
     height: 272px;
   }
+
   .about__title {
-    line-height: 40px;
     font-size: 30px;
   }
 }
 
-@media screen and (min-width: 606px) and (max-width: 1050px) {
-  .about {
-    padding-top: 40px;
-    padding-bottom: 45px;
-  }
-}
-@media screen and (min-width: 380px) and (max-width: 606px) {
-  .about {
-    padding-top: 40px;
-    padding-bottom: 45px;
-  }
+/* LG+: min-width: 900px */
+@media (min-width: 900px) {
+  /* default styles apply, no override needed */
 }
 
-@media screen and (max-width: 379px) {
-  .about {
-    padding-top: 32px;
-    padding-bottom: 126px;
-  }
-}
-/* “Collapse” (hide) paragraphs 2 and 3 between 610px and 764px */
+/* Paragraph collapsing still applied universally */
 @media (min-width: 610px) and (max-width: 764px) {
-  /* select the 2nd and 3rd <p> inside .about__text and hide them */
   .about__text p:nth-of-type(2),
   .about__text p:nth-of-type(3) {
     display: none;

@@ -1,0 +1,8 @@
+.hero {
+  background-image: url("/src/assets/images/home--bkgrnd.png");
+  background-size: cover;
+  background-position: center;
+
+  color: white;
+  background-attachment: fixed;
+}

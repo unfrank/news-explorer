@@ -32,7 +32,7 @@ function NewsResults({
 
   return (
     <section className="news-results">
-      <div className="app__layout-container">
+      <div className="layout-container">
         <NewsCardList
           articles={articles.slice(0, visibleCount)}
           onCardClick={onCardClick}

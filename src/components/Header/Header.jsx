@@ -40,7 +40,7 @@ export default function Header({
     <header
       className={`header ${isHome ? "header--transparent" : "header--solid"}`}
     >
-      <div className="app__layout-container">
+      <div className="layout-container">
         <div className="header__container">
           <div
             className={`header__logo ${
