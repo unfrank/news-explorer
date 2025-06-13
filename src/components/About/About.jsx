@@ -11,14 +11,11 @@ function About() {
           <div className="about__text">
             <h2 className="about__title">About the author</h2>
 
-            {/* replace the outer <p> with a <div> and map directly to <p> */}
-            <div className="about__paragraphs">
-              {authorBio.map((paragraph, idx) => (
-                <p className="about__paragraph" key={idx}>
-                  {paragraph}
-                </p>
-              ))}
-            </div>
+            {authorBio.map((paragraph, idx) => (
+              <p className="about__paragraph" key={idx}>
+                {paragraph}
+              </p>
+            ))}
           </div>
         </div>
       </div>

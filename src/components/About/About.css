@@ -34,28 +34,46 @@
 }
 
 .about__title {
-  font-size: 2.5rem;
   margin: 0;
-  line-height: 40px;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 46px;
 }
 
 .about__paragraph {
-  font-size: 16px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
 }
 
-/* XS: max-width: 379px */
+.about__paragraph:last-of-type {
+  margin-bottom: 0;
+}
+
 @media (max-width: 379px) {
   .about {
     padding-top: 32px;
     padding-bottom: 126px;
   }
+  .about__title {
+    font-size: 30px;
+    line-height: 40px;
+  }
 }
 
-/* SM: 380px - 599px */
 @media (min-width: 380px) and (max-width: 599px) {
   .about {
     padding-top: 40px;
     padding-bottom: 45px;
+  }
+  .about__title {
+    font-size: 2.5rem;
+    margin: 0;
+    line-height: 40px;
+  }
+
+  .about__paragraph {
+    font-size: 16px;
   }
 }
 
@@ -81,12 +99,6 @@
   }
 }
 
-/* LG+: min-width: 900px */
-@media (min-width: 900px) {
-  /* default styles apply, no override needed */
-}
-
-/* Paragraph collapsing still applied universally */
 @media (min-width: 610px) and (max-width: 764px) {
   .about__text p:nth-of-type(2),
   .about__text p:nth-of-type(3) {
