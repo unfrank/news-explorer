@@ -44,7 +44,7 @@
 }
 
 .search-form__button:active {
-  transform: scale(0.95);
+  transform: scale(1.05);
   transition: transform 0.12s ease;
 }
 

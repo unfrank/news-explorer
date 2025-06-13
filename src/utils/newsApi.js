@@ -1,9 +1,5 @@
-// API Key   5bfa5eb0995848489376871749f91d90
-
 const NEWS_API_BASE_URL = "https://newsapi.org/v2/everything";
 const NEWS_API_KEY = import.meta.env.VITE_NEWS_API_KEY;
-
-console.log("Loaded API key:", NEWS_API_KEY);
 
 const handleResponse = (res) => {
   if (res.ok) {
