@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./App.css";
 
 import "./components/Hero/Hero.css";
 import "./components/Layout/Layout.css";
