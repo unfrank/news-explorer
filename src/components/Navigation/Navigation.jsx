@@ -61,7 +61,7 @@ export default function Navigation({
   return (
     <>
       <nav className="navigation">
-        <div className="icon-wrapper">
+        <div className="navigation__icon-wrapper">
           {!isAnyModalOpen && isHome && (
             <button
               className="navigation__hamburger"
