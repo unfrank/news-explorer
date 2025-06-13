@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./RegisterSuccessModal.css";
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import "../ModalWithForm/ModalWithForm.css";
 import { login } from "../../authorization/auth";
+import closeIcon from "../../assets/icons/icon-btn-close.svg";
 
 function RegisterSuccessModal({
   isOpen,
@@ -17,8 +20,8 @@ function RegisterSuccessModal({
     <div className="modal">
       <div className="modal__overlay" onClick={onClose} />
       <div className="modal__content">
-        <button className="modal__close" onClick={onClose}>
-          &times;
+        <button className="modal__close" onClick={onClose} aria-label="Close">
+          <img src={closeIcon} alt="Close" />
         </button>
         <h2 className="modal__title">Registration successfully completed!</h2>
         <div className="modal__footer-registration">
