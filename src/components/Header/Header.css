@@ -42,11 +42,11 @@
 @keyframes fadeInScaleDown {
   0% {
     opacity: 0;
-    transform: translateY(-24px) scale(0.94); /* starts above */
+    transform: translateY(-24px) scale(0.94);
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1); /* ends in place */
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -64,7 +64,7 @@
   color: #000;
 }
 
-@media screen and (max-width: 612px) {
+@media (max-width: 379px) {
   .header__container {
     padding: 16px 0;
   }
