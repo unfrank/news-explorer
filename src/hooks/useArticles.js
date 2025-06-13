@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { fetchNewsArticles } from "../utils/newsApi";
+import { saveArticle, deleteArticle } from "../authorization/articlesApi";
 
 export function useArticles() {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [fetchError, setFetchError] = useState(false);
+  const [savedArticles, setSavedArticles] = useState([]);
 
   const search = async (query) => {
     setFetchError(false);
@@ -20,7 +22,7 @@ export function useArticles() {
         from: lastWeek,
         to: today,
       });
-      setArticles(data.articles.slice(0, 9)); // simplified from validate loop :contentReference[oaicite:3]{index=3}
+      setArticles(data.articles.slice(0, 9));
     } catch {
       setFetchError(true);
       setArticles([]);
@@ -29,7 +31,33 @@ export function useArticles() {
     }
   };
 
-  const save = async (articleData, savedArticles, setSavedArticles) => {};
+  const save = async (articleData) => {
+    try {
+      const token = localStorage.getItem("jwt");
+      const savedArticle = await saveArticle(articleData, token);
+      setSavedArticles((prev) => [...prev, savedArticle]);
+    } catch (err) {
+      console.error("Save article failed:", err);
+    }
+  };
 
-  return { articles, isLoading, fetchError, search, save };
+  const remove = async (articleId) => {
+    try {
+      const token = localStorage.getItem("jwt");
+      await deleteArticle(articleId, token);
+      setSavedArticles((prev) => prev.filter((a) => a._id !== articleId));
+    } catch (err) {
+      console.error("Delete article failed:", err);
+    }
+  };
+
+  return {
+    articles,
+    isLoading,
+    fetchError,
+    search,
+    save,
+    remove,
+    savedArticles,
+  };
 }
