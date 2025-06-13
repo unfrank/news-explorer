@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import Navigation from "./Navigation";
+import Navigation from "../Navigation/Navigation";
 import "./Header.css";
 
 export default function Header({
@@ -40,7 +40,7 @@ export default function Header({
     <header
       className={`header ${isHome ? "header--transparent" : "header--solid"}`}
     >
-      <div className="layout__container">
+      <div className="app__layout-container">
         <div className="header__container">
           <div
             className={`header__logo ${

@@ -1,6 +1,6 @@
 import "./NewsResults.css";
-import React, { useRef } from "react";
-import NewsCardList from "./NewsCardList";
+import { useRef } from "react";
+import NewsCardList from "../NewsCardList/NewsCardList";
 
 function NewsResults({
   articles,
@@ -32,7 +32,7 @@ function NewsResults({
 
   return (
     <section className="news-results">
-      <div className="layout__container">
+      <div className="app__layout-container">
         <NewsCardList
           articles={articles.slice(0, visibleCount)}
           onCardClick={onCardClick}

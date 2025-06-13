@@ -1,7 +1,7 @@
 import "./SavedNews.css";
-import NewsCard from "./NewsCard";
-import React, { useContext, useState, useMemo, useRef, useEffect } from "react";
-import CurrentUserContext from "../contexts/CurrentUserContext";
+import NewsCard from "../NewsCard/NewsCard";
+import { useContext, useState, useMemo, useRef } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function SavedNews({ savedArticles, onDeleteArticle }) {
   const { currentUser } = useContext(CurrentUserContext);
@@ -55,7 +55,7 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
   return (
     <section className="saved-news">
       <div className="saved-news__title-container">
-        <div className="layout__container">
+        <div className="app__layout-container">
           <h1 className="saved-news__title">Saved Articles</h1>
           <p className="saved-news__subtitle">
             {displayName}, you have {visibleArticles.length} saved article
@@ -70,7 +70,7 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
         </div>
       </div>
 
-      <div className="layout__container">
+      <div className="app__layout-container">
         <div className="saved-news__grid">
           {visibleArticles.map((article, index) => {
             const isFading = fadingCardIds.includes(article._id);

@@ -1,13 +1,11 @@
-// src/components/About.jsx
-import React from "react";
 import "./About.css";
-import lolaImage from "../assets/images/lola.jpg";
-import authorBio from "../utils/bio.js";
+import lolaImage from "../../assets/images/lola.jpg";
+import authorBio from "../../utils/bio.js";
 
 function About() {
   return (
     <section className="about">
-      <div className="layout__container">
+      <div className="app__layout-container">
         <div className="about__container">
           <img className="about__image" src={lolaImage} alt="Author" />
           <div className="about__text">

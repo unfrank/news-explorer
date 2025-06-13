@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from "react";
-import NewsCard from "./NewsCard";
+import { useEffect, useRef } from "react";
+
+import NewsCard from "../NewsCard/NewsCard";
 import "./NewsCardList.css";
-import About from "./About";
 
 function NewsCardList({
   articles,

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./RegisterSuccessModal.css";
-import { login } from "../authorization/auth";
+import { login } from "../../authorization/auth";
 
 function RegisterSuccessModal({
   isOpen,

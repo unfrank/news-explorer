@@ -1,16 +1,14 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import "./components/Layout.css";
-import "./components/Hero.css";
 
-import Main from "./components/Main";
-import About from "./components/About";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import LoginModal from "./components/LoginModal";
-import RegisterModal from "./components/RegisterModal";
-import RegisterSuccessModal from "./components/RegisterSuccessModal";
-import SavedNews from "./components/SavedNews";
+import Header from "./components/Header/Header";
+import Main from "./components/Main/Main";
+import About from "./components/About/About";
+import Footer from "./components/Footer/Footer";
+import LoginModal from "./components/LoginModal/LoginModal";
+import RegisterModal from "./components/RegisterModal/RegisterModal";
+import RegisterSuccessModal from "./components/RegisterSuccessModal/RegisterSuccessModal";
+import SavedNews from "./components/SavedNews/SavedNews";
 
 import ProtectedRoute from "./authorization/ProtectedRoute";
 
@@ -244,7 +242,7 @@ function App() {
       value={{ currentUser, isLoggedIn, handleLogin }}
     >
       {isHome ? (
-        <div className="hero">
+        <div className="app__hero">
           <Header
             isHome={isHome}
             isLoggedIn={isLoggedIn}

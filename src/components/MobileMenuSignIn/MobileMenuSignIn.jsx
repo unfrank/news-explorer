@@ -1,7 +1,8 @@
 import React, { useEffect, useContext, useState } from "react";
+
 import "./MobileMenuSignIn.css";
-import CurrentUserContext from "../contexts/CurrentUserContext";
-import { login } from "../authorization/auth";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { login } from "../../authorization/auth";
 
 export default function MobileMenuSignIn({ isOpen, onClose }) {
   const { handleLogin } = useContext(CurrentUserContext);

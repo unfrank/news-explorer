@@ -1,9 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
+
 import "./Main.css";
-import SearchForm from "./SearchForm";
-import NewsResults from "./NewsResults";
-import Preloader from "./Preloader";
-import NothingFound from "./NothingFound";
+import SearchForm from "../SearchForm/SearchForm";
+import NewsResults from "../NewsResults/NewsResults";
+import Preloader from "../Preloader/Preloader";
+import NothingFound from "../NothingFound/NothingFound";
 
 function Main({
   onSearch,

@@ -1,14 +1,11 @@
-// NewsCard.jsx
-
 import React, { useState, forwardRef, useEffect } from "react";
+
 import "./NewsCard.css";
-
-import saveIconLight from "../assets/icons/icon-like-light.svg";
-import saveIconDark from "../assets/icons/icon-like-dark.svg";
-import saveIconMarked from "../assets/icons/icon-like-marked.svg";
-import deleteIconActive from "../assets/icons/icon-trash-active.svg";
-import deleteIconInactive from "../assets/icons/icon-trash-inactive.svg";
-
+import saveIconLight from "../../assets/icons/icon-like-light.svg";
+import saveIconDark from "../../assets/icons/icon-like-dark.svg";
+import saveIconMarked from "../../assets/icons/icon-like-marked.svg";
+import deleteIconActive from "../../assets/icons/icon-trash-active.svg";
+import deleteIconInactive from "../../assets/icons/icon-trash-inactive.svg";
 const NewsCard = forwardRef(
   (
     {

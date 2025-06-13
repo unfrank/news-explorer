@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+
 import "./ModalWithForm.css";
-import closeIcon from "../assets/icons/icon-btn-close.svg";
-import useMediaQuery from "../hooks/useMediaQuery";
+import closeIcon from "../../assets/icons/icon-btn-close.svg";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 function ModalWithForm({
   title,

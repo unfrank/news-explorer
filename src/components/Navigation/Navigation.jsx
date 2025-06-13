@@ -1,14 +1,16 @@
+// todo: navigation__hamburger is floating around and is clickable
+
 import React, { useContext, useEffect, useState } from "react";
-import "./Navigation.css";
 import MobileMenuSignIn from "../MobileMenuSignIn/MobileMenuSignIn";
+import "./Navigation.css";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { Link, useLocation } from "react-router-dom";
-
 import logoutIconDark from "../../assets/icons/icon-logout-dark.svg";
 import logoutIconLight from "../../assets/icons/icon-logout-light.svg";
 import closeIcon from "../../assets/icons/icon-btn-close.svg";
 import hamburgerDark from "../../assets/icons/icon-hamburger-dark.svg";
 import hamburgerLight from "../../assets/icons/icon-hamburger-light.svg";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 export default function Navigation({
   onSignInClick,
@@ -26,6 +28,7 @@ export default function Navigation({
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSignInOpen, setMobileSignInOpen] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 512px)");
 
   useEffect(() => {
     function handleResize() {
@@ -36,8 +39,6 @@ export default function Navigation({
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [menuOpen]);
-
-  const isMobile = window.innerWidth <= 512;
 
   const rawUsername = currentUser?.username || "";
   const displayName =
@@ -61,21 +62,35 @@ export default function Navigation({
     <>
       <nav className="navigation">
         <div className="icon-wrapper">
-          {isMobile && !isLoginOpen && !menuOpen && (
+          {!isAnyModalOpen && isHome && (
             <button
               className="navigation__hamburger"
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
             >
               <img
-                src={isHome ? hamburgerLight : hamburgerDark}
+                src={hamburgerLight}
                 alt="Open menu"
                 className="navigation__hamburger-icon"
               />
             </button>
           )}
 
-          {isMobile && !isLoginOpen && menuOpen && (
+          {!isAnyModalOpen && isSaved && (
+            <button
+              className="navigation__hamburger"
+              onClick={() => setMenuOpen(true)}
+              aria-label="Open menu"
+            >
+              <img
+                src={hamburgerDark}
+                alt="Open menu"
+                className="navigation__hamburger-icon"
+              />
+            </button>
+          )}
+
+          {!isAnyModalOpen && menuOpen && (
             <button
               className="navigation__hamburger--close"
               onClick={() => setMenuOpen(false)}
@@ -85,10 +100,10 @@ export default function Navigation({
             </button>
           )}
 
-          {isMobile && isLoginOpen && (
+          {isAnyModalOpen && isMobile && (
             <button
               className="navigation__modal-close"
-              onClick={onLoginClose}
+              onClick={onModalClose}
               aria-label="Close modal"
             >
               <img src={closeIcon} alt="Close modal" />
