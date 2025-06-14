@@ -1,5 +1,6 @@
-import "./NewsResults.css";
 import { useRef } from "react";
+
+import "./NewsResults.css";
 import NewsCardList from "../NewsCardList/NewsCardList";
 
 function NewsResults({
@@ -9,7 +10,6 @@ function NewsResults({
   onCardClick,
   lastVisibleIndex,
   onSaveArticle,
-  onDeleteArticle,
   savedArticles,
   isLoggedIn,
 }) {
