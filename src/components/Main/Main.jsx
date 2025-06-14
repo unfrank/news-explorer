@@ -71,12 +71,12 @@ function Main({
         </div>
       </section>
 
-      {!isLoading && hasSearched && fetchError && (
-        <div className="main__search-error">
-          <h3>Something went wrong</h3>
-          <p>Please try again later.</p>
-        </div>
-      )}
+      {/* {!isLoading && hasSearched && fetchError && ( */}
+      <div className="main__search-error">
+        <h3>Something went wrong</h3>
+        <p>Please try again later.</p>
+      </div>
+      {/* )} */}
 
       {!isLoading && hasSearched && !fetchError && articles.length === 0 && (
         <NothingFound />

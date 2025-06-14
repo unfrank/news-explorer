@@ -43,6 +43,11 @@
   font-weight: 700;
 }
 
+.main__search-error h3,
+.main__search-error p {
+  margin: 0;
+}
+
 @media screen and (max-width: 885px) {
   .main {
     padding: 38px 24px 0;
