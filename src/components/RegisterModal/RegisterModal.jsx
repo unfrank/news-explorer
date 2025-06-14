@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
-
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useFormAndValidation } from "../../hooks/useFormValidation";
-import "./RegisterModal.css";
 
 function RegisterModal({
   isOpen,
@@ -44,18 +42,12 @@ function RegisterModal({
     setErrors((prev) => ({ ...prev, password: msg }));
     setValues((prev) => ({ ...prev, password: value }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // 🔥 see exactly what we're sending
-    console.log("[RegisterModal] 🔥 formValues:", {
-      email,
-      username,
-      password,
-    });
     await onRegister({ email, username, password }, setEmailError);
   };
 
-  // Show server error if it's anything _besides_ our "Invalid email address"
   const isServerError = emailError && emailError !== "Invalid email address";
 
   return (
@@ -89,7 +81,6 @@ function RegisterModal({
         </>
       }
     >
-      {/* — Email Field */}
       <div className="modal__field">
         <label className="modal__label" htmlFor="email">
           Email
@@ -119,7 +110,6 @@ function RegisterModal({
         </span>
       </div>
 
-      {/* — Password Field */}
       <div className="modal__field">
         <label className="modal__label" htmlFor="password">
           Password
@@ -147,7 +137,6 @@ function RegisterModal({
         </span>
       </div>
 
-      {/* — Username Field (no error span) */}
       <div className="modal__field">
         <label className="modal__label" htmlFor="name">
           Username
@@ -167,7 +156,6 @@ function RegisterModal({
         />
       </div>
 
-      {/* — Server‐side “already taken” email error, reserved space */}
       <span
         className={`modal__error-server ${
           isServerError ? "modal__error--visible" : ""
