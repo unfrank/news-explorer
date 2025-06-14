@@ -1,8 +1,6 @@
 import { useEffect } from "react";
-
 import "./ModalWithForm.css";
 import closeIcon from "../../assets/icons/icon-btn-close.svg";
-import useMediaQuery from "../../hooks/useMediaQuery";
 
 function ModalWithForm({
   title,
@@ -14,8 +12,6 @@ function ModalWithForm({
   footer,
   disabled,
 }) {
-  const isMobile = useMediaQuery("(max-width: 513px)");
-
   useEffect(() => {
     function handleKeyDown(e) {
       if (e.key === "Escape") {
@@ -32,11 +28,9 @@ function ModalWithForm({
     <div className="modal">
       <div className="modal__overlay" onClick={onClose} />
       <div className="modal__content">
-        {!isMobile && (
-          <button className="modal__close" onClick={onClose} aria-label="Close">
-            <img src={closeIcon} alt="Close" />
-          </button>
-        )}
+        <button className="modal__close" onClick={onClose} aria-label="Close">
+          <img src={closeIcon} alt="Close" />
+        </button>
         <h2 className="modal__title">{title}</h2>
         <form onSubmit={onSubmit} className="modal__form" noValidate>
           {children}

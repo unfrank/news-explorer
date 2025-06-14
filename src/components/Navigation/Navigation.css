@@ -311,6 +311,7 @@
   background: none;
   border: none;
 }
+
 .navigation__modal-close:hover {
   opacity: 0.8;
   transform: scale(1.05);

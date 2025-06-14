@@ -8,8 +8,7 @@ import logoutIconLight from "../../assets/icons/icon-logout-light.svg";
 import closeIcon from "../../assets/icons/icon-btn-close.svg";
 import hamburgerDark from "../../assets/icons/icon-hamburger-dark.svg";
 import hamburgerLight from "../../assets/icons/icon-hamburger-light.svg";
-// import { useMediaQuery } from "../../hooks/useMediaQuery";
-import { useMediaQuery } from "../../hooks/useMediaQuery";
+import { useWindowWidth } from "../../hooks/useWindowWidth";
 
 export default function Navigation({
   onSignInClick,
@@ -27,7 +26,7 @@ export default function Navigation({
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSignInOpen, setMobileSignInOpen] = useState(false);
-  const isMobile = useMediaQuery("(max-width: 512px)");
+  const width = useWindowWidth();
 
   useEffect(() => {
     function handleResize() {
@@ -57,49 +56,40 @@ export default function Navigation({
       onLoginClose();
     }
   }
+
   return (
     <>
       <nav className="navigation">
         <div className="navigation__icon-wrapper">
-          {!isAnyModalOpen && isHome && (
-            <button
-              className="navigation__hamburger"
-              onClick={() => setMenuOpen(true)}
-              aria-label="Open menu"
-            >
-              <img
-                src={hamburgerLight}
-                alt="Open menu"
-                className="navigation__hamburger-icon"
-              />
-            </button>
+          {!isAnyModalOpen && (
+            <>
+              {!menuOpen && (
+                <button
+                  className="navigation__hamburger"
+                  onClick={() => setMenuOpen(true)}
+                  aria-label="Open menu"
+                >
+                  <img
+                    src={isHome ? hamburgerLight : hamburgerDark}
+                    alt="Open menu"
+                    className="navigation__hamburger-icon"
+                  />
+                </button>
+              )}
+
+              {menuOpen && (
+                <button
+                  className="navigation__hamburger--close"
+                  onClick={() => setMenuOpen(false)}
+                  aria-label="Close menu"
+                >
+                  <img src={closeIcon} alt="Close menu" />
+                </button>
+              )}
+            </>
           )}
 
-          {!isAnyModalOpen && isSaved && (
-            <button
-              className="navigation__hamburger"
-              onClick={() => setMenuOpen(true)}
-              aria-label="Open menu"
-            >
-              <img
-                src={hamburgerDark}
-                alt="Open menu"
-                className="navigation__hamburger-icon"
-              />
-            </button>
-          )}
-
-          {!isAnyModalOpen && menuOpen && (
-            <button
-              className="navigation__hamburger--close"
-              onClick={() => setMenuOpen(false)}
-              aria-label="Close menu"
-            >
-              <img src={closeIcon} alt="Close menu" />
-            </button>
-          )}
-
-          {isAnyModalOpen && isMobile && (
+          {isAnyModalOpen && width <= 512 && (
             <button
               className="navigation__modal-close"
               onClick={onModalClose}
@@ -118,7 +108,7 @@ export default function Navigation({
           <Link
             to="/"
             className={`navigation__link-home ${
-              location.pathname === "/" ? "navigation__link--active" : ""
+              isHome ? "navigation__link--active" : ""
             }`}
             onClick={() => setMenuOpen(false)}
           >
@@ -130,9 +120,7 @@ export default function Navigation({
               <Link
                 to="/saved-news"
                 className={`navigation__link-saved ${
-                  location.pathname === "/saved-news"
-                    ? "navigation__link--active"
-                    : ""
+                  isSaved ? "navigation__link--active" : ""
                 }`}
                 onClick={() => setMenuOpen(false)}
               >
@@ -175,8 +163,7 @@ export default function Navigation({
         </div>
       </nav>
 
-      {/* DROPDOWN MENUS (mobile) */}
-      {menuOpen && isHome && !isLoggedIn && (
+      {menuOpen && (
         <div className="navigation__dropdown">
           <div className="navigation__dropdown-header">
             <h2 className="navigation__dropdown-logo">NewsExplorer</h2>
@@ -189,76 +176,52 @@ export default function Navigation({
             </button>
           </div>
           <hr className="navigation__dropdown-divider" />
-          <div className="navigation__dropdown-item">Home</div>
-          <button
-            className="navigation__button navigation__button--dropdown"
-            onClick={() => {
-              setMenuOpen(false);
-              onSignInClick();
-            }}
-          >
-            Sign In
-          </button>
-        </div>
-      )}
 
-      {menuOpen && isHome && isLoggedIn && (
-        <div className="navigation__dropdown">
-          <div className="navigation__dropdown-header">
-            <h2 className="navigation__dropdown-logo">NewsExplorer</h2>
-            <button
-              className="navigation__dropdown-close"
-              onClick={() => setMenuOpen(false)}
-              aria-label="Close menu"
-            >
-              <img src={closeIcon} alt="Close menu" />
-            </button>
-          </div>
-          <hr className="navigation__dropdown-divider" />
-          <div className="navigation__dropdown-item">Home</div>
-          <Link
-            to="/saved-news"
-            className="navigation__dropdown-item navigation__dropdown-link"
-            onClick={() => setMenuOpen(false)}
-          >
-            Saved Articles
-          </Link>
-          <button
-            className="navigation__button navigation__button--dropdown"
-            onClick={handleLogoutClick}
-          >
-            Sign Out
-          </button>
-        </div>
-      )}
+          {isHome && <div className="navigation__dropdown-item">Home</div>}
+          {isSaved && (
+            <div className="navigation__dropdown-item">Saved Articles</div>
+          )}
 
-      {menuOpen && isSaved && isLoggedIn && (
-        <div className="navigation__dropdown">
-          <div className="navigation__dropdown-header">
-            <h2 className="navigation__dropdown-logo">NewsExplorer</h2>
+          {isLoggedIn && (
+            <>
+              {isHome && (
+                <Link
+                  to="/saved-news"
+                  className="navigation__dropdown-item navigation__dropdown-link"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Saved Articles
+                </Link>
+              )}
+              {isSaved && (
+                <Link
+                  to="/"
+                  className="navigation__dropdown-item navigation__dropdown-link"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Home
+                </Link>
+              )}
+              <button
+                className="navigation__button navigation__button--dropdown"
+                onClick={handleLogoutClick}
+              >
+                Sign Out
+              </button>
+            </>
+          )}
+
+          {!isLoggedIn && (
             <button
-              className="navigation__dropdown-close"
-              onClick={() => setMenuOpen(false)}
-              aria-label="Close menu"
+              className="navigation__button navigation__button--dropdown"
+              onClick={() => {
+                setMenuOpen(false);
+                onSignInClick();
+              }}
             >
-              <img src={closeIcon} alt="Close menu" />
+              Sign In
             </button>
-          </div>
-          <hr className="navigation__dropdown-divider" />
-          <div className="navigation__dropdown-item">Saved Articles</div>
-          <Link
-            to="/"
-            className="navigation__dropdown-item navigation__dropdown-link"
-            onClick={() => setMenuOpen(false)}
-          >
-            Home
-          </Link>
-          <button
-            className="navigation__button navigation__button--dropdown"
-            onClick={handleLogoutClick}
-          >
-            Sign Out
-          </button>
+          )}
         </div>
       )}
 

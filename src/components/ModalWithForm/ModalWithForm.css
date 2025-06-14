@@ -229,6 +229,14 @@
   }
 }
 
+.modal__content {
+  animation: modalFadeInScale 0.22s ease-out;
+  transition: all 0.3s ease;
+}
+.modal__error-last {
+  margin-bottom: 31px;
+}
+
 @keyframes modalFadeInScale {
   from {
     opacity: 0;
@@ -238,12 +246,4 @@
     opacity: 1;
     transform: translateY(0) scale(1);
   }
-}
-
-.modal__content {
-  animation: modalFadeInScale 0.22s ease-out;
-  transition: all 0.3s ease;
-}
-.modal__error-last {
-  margin-bottom: 31px;
 }
