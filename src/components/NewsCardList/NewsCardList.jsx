@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 
 import NewsCard from "../NewsCard/NewsCard";
-import "./NewsCardList.css";
 
 function NewsCardList({
   articles,
@@ -45,7 +44,7 @@ function NewsCardList({
             source={article.source.name}
             image={article.urlToImage}
             url={article.url}
-            style={{ animationDelay: `${index * 0.33}s` }}
+            style={{ animationDelay: `${index * 0.22}s` }}
             onClick={() => onCardClick && onCardClick(article)}
             onSave={() => onSaveArticle(article)}
             isSaved={savedArticles.some((a) => a.link === article.url)}
