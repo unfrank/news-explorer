@@ -1,20 +1,14 @@
 import { useState, useContext } from "react";
-import {
-  checkToken,
-  register,
-  login as apiLogin, // keep this
-} from "../authorization/auth";
+import { checkToken, register, login as apiLogin } from "../authorization/auth";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
 export function useAuth() {
   const { setCurrentUser, setIsLoggedIn } = useContext(CurrentUserContext);
   const [isAuthLoading, setIsAuthLoading] = useState(false);
 
-  // 1. Proper login flow
   const login = async ({ email, password }, setAuthError) => {
     setIsAuthLoading(true);
     try {
-      // call backend
       const {
         token,
         email: respEmail,
@@ -41,7 +35,6 @@ export function useAuth() {
     setCurrentUser(null);
   };
 
-  // 3. Register flow you already nailed
   const registerUser = async (
     { email, username, password },
     setEmailError,

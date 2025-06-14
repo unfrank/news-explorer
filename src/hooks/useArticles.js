@@ -36,9 +36,7 @@ export function useArticles() {
       const token = localStorage.getItem("jwt");
       const savedArticle = await saveArticle(articleData, token);
       setSavedArticles((prev) => [...prev, savedArticle]);
-    } catch (err) {
-      console.error("Save article failed:", err);
-    }
+    } catch {}
   };
 
   const remove = async (articleId) => {
@@ -46,9 +44,7 @@ export function useArticles() {
       const token = localStorage.getItem("jwt");
       await deleteArticle(articleId, token);
       setSavedArticles((prev) => prev.filter((a) => a._id !== articleId));
-    } catch (err) {
-      console.error("Delete article failed:", err);
-    }
+    } catch {}
   };
 
   return {
