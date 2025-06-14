@@ -38,6 +38,7 @@ export function useAuth() {
 
   // 2. Logout stays the same
   const logout = () => {
+    console.log("[useAuth] 🔒 logging out");
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);
     setCurrentUser(null);

@@ -14,8 +14,9 @@ import SavedNews from "./components/SavedNews/SavedNews";
 import ProtectedRoute from "./authorization/ProtectedRoute";
 
 import { fetchNewsArticles } from "./utils/newsApi";
-import { checkToken, register, login } from "./authorization/auth";
-
+import { checkToken, register, login as apiLogin } from "./authorization/auth";
+import { useAuth } from "./hooks/useAuth";
+import { useNavigate } from "react-router-dom"; // ← already here
 import CurrentUserContext from "./contexts/CurrentUserContext";
 
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
@@ -36,6 +37,8 @@ function App() {
   const location = useLocation();
   const isHome = location.pathname === "/";
   const isSaved = location.pathname === "/saved-news";
+  const navigate = useNavigate();
+  const { logout } = useAuth();
 
   useEffect(() => {
     window.history.scrollRestoration = "manual";
@@ -67,6 +70,12 @@ function App() {
         setCurrentUser(null);
       });
   }, []);
+
+  const handleLogout = () => {
+    logout(); // clears token + context
+    setIsLoggedIn(false);
+    navigate("/"); // send back to Home immediately
+  };
 
   const handleSearch = (query) => {
     setFetchError(false);
@@ -210,37 +219,33 @@ function App() {
       })
       .finally(() => setIsLoading(false));
   };
-  const handleLogin = (credentials) => {
-    const token = credentials.token;
-    localStorage.setItem("jwt", token);
-    setIsLoggedIn(true);
-    setCurrentUser(credentials.user);
-    setActiveModal("");
 
-    checkToken(token)
-      .then((userInfo) => {
-        setCurrentUser({ email: userInfo.email, username: userInfo.username });
+  const handleLogin = (data, setAuthError, onClose) => {
+    console.log("[App.jsx] 🔥 handleLogin data:", data);
+    const { email, password } = data;
+    setIsLoading(true);
+
+    apiLogin({ email, password })
+      .then(({ token, email: userEmail, username }) => {
+        localStorage.setItem("jwt", token);
+        setIsLoggedIn(true);
+        setCurrentUser({ email: userEmail, username });
+        setAuthError("");
+        onClose();
+        // fetch saved articles after login
         return fetch("http://localhost:3000/articles", {
           headers: { Authorization: `Bearer ${token}` },
         });
       })
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch articles");
-        return res.json();
-      })
+      .then((res) => (res.ok ? res.json() : Promise.reject("Fetch failed")))
       .then((articles) => setSavedArticles(articles))
-      .catch((err) => console.error("Post-login sync failed:", err));
+      .catch((err) => {
+        console.error("Login error:", err);
+        setAuthError("Invalid email or password.");
+      })
+      .finally(() => setIsLoading(false));
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("jwt");
-    setIsLoggedIn(false);
-    setCurrentUser(null);
-  };
-
-  // ────────────────────────────────────────────────────────────────────────────
-  // 4) RENDER
-  // ────────────────────────────────────────────────────────────────────────────
   return (
     <CurrentUserContext.Provider
       value={{ currentUser, isLoggedIn, handleLogin }}
@@ -302,10 +307,12 @@ function App() {
       <LoginModal
         isOpen={activeModal === "login"}
         onClose={() => setActiveModal("")}
-        setActiveModal={setActiveModal}
-        onAuthSuccess={handleLogin}
-        isLoading={false}
+        onLogin={(data, setAuthError, onClose) =>
+          handleLogin(data, setAuthError, onClose)
+        }
+        isLoading={isLoading}
         buttonText="Sign In"
+        setActiveModal={setActiveModal}
       />
       <RegisterModal
         isOpen={activeModal === "register"}

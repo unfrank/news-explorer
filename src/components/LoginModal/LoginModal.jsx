@@ -7,7 +7,7 @@ import { login } from "../../authorization/auth";
 function LoginModal({
   isOpen,
   onClose,
-  onAuthSuccess,
+  onLogin,
   isLoading,
   buttonText,
   setActiveModal,
@@ -43,12 +43,13 @@ function LoginModal({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!emailError && !passwordError && email && password) {
-      login(email, password)
-        .then(onAuthSuccess)
-        .catch((err) => {
-          console.error("Login failed:", err);
-          setPasswordError("Invalid credentials");
-        });
+      // delegate to the App’s handler:
+      console.log("[LoginModal] submitting:", { email, password });
+      onLogin(
+        { email, password }, // data object
+        (msg) => setPasswordError(msg), // authError setter
+        onClose // close callback
+      );
     }
   };
 
