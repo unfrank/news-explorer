@@ -232,7 +232,7 @@ function App() {
         setCurrentUser({ email: userEmail, username });
         setAuthError("");
         onClose();
-        // fetch saved articles after login
+
         return fetch("http://localhost:3000/articles", {
           headers: { Authorization: `Bearer ${token}` },
         });

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./RegisterSuccessModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "../ModalWithForm/ModalWithForm.css";
-import { login } from "../../authorization/auth";
+// import { login } from "../../authorization/auth";
 import closeIcon from "../../assets/icons/icon-btn-close.svg";
 
 function RegisterSuccessModal({
@@ -30,14 +30,13 @@ function RegisterSuccessModal({
             onClick={() => {
               if (!pendingLogin) return;
 
-              login(pendingLogin.email, pendingLogin.password)
-                .then((res) => {
-                  onAuthSuccess(res);
-                  setActiveModal("");
-                })
-                .catch((err) => {
-                  console.error("Auto-login after registration failed:", err);
-                });
+              onAuthSuccess(
+                { email: pendingLogin.email, password: pendingLogin.password },
+                (msg) => {
+                  /* you can ignore or surface an error here */
+                },
+                () => setActiveModal("") // close this modal
+              );
             }}
           >
             Sign in
