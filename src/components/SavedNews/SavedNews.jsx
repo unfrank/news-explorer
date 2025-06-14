@@ -78,7 +78,7 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
             if (isFading) {
               return (
                 <NewsCard
-                  key={article._id} // use stable key
+                  key={article._id}
                   title={article.title}
                   description={article.text}
                   date={article.date}

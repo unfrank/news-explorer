@@ -2,9 +2,7 @@
   background-color: #f9f9f9;
   color: black;
   font-family: "Roboto", "Inter", sans-serif;
-  min-height: calc(
-    100vh - 88px
-  ); /* Adjust based on your footer + header height */
+  min-height: calc(100vh - 88px);
 }
 
 .saved-news__title-container {
