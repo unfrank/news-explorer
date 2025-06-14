@@ -146,7 +146,6 @@
   top: 0;
   left: 0;
   right: 0;
-  /* bottom: calc(100vh - 255px); */
   bottom: auto;
   display: flex;
   flex-direction: column;
@@ -267,6 +266,12 @@
   }
   .navigation__icon-wrapper {
     pointer-events: none;
+  }
+}
+
+@media (min-width: 379px) and (max-width: 612px) {
+  .navigation__dropdown {
+    padding: 0 40px 25px; /* ← 25px gap at bottom */
   }
 }
 

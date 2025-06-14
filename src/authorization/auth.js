@@ -1,7 +1,15 @@
 import * as apiClient from "../utils/apiClient";
 
+// export function register({ name, email, password }) {
+//   return apiClient.post("/signup", { name, email, password });
+// }
+
 export function register({ name, email, password }) {
-  return apiClient.post("/signup", { name, email, password });
+  return apiClient.post("/signup", { username: name, email, password });
+}
+
+export function register({ name, email, password }) {
+  return apiClient.post("/signup", { username: name, email, password });
 }
 
 export function login({ email, password }) {
