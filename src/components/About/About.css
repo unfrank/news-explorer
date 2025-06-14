@@ -10,6 +10,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 1.5rem;
+  font-weight: 400;
 }
 
 .about__image {
@@ -50,7 +51,6 @@
   margin-bottom: 0;
 }
 
-/* XS: max-width: 379px */
 @media (max-width: 379px) {
   .about {
     padding-top: 32px;
@@ -70,7 +70,6 @@
   }
 }
 
-/* SM: 380px - 599px */
 @media (min-width: 380px) and (max-width: 599px) {
   .about {
     padding-top: 40px;
@@ -94,7 +93,6 @@
   }
 }
 
-/* MD: 600px - 899px (no flex-direction change) */
 @media (min-width: 600px) and (max-width: 899px) {
   .about {
     padding-top: 40px;
@@ -102,7 +100,6 @@
   }
 }
 
-/* Paragraph collapse remains unchanged */
 @media (min-width: 610px) and (max-width: 764px) {
   .about__text p:nth-of-type(2),
   .about__text p:nth-of-type(3) {

@@ -1,5 +1,3 @@
-// todo: navigation__hamburger is floating around and is clickable
-
 import React, { useContext, useEffect, useState } from "react";
 import MobileMenuSignIn from "../MobileMenuSignIn/MobileMenuSignIn";
 import "./Navigation.css";
@@ -10,7 +8,8 @@ import logoutIconLight from "../../assets/icons/icon-logout-light.svg";
 import closeIcon from "../../assets/icons/icon-btn-close.svg";
 import hamburgerDark from "../../assets/icons/icon-hamburger-dark.svg";
 import hamburgerLight from "../../assets/icons/icon-hamburger-light.svg";
-import useMediaQuery from "../../hooks/useMediaQuery";
+// import { useMediaQuery } from "../../hooks/useMediaQuery";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 
 export default function Navigation({
   onSignInClick,

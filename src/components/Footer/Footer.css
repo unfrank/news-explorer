@@ -43,14 +43,12 @@
   transform: scale(1.1);
 }
 
-/* SM: 380px - 599px */
 @media (min-width: 380px) and (max-width: 599px) {
   .footer {
     padding: 24px 0 18px;
   }
 }
 
-/* XS: max-width: 379px */
 @media (max-width: 379px) {
   .footer {
     padding: 20px 0 22px;
