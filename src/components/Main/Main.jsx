@@ -60,7 +60,7 @@ function Main({
             Find the latest news on any topic and save them in your personal
             account.
           </p>
-          {/* {isLoading && <Preloader />} */}
+
           <Preloader
             className={isLoading ? "preloader preloader--visible" : "preloader"}
           />
@@ -77,6 +77,7 @@ function Main({
           <p>Please try again later.</p>
         </div>
       )}
+
       {!isLoading && hasSearched && !fetchError && articles.length === 0 && (
         <NothingFound />
       )}
