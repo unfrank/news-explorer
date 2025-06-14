@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, useEffect } from "react";
+import { useState, forwardRef, useEffect } from "react";
 
 import "./NewsCard.css";
 import saveIconLight from "../../assets/icons/icon-like-light.svg";
@@ -6,6 +6,7 @@ import saveIconDark from "../../assets/icons/icon-like-dark.svg";
 import saveIconMarked from "../../assets/icons/icon-like-marked.svg";
 import deleteIconActive from "../../assets/icons/icon-trash-active.svg";
 import deleteIconInactive from "../../assets/icons/icon-trash-inactive.svg";
+
 const NewsCard = forwardRef(
   (
     {
@@ -105,33 +106,18 @@ const NewsCard = forwardRef(
             </div>
           </div>
 
-          {/** ───────────────────────────────────────────────
-               2) INFO BLOCK: THIS PART CHANGED
-               We added ONE extra wrapper (<div className="news-card__content">)
-               so we can flex/clip the description, but never cut off the title.
-               ─────────────────────────────────────────────── */}
           <div className="news-card__info">
-            {/*
-              ─── NEW: Wrap date/title/description here ───
-              This block can grow/shrink, but never overlap the footer.
-            */}
             <div className="news-card__content">
               <p className="news-card__date">{date}</p>
-
               <h3
                 className="news-card__title news-card__title--clickable"
                 onClick={handleTitleClick}
               >
                 {title}
               </h3>
-
               <p className="news-card__description">{description}</p>
             </div>
 
-            {/*
-              ─── Footer remains a sibling of .news-card__content ───
-               .news-card__footer will be “pushed to the bottom” via CSS.
-            */}
             <div className="news-card__footer">
               <span className="news-card__source">{source}</span>
             </div>

@@ -27,24 +27,19 @@
 .news-card {
   opacity: 0;
   animation: fadeInUp 0.22s ease forwards;
-
   display: flex;
   flex-direction: column;
-
   height: 576px;
   max-height: 576px;
-
   background-color: #fff;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 3px 11px rgba(0, 0, 0, 0.1);
   font-family: "Roboto", "Inter", sans-serif;
-
   width: auto;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-
   position: relative;
 }
 

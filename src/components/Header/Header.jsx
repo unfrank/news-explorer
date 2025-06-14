@@ -10,7 +10,6 @@ export default function Header({
   setActiveModal,
   activeModal,
 }) {
-  console.log("[Header] isLoggedIn:", isLoggedIn);
   const [logoAnimate, setLogoAnimate] = useState(false);
   const [animationTriggered, setAnimationTriggered] = useState(false);
 
