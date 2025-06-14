@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./RegisterSuccessModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import "../ModalWithForm/ModalWithForm.css";
-// import { login } from "../../authorization/auth";
 import closeIcon from "../../assets/icons/icon-btn-close.svg";
 
 function RegisterSuccessModal({
@@ -14,13 +12,17 @@ function RegisterSuccessModal({
 }) {
   if (!isOpen) return null;
 
-  const [emailError, setEmailError] = useState("");
+  const [authError, setAuthError] = useState("");
 
   return (
     <div className="modal">
       <div className="modal__overlay" onClick={onClose} />
       <div className="modal__content">
-        <button className="modal__close" onClick={onClose} aria-label="Close">
+        <button
+          className="modal__close"
+          onClick={onClose}
+          aria-label="Close registration success modal"
+        >
           <img src={closeIcon} alt="Close" />
         </button>
         <h2 className="modal__title">Registration successfully completed!</h2>
@@ -33,7 +35,7 @@ function RegisterSuccessModal({
               onAuthSuccess(
                 { email: pendingLogin.email, password: pendingLogin.password },
                 (msg) => {
-                  /* you can ignore or surface an error here */
+                  setAuthError(msg);
                 },
                 () => setActiveModal("")
               );
@@ -42,6 +44,11 @@ function RegisterSuccessModal({
             Sign in
           </p>
         </div>
+        {authError && (
+          <span className="modal__error-server modal__error--visible">
+            {authError}
+          </span>
+        )}
       </div>
     </div>
   );
