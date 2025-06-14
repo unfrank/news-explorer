@@ -21,7 +21,6 @@ export function useAuth() {
         username: respUsername,
       } = await apiLogin({ email, password });
 
-      // store + update context
       localStorage.setItem("jwt", token);
       setIsLoggedIn(true);
       setCurrentUser({
@@ -36,9 +35,7 @@ export function useAuth() {
     }
   };
 
-  // 2. Logout stays the same
   const logout = () => {
-    console.log("[useAuth] 🔒 logging out");
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);
     setCurrentUser(null);

@@ -19,15 +19,13 @@ function SearchForm({ onSearch }) {
     <form className="search-form" onSubmit={handleSubmit}>
       <div className="search-form__container">
         <input
-          className="search-form__input "
+          className="search-form__input"
           type="text"
           placeholder="Enter topic"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          // noValidate
-          // required
         />
-        <button className="search-form__button" type="submit" noValidate>
+        <button className="search-form__button" type="submit">
           Search
         </button>
       </div>
