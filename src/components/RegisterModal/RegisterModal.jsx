@@ -44,9 +44,14 @@ function RegisterModal({
     setErrors((prev) => ({ ...prev, password: msg }));
     setValues((prev) => ({ ...prev, password: value }));
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // 🔥 see exactly what we're sending
+    console.log("[RegisterModal] 🔥 formValues:", {
+      email,
+      username,
+      password,
+    });
     await onRegister({ email, username, password }, setEmailError);
   };
 

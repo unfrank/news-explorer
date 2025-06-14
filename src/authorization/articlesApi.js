@@ -1,31 +1,23 @@
-const BASE_URL = "http://localhost:3000";
+// src/utils/articlesApi.js
+import * as apiClient from "./apiClient";
+import { getToken } from "./auth";
 
-const handleResponse = (res) => {
-  if (res.ok) return res.json();
-  return Promise.reject(`Error: ${res.status} ${res.statusText}`);
-};
-
-export function getSavedArticles(token) {
-  return fetch(`${BASE_URL}/articles`, {
-    method: "GET",
-    headers: { Authorization: `Bearer ${token}` },
-  }).then(handleResponse);
+export function fetchAllArticles() {
+  return apiClient.get("/api/articles", getToken());
 }
 
-export function saveArticle(articleData, token) {
-  return fetch(`${BASE_URL}/articles`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(articleData),
-  }).then(handleResponse);
+export function fetchArticleById(id) {
+  return apiClient.get(`/api/articles/${id}`, getToken());
 }
 
-export function deleteArticle(articleId, token) {
-  return fetch(`${BASE_URL}/articles/${articleId}`, {
-    method: "DELETE",
-    headers: { Authorization: `Bearer ${token}` },
-  }).then(handleResponse);
+export function createArticle(data) {
+  return apiClient.post("/api/articles", data, getToken());
+}
+
+export function updateArticle(id, data) {
+  return apiClient.put(`/api/articles/${id}`, data, getToken());
+}
+
+export function deleteArticle(id) {
+  return apiClient.del(`/api/articles/${id}`, getToken());
 }

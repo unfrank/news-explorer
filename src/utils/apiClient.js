@@ -13,9 +13,15 @@ async function request(endpoint, method = "GET", data = null, token = null) {
   }
 
   if (data) {
+    // 🔥 Log the exact object we’re about to send:
+    console.log("[apiClient] ↗️", method, endpoint, "payload:", data);
     config.body = JSON.stringify(data);
+  } else {
+    console.log("[apiClient] ↗️", method, endpoint, "no payload");
   }
 
+  // 🔥 Log the final fetch arguments:
+  console.log("[apiClient] 🔗 fetch args:", BASE_URL + endpoint, config);
   const response = await fetch(`${BASE_URL}${endpoint}`, config);
 
   if (!response.ok) {

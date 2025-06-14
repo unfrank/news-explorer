@@ -1,47 +1,36 @@
+// src/authorization/auth.js
 import * as apiClient from "../utils/apiClient";
 
-// export function register({ name, email, password }) {
-//   return apiClient.post("/signup", { name, email, password });
-// }
-
+// sign up a new user
 export function register({ name, email, password }) {
-  return apiClient.post("/signup", { username: name, email, password });
+  console.log("[auth.js] 🔥 register got:", { name, email, password });
+
+  return apiClient.post(
+    "/signup", // no /auth prefix
+    { username: name, email, password }
+  );
 }
 
-export function register({ name, email, password }) {
-  return apiClient.post("/signup", { username: name, email, password });
-}
-
+// log in an existing user
 export function login({ email, password }) {
-  return apiClient.post("/signin", { email, password });
+  return apiClient.post(
+    "/signin", // no /auth prefix
+    { email, password }
+  );
 }
 
+// get current user profile
 export function getCurrentUser(token) {
   return apiClient.get("/users/me", token);
 }
 
+// alias for profile check
 export function checkToken(token) {
   return apiClient.get("/users/me", token);
 }
-export function logout(token) {
-  return apiClient.post("/signout", null, token);
-}
 
-// export function saveArticle(articleData, token) {
-//   return apiClient.post("/articles", articleData, token);
-// }
-// export function getSavedArticles(token) {
-//   return apiClient.get("/articles", token);
-// }
-// export function deleteArticle(articleId, token) {
-//   return apiClient.del(`/articles/${articleId}`, token);
-// }
-// export function getArticles(token) {
-//   return apiClient.get("/articles", token);
-// }
-// export function getUserInfo(token) {
-//   return apiClient.get("/users/me", token);
-// }
-// export function updateUserInfo({ name, email }, token) {
-//   return apiClient.patch("/users/me", { name, email }, token);
-// }
+// sign out (client-only)
+export function logout() {
+  localStorage.removeItem("jwt"); // clear stored token
+  return Promise.resolve(); // preserve promise interface
+}

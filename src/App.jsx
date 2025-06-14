@@ -184,21 +184,25 @@ function App() {
       .catch((err) => console.error("Delete failed:", err));
   };
 
-  const handleRegister = (
-    { email, username, password },
-    setEmailError,
-    onClose
-  ) => {
+  const handleRegister = (data, setEmailError, onClose) => {
+    console.log("[App.jsx] 🔥 handleRegister data:", data);
+    const { email, username, password } = data;
     setIsLoading(true);
-    register(email, username, password)
-      .then(() => {
+
+    // call your auth.register helper with the correct object shape
+    register({ name: username, email, password })
+      .then(({ token }) => {
+        // save the token so the user is effectively logged in
+        localStorage.setItem("jwt", token);
+        // queue up an automatic login
         setPendingLogin({ email, password });
+
         setEmailError("");
         onClose();
         setActiveModal("register-success");
       })
       .catch((err) => {
-        if (err.message === "Email already exists") {
+        if (err.data?.error === "User already exists") {
           setEmailError("Email already registered.");
         } else {
           setEmailError("Registration failed. Please try again.");
@@ -206,7 +210,6 @@ function App() {
       })
       .finally(() => setIsLoading(false));
   };
-
   const handleLogin = (credentials) => {
     const token = credentials.token;
     localStorage.setItem("jwt", token);
