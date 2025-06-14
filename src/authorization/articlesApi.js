@@ -1,4 +1,3 @@
-// src/utils/articlesApi.js
 import * as apiClient from "./apiClient";
 import { getToken } from "./auth";
 
