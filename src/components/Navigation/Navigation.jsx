@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import MobileMenuSignIn from "../MobileMenuSignIn/MobileMenuSignIn";
 import "./Navigation.css";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { Link, useLocation } from "react-router-dom";
@@ -25,7 +24,6 @@ export default function Navigation({
   const isSaved = location.pathname === "/saved-news";
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const [mobileSignInOpen, setMobileSignInOpen] = useState(false);
   const width = useWindowWidth();
 
   useEffect(() => {
@@ -224,11 +222,6 @@ export default function Navigation({
           )}
         </div>
       )}
-
-      <MobileMenuSignIn
-        isOpen={mobileSignInOpen}
-        onClose={() => setMobileSignInOpen(false)}
-      />
     </>
   );
 }
