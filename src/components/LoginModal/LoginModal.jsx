@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
-
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import "./LoginModal.css";
-import { login } from "../../authorization/auth";
 
 function LoginModal({
   isOpen,
@@ -13,6 +10,7 @@ function LoginModal({
   setActiveModal,
 }) {
   if (!isOpen) return null;
+
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
@@ -43,13 +41,7 @@ function LoginModal({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!emailError && !passwordError && email && password) {
-      // delegate to the App’s handler:
-      console.log("[LoginModal] submitting:", { email, password });
-      onLogin(
-        { email, password }, // data object
-        (msg) => setPasswordError(msg), // authError setter
-        onClose // close callback
-      );
+      onLogin({ email, password }, (msg) => setPasswordError(msg), onClose);
     }
   };
 
