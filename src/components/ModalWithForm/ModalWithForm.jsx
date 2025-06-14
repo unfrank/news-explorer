@@ -28,7 +28,11 @@ function ModalWithForm({
     <div className="modal">
       <div className="modal__overlay" onClick={onClose} />
       <div className="modal__content">
-        <button className="modal__close" onClick={onClose} aria-label="Close">
+        <button
+          className="modal__close"
+          onClick={onClose}
+          aria-label="Close modal"
+        >
           <img src={closeIcon} alt="Close" />
         </button>
         <h2 className="modal__title">{title}</h2>
@@ -37,13 +41,10 @@ function ModalWithForm({
           {buttonText && (
             <button
               type="submit"
-              className="modal__submit"
+              className={`modal__submit ${
+                disabled ? "modal__submit--disabled" : ""
+              }`}
               disabled={disabled}
-              style={{
-                opacity: disabled ? 0.5 : 1,
-                cursor: disabled ? "not-allowed" : "pointer",
-                backgroundColor: disabled ? "#ccc" : "#2F80ED",
-              }}
             >
               {buttonText}
             </button>

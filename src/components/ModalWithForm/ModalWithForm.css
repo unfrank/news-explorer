@@ -98,10 +98,6 @@
   border-bottom: 1px solid black;
 }
 
-.modal__input :last-of-type {
-  margin-bottom: 20px;
-}
-
 .modal__error,
 .modal__error-server {
   font-size: 12px;
@@ -146,6 +142,12 @@
 
 .modal__submit:active {
   transform: scale(0.97);
+}
+
+.modal__submit--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #ccc;
 }
 
 .modal__footer {

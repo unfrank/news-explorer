@@ -35,7 +35,7 @@ function RegisterSuccessModal({
                 (msg) => {
                   /* you can ignore or surface an error here */
                 },
-                () => setActiveModal("") // close this modal
+                () => setActiveModal("")
               );
             }}
           >
