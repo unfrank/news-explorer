@@ -1,0 +1,16 @@
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: "Roboto", sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}

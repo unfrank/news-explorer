@@ -1,0 +1,355 @@
+@keyframes fadeInScaleDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-24px) scale(0.94);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.navigation {
+  font-family: "Roboto", "Inter", sans-serif;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.navigation__links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  gap: 20px;
+}
+
+.navigation__links--animate {
+  opacity: 0;
+  transform: translateY(24px) scale(0.94);
+  animation: fadeInScaleDown 0.8s ease-out forwards;
+}
+
+.navigation__link-home,
+.navigation__link-saved {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: center;
+  min-width: 68px;
+  margin: 0;
+}
+
+.navigation__link-home:hover,
+.navigation__link-saved:hover,
+.navigation__button-signin:hover {
+  color: inherit;
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.navigation__link-home {
+  padding: 0 11px;
+}
+
+.navigation__link-saved {
+  padding-left: 22px;
+  padding-right: 22px;
+  white-space: nowrap;
+}
+
+.navigation__link--active::after {
+  content: "";
+  position: absolute;
+  bottom: -26px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: currentColor;
+}
+
+.navigation__link--white::after {
+  bottom: -25px;
+  background-color: white;
+}
+
+.navigation__link--black::after {
+  bottom: -25px;
+  background-color: black;
+}
+
+.navigation__username--light {
+  color: #ffffff;
+}
+
+.navigation__username--dark {
+  color: #000000;
+}
+
+.navigation__button-signin {
+  font-size: 18px;
+  min-width: 152px;
+  background: transparent;
+  border: 1px solid white;
+  border-radius: 25px;
+  cursor: pointer;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 12px 18px;
+}
+
+.navigation__button-logout {
+  min-width: 120px;
+  font-size: 18px;
+  padding: 12px 18px;
+  background: transparent;
+  border: 1px solid #d1d2d6;
+  border-radius: 25px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.navigation__logout-icon {
+  width: 24px;
+  height: 24px;
+  margin-left: 0;
+}
+
+.navigation__username {
+  font-family: "Roboto", "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+}
+
+.navigation__dropdown {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px 25px;
+  overflow-y: auto;
+  background-color: #1a1b22;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  z-index: 999;
+}
+
+.navigation__dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  font-family: "Roboto", "Inter", sans-serif;
+  font-weight: 700;
+  line-height: 24px;
+  color: inherit;
+  font-size: 16px;
+}
+
+.navigation__dropdown-divider {
+  margin: 0;
+  border: none;
+  border-top: 1px solid #333333;
+}
+
+.navigation__dropdown-item,
+.navigation__dropdown-link {
+  display: block;
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  line-height: 56px;
+  text-decoration: none;
+  max-width: 152px;
+}
+
+.navigation__dropdown-link:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.navigation__button--dropdown {
+  position: static;
+  bottom: auto;
+  width: 100%;
+  margin-top: 22px;
+  margin-bottom: 0;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  color: white;
+  padding: 14px 0;
+  border-radius: 100px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.navigation__button--dropdown:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.navigation__hamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  z-index: 1001;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+}
+
+.navigation__hamburger-icon {
+  padding: 0;
+  margin: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.navigation__hamburger--close {
+  background-color: transparent;
+  border: none;
+}
+
+.navigation__hamburger--close:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+@media (max-width: 612px) {
+  .navigation__links {
+    display: none;
+  }
+}
+
+@media (min-width: 613px) {
+  .navigation__hamburger-icon {
+    display: none;
+  }
+  .navigation__icon-wrapper {
+    pointer-events: none;
+  }
+}
+
+@media (min-width: 379px) and (max-width: 612px) {
+  .navigation__dropdown {
+    padding: 0 40px 25px;
+  }
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+.navigation__icon-wrapper {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  cursor: pointer;
+}
+
+.navigation__icon-wrapper button {
+  all: unset;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navigation__icon-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.navigation__modal-close {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.navigation__modal-close:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.navigation__modal-close img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.navigation__dropdown-logo {
+  color: #ffffff;
+  margin: 0;
+  font-weight: 700;
+  line-height: 24px;
+  font-size: 16px;
+  font-family: "Roboto Slab";
+}
+
+.navigation__dropdown-close {
+  all: unset;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navigation__dropdown-close img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.navigation__link {
+  position: relative;
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  margin: 0;
+}
+
+.navigation__button-logout:hover {
+  color: inherit;
+  opacity: 0.8;
+  transform: scale(1.05);
+}

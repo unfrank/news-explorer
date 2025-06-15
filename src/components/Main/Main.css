@@ -1,0 +1,130 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 24px 38px;
+  color: white;
+}
+
+.main__title {
+  font-family: "Roboto Slab", serif;
+  font-size: 60px;
+  font-weight: 400;
+  line-height: 64px;
+  padding-left: 12px;
+  margin: 0;
+}
+
+.main__subtitle {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 400;
+  margin: 32px 0 0;
+  padding-left: 12px;
+}
+
+.main__overlay {
+  text-align: left;
+  align-self: flex-start;
+  max-width: 608px;
+}
+
+.main__search-error {
+  padding-bottom: 38px;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  color: white;
+  text-align: center;
+  font-weight: 700;
+}
+
+.main__search-error h3,
+.main__search-error p {
+  margin: 0;
+}
+
+@media screen and (max-width: 885px) {
+  .main {
+    padding: 38px 24px 0;
+  }
+
+  .main__overlay {
+    max-width: 452px;
+    padding-bottom: 6px;
+  }
+
+  .main__title {
+    font-size: 36px;
+    line-height: 40px;
+  }
+
+  .main__subtitle {
+    font-size: 18px;
+    line-height: 24px;
+    margin: 16px 0 0;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .main {
+    padding: 30px 16px 0;
+    gap: 0;
+  }
+
+  .main__form {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .main__form-wrapper {
+    position: relative;
+  }
+
+  .main__overlay {
+    padding-bottom: 0;
+  }
+
+  .main__subtitle {
+    margin-bottom: 32px;
+    padding-left: 0;
+  }
+
+  .main__title {
+    padding-left: 0;
+  }
+
+  .main__input {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 24px;
+    border: none;
+    min-width: 240px;
+    font-size: 16px;
+  }
+
+  .main__button {
+    background-color: #2f71e5;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 24px;
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .main__error {
+    color: #ff4d4f;
+    font-size: 14px;
+    margin-top: 8px;
+    text-align: left;
+    width: 100%;
+  }
+}
