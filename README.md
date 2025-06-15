@@ -1,12 +1,43 @@
-# React + Vite
+# NewsExplorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+NewsExplorer is a full-stack React application built as part of the TripleTen Software Engineering program final project.
 
-Currently, two official plugins are available:
+This application allows users to:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Search for news articles via the NewsAPI third-party service.
+- Save and remove articles to their personal profile.
+- Register, log in, and access protected routes.
+- Experience fully responsive design across all screen sizes.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Project Features
+
+- 🔒 User registration, login, logout, and protected routes
+- 🔎 NewsAPI integration with date-filtered searches
+- 🗂 Persistent article saving and deletion for each user
+- ⚙ Client-side form validation and user feedback
+- 🌐 Fully responsive design with BEM CSS architecture
+
+---
+
+## Technologies Used
+
+- React
+- React Router
+- React Context API
+- Custom hooks
+- NewsAPI.org (third-party API)
+- Custom backend API (localhost:3000)
+- Pure Fetch API (no third-party HTTP libraries)
+- Vite project scaffolding
+
+---
+
+## Deployment
+
+- For Stage 1 submission, this project was developed and tested locally.
+- For backend API requests, the project communicates with a local server.
+- For News API requests, the project communicates with:
+
+https://newsapi.org/v2/everything

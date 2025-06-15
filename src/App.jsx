@@ -16,10 +16,12 @@ import ProtectedRoute from "./authorization/ProtectedRoute";
 import { fetchNewsArticles } from "./utils/newsApi";
 import { checkToken, register, login as apiLogin } from "./authorization/auth";
 import { useAuth } from "./hooks/useAuth";
-import { useNavigate } from "react-router-dom"; // ← already here
+import { useNavigate } from "react-router-dom";
 import CurrentUserContext from "./contexts/CurrentUserContext";
 
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+
+const BASE_ARTICLES_URL = "http://localhost:3000/articles";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -46,38 +48,38 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem("jwt");
-    if (!token) {
-      setIsLoggedIn(false);
-      setCurrentUser(null);
-      return;
-    }
-
-    setIsLoggedIn(true);
-    checkToken(token)
-      .then((res) => {
+    const checkUser = async () => {
+      const token = localStorage.getItem("jwt");
+      if (!token) {
+        setIsLoggedIn(false);
+        setCurrentUser(null);
+        return;
+      }
+      try {
+        setIsLoggedIn(true);
+        const res = await checkToken(token);
         setCurrentUser({ email: res.email, username: res.username });
-        return fetch("http://localhost:3000/articles", {
+        const articlesRes = await fetch(BASE_ARTICLES_URL, {
           headers: { Authorization: `Bearer ${token}` },
         });
-      })
-      .then((res) => res.json())
-      .then((data) => setSavedArticles(data))
-      .catch((err) => {
-        console.warn("Auth/token error:", err);
+        const data = await articlesRes.json();
+        setSavedArticles(data);
+      } catch (err) {
         localStorage.removeItem("jwt");
         setIsLoggedIn(false);
         setCurrentUser(null);
-      });
+      }
+    };
+    checkUser();
   }, []);
 
   const handleLogout = () => {
-    logout(); // clears token + context
+    logout();
     setIsLoggedIn(false);
-    navigate("/"); // send back to Home immediately
+    navigate("/");
   };
 
-  const handleSearch = (query) => {
+  const handleSearch = async (query) => {
     setFetchError(false);
     setIsLoading(true);
     setHasSearched(true);
@@ -93,157 +95,148 @@ function App() {
       .toISOString()
       .slice(0, 10);
 
-    fetchNewsArticles({ query, from: lastWeek, to: today })
-      .then(async (data) => {
-        const results = data.articles.slice(0, 12);
-        const validated = [];
-
-        const validateImage = (url) =>
-          new Promise((resolve) => {
-            const img = new Image();
-            img.onload = () => resolve(true);
-            img.onerror = () => resolve(false);
-            img.src = url;
-          });
-
-        for (let article of results) {
-          const imageUrl = article.urlToImage || article.image || "";
-          const isValid = await validateImage(imageUrl);
-          if (isValid) validated.push(article);
-          if (validated.length === 9) break;
-        }
-
-        setArticles(validated);
-      })
-      .catch((err) => {
-        console.error("Search failed:", err);
-        setArticles([]);
-        setFetchError(true);
-      })
-      .finally(() => {
-        const elapsed = Date.now() - startTime;
-        const delay = Math.max(0, 1500 - elapsed);
-        setTimeout(() => {
-          setIsLoading(false);
-        }, delay);
+    try {
+      const data = await fetchNewsArticles({
+        query,
+        from: lastWeek,
+        to: today,
       });
+      const results = data.articles.slice(0, 12);
+      const validated = [];
+
+      const validateImage = (url) =>
+        new Promise((resolve) => {
+          const img = new Image();
+          img.onload = () => resolve(true);
+          img.onerror = () => resolve(false);
+          img.src = url;
+        });
+
+      for (let article of results) {
+        const imageUrl = article.urlToImage || article.image || "";
+        const isValid = await validateImage(imageUrl);
+        if (isValid) validated.push(article);
+        if (validated.length === 9) break;
+      }
+
+      setArticles(validated);
+    } catch (err) {
+      setArticles([]);
+      setFetchError(true);
+    } finally {
+      const elapsed = Date.now() - startTime;
+      const delay = Math.max(0, 1500 - elapsed);
+      setTimeout(() => setIsLoading(false), delay);
+    }
   };
 
-  const handleSaveArticle = (articleData) => {
+  const handleSaveArticle = async (articleData) => {
     const token = localStorage.getItem("jwt");
     if (!token) return;
 
     const alreadySaved = savedArticles.some((a) => a.link === articleData.url);
+    try {
+      if (alreadySaved) {
+        const saved = savedArticles.find((a) => a.link === articleData.url);
+        const res = await fetch(`${BASE_ARTICLES_URL}/${saved._id}`, {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (!res.ok) throw new Error("Failed to delete article");
+        setSavedArticles((prev) => prev.filter((a) => a._id !== saved._id));
+      } else {
+        const normalized = {
+          keyword: articleData.keyword || searchTerm || "news",
+          title: articleData.title,
+          text: articleData.description || "No description provided.",
+          date: articleData.publishedAt || articleData.date || "Unknown date",
+          source:
+            articleData.source?.name || articleData.source || "Unknown source",
+          link: articleData.url,
+          image: articleData.urlToImage || articleData.image || "",
+        };
 
-    if (alreadySaved) {
-      const saved = savedArticles.find((a) => a.link === articleData.url);
-      fetch(`http://localhost:3000/articles/${saved._id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      })
-        .then((res) => {
-          if (!res.ok) throw new Error("Failed to delete article");
-          setSavedArticles((prev) => prev.filter((a) => a._id !== saved._id));
-        })
-        .catch((err) => console.error("Delete failed:", err));
-    } else {
-      const normalized = {
-        keyword: articleData.keyword || searchTerm || "news",
-        title: articleData.title,
-        text: articleData.description || "No description provided.",
-        date: articleData.publishedAt || articleData.date || "Unknown date",
-        source:
-          articleData.source?.name || articleData.source || "Unknown source",
-        link: articleData.url,
-        image: articleData.urlToImage || articleData.image || "",
-      };
+        const res = await fetch(BASE_ARTICLES_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(normalized),
+        });
 
-      fetch("http://localhost:3000/articles", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(normalized),
-      })
-        .then((res) => {
-          if (!res.ok) throw new Error("Failed to save article");
-          return res.json();
-        })
-        .then((saved) => {
-          setSavedArticles((prev) => [saved, ...prev]);
-        })
-        .catch((err) => console.error("Save failed:", err));
+        if (!res.ok) throw new Error("Failed to save article");
+        const saved = await res.json();
+        setSavedArticles((prev) => [saved, ...prev]);
+      }
+    } catch (err) {
+      // silently fail for now
     }
   };
 
-  const handleDeleteArticle = (id) => {
+  const handleDeleteArticle = async (id) => {
     const token = localStorage.getItem("jwt");
-    fetch(`http://localhost:3000/articles/${id}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((res) => {
-        if (res.ok) {
-          setSavedArticles((prev) => prev.filter((a) => a._id !== id));
-        } else {
-          throw new Error("Failed to delete");
-        }
-      })
-      .catch((err) => console.error("Delete failed:", err));
+    try {
+      const res = await fetch(`${BASE_ARTICLES_URL}/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        setSavedArticles((prev) => prev.filter((a) => a._id !== id));
+      } else {
+        throw new Error("Failed to delete");
+      }
+    } catch (err) {
+      // silently fail
+    }
   };
 
-  const handleRegister = (data, setEmailError, onClose) => {
-    console.log("[App.jsx] 🔥 handleRegister data:", data);
+  const handleRegister = async (data, setEmailError, onClose) => {
     const { email, username, password } = data;
     setIsLoading(true);
-
-    // call your auth.register helper with the correct object shape
-    register({ name: username, email, password })
-      .then(({ token }) => {
-        // save the token so the user is effectively logged in
-        localStorage.setItem("jwt", token);
-        // queue up an automatic login
-        setPendingLogin({ email, password });
-
-        setEmailError("");
-        onClose();
-        setActiveModal("register-success");
-      })
-      .catch((err) => {
-        if (err.data?.error === "User already exists") {
-          setEmailError("Email already registered.");
-        } else {
-          setEmailError("Registration failed. Please try again.");
-        }
-      })
-      .finally(() => setIsLoading(false));
+    try {
+      const { token } = await register({ name: username, email, password });
+      localStorage.setItem("jwt", token);
+      setPendingLogin({ email, password });
+      setEmailError("");
+      onClose();
+      setActiveModal("register-success");
+    } catch (err) {
+      if (err.data?.error === "User already exists") {
+        setEmailError("Email already registered.");
+      } else {
+        setEmailError("Registration failed. Please try again.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleLogin = (data, setAuthError, onClose) => {
-    console.log("[App.jsx] 🔥 handleLogin data:", data);
+  const handleLogin = async (data, setAuthError, onClose) => {
     const { email, password } = data;
     setIsLoading(true);
+    try {
+      const {
+        token,
+        email: userEmail,
+        username,
+      } = await apiLogin({ email, password });
+      localStorage.setItem("jwt", token);
+      setIsLoggedIn(true);
+      setCurrentUser({ email: userEmail, username });
+      setAuthError("");
+      onClose();
 
-    apiLogin({ email, password })
-      .then(({ token, email: userEmail, username }) => {
-        localStorage.setItem("jwt", token);
-        setIsLoggedIn(true);
-        setCurrentUser({ email: userEmail, username });
-        setAuthError("");
-        onClose();
-
-        return fetch("http://localhost:3000/articles", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-      })
-      .then((res) => (res.ok ? res.json() : Promise.reject("Fetch failed")))
-      .then((articles) => setSavedArticles(articles))
-      .catch((err) => {
-        console.error("Login error:", err);
-        setAuthError("Invalid email or password.");
-      })
-      .finally(() => setIsLoading(false));
+      const res = await fetch(BASE_ARTICLES_URL, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const articles = await res.json();
+      setSavedArticles(articles);
+    } catch (err) {
+      setAuthError("Invalid email or password.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -301,9 +294,7 @@ function App() {
           </Routes>
         </>
       )}
-
       <Footer />
-
       <LoginModal
         isOpen={activeModal === "login"}
         onClose={() => setActiveModal("")}
