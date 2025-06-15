@@ -1,8 +1,8 @@
 const authorBio = [
-  "I’m James Unthank, a MERN full-stack developer who built NewsExplorer as part of TripleTen’s Software Engineering program.",
-  "The app integrates NewsAPI with JWT-protected routes, responsive design, and persistent user data.",
-  "I implemented context-based state, custom modals, and animated UI transitions for an intuitive experience.",
-  "My strengths lie in API integration, reusable component architecture, and writing clean, maintainable code—and I’m passionate about solving real-world problems with software.",
+  "I’m James Unthank, a full-stack software engineer who developed NewsExplorer as part of TripleTen’s Software Engineering program.",
+  "The application features NewsAPI integration, JWT-based authentication, protected routes, responsive layouts, and persistent user data storage.",
+  "I designed reusable React components, context-based state management, custom modals, and smooth animated UI transitions to deliver an intuitive user experience.",
+  "My strengths include API integration, backend development with Express and MongoDB, and writing clean, maintainable code to solve real-world problems.",
 ];
 
 export default authorBio;
