@@ -1,43 +1,54 @@
 # NewsExplorer
 
-NewsExplorer is a full-stack React application built as part of the TripleTen Software Engineering program final project.
+NewsExplorer is a full-stack web application developed as part of the TripleTen Software Engineering program.
 
-This application allows users to:
-
-- Search for news articles via the NewsAPI third-party service.
-- Save and remove articles to their personal profile.
-- Register, log in, and access protected routes.
-- Experience fully responsive design across all screen sizes.
+The app allows users to search for news articles, save them to a personal profile, and manage saved content through an authenticated account.
 
 ---
 
-## Project Features
+## Features
 
-- 🔒 User registration, login, logout, and protected routes
-- 🔎 NewsAPI integration with date-filtered searches
-- 🗂 Persistent article saving and deletion for each user
-- ⚙ Client-side form validation and user feedback
-- 🌐 Fully responsive design with BEM CSS architecture
+- User registration, login, logout, and protected routes (JWT-based authentication)
+- NewsAPI integration with keyword and date-filtered searches
+- Persistent article saving and deletion for each user
+- Fully responsive design across all screen sizes
+- Client-side form validation and real-time user feedback
+- Clean reusable component architecture (React + custom hooks)
 
 ---
 
-## Technologies Used
+## Technologies
 
-- React
+### Frontend
+
+- React (Vite)
 - React Router
 - React Context API
-- Custom hooks
+- Custom Hooks
+- Pure Fetch API (no Axios or third-party HTTP clients)
+- BEM CSS architecture
 - NewsAPI.org (third-party API)
-- Custom backend API (localhost:3000)
-- Pure Fetch API (no third-party HTTP libraries)
-- Vite project scaffolding
+
+### Backend
+
+- Node.js
+- Express.js
+- MongoDB (Mongoose)
+- JWT Authentication
+- Celebrate / Joi Validation
+- Winston Logger
+- Centralized Error Handling
 
 ---
 
 ## Deployment
 
-- For Stage 1 submission, this project was developed and tested locally.
-- For backend API requests, the project communicates with a local server.
-- For News API requests, the project communicates with:
+The frontend is deployed to GitHub Pages:  
+**https://unfrank.github.io/news-explorer-frontend/**
 
-https://newsapi.org/v2/everything
+The backend API communicates with:  
+**http://localhost:3000**
+
+## Third-Party APIs
+
+- NewsAPI.org (https://newsapi.org/v2/everything)
