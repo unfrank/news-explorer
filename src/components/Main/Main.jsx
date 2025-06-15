@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-
 import "./Main.css";
 import SearchForm from "../SearchForm/SearchForm";
 import NewsResults from "../NewsResults/NewsResults";

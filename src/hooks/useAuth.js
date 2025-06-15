@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { checkToken, register, login as apiLogin } from "../authorization/auth";
+import { register, login as apiLogin } from "../authorization/auth";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
 export function useAuth() {

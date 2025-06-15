@@ -12,8 +12,6 @@ import { useWindowWidth } from "../../hooks/useWindowWidth";
 export default function Navigation({
   onSignInClick,
   onLogoutClick,
-  isLoginOpen,
-  onLoginClose,
   isAnyModalOpen,
   onModalClose,
   animationTriggered,
@@ -45,14 +43,6 @@ export default function Navigation({
   function handleLogoutClick() {
     setMenuOpen(false);
     onLogoutClick();
-  }
-
-  function handleHeaderClose() {
-    if (menuOpen) {
-      setMenuOpen(false);
-    } else if (isLoginOpen) {
-      onLoginClose();
-    }
   }
 
   return (

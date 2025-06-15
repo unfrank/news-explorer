@@ -23,7 +23,8 @@ export function useArticles() {
         to: today,
       });
       setArticles(data.articles.slice(0, 9));
-    } catch {
+    } catch (err) {
+      console.error("Search error:", err);
       setFetchError(true);
       setArticles([]);
     } finally {
@@ -36,7 +37,9 @@ export function useArticles() {
       const token = localStorage.getItem("jwt");
       const savedArticle = await saveArticle(articleData, token);
       setSavedArticles((prev) => [...prev, savedArticle]);
-    } catch {}
+    } catch (err) {
+      console.error("Save error:", err);
+    }
   };
 
   const remove = async (articleId) => {
@@ -44,7 +47,9 @@ export function useArticles() {
       const token = localStorage.getItem("jwt");
       await deleteArticle(articleId, token);
       setSavedArticles((prev) => prev.filter((a) => a._id !== articleId));
-    } catch {}
+    } catch (err) {
+      console.error("Remove error:", err);
+    }
   };
 
   return {

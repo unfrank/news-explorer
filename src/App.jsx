@@ -1,7 +1,15 @@
 import { useState, useEffect } from "react";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 
 import "./components/Hero/Hero.css";
 import "./components/Layout/Layout.css";
+
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import About from "./components/About/About";
@@ -12,14 +20,11 @@ import RegisterSuccessModal from "./components/RegisterSuccessModal/RegisterSucc
 import SavedNews from "./components/SavedNews/SavedNews";
 
 import ProtectedRoute from "./authorization/ProtectedRoute";
+import { useAuth } from "./hooks/useAuth";
+import CurrentUserContext from "./contexts/CurrentUserContext";
 
 import { fetchNewsArticles } from "./utils/newsApi";
 import { checkToken, register, login as apiLogin } from "./authorization/auth";
-import { useAuth } from "./hooks/useAuth";
-import { useNavigate } from "react-router-dom";
-import CurrentUserContext from "./contexts/CurrentUserContext";
-
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 const BASE_ARTICLES_URL = "http://localhost:3000/articles";
 
@@ -38,7 +43,7 @@ function App() {
 
   const location = useLocation();
   const isHome = location.pathname === "/";
-  const isSaved = location.pathname === "/saved-news";
+
   const navigate = useNavigate();
   const { logout } = useAuth();
 
@@ -65,6 +70,7 @@ function App() {
         const data = await articlesRes.json();
         setSavedArticles(data);
       } catch (err) {
+        console.error("Token check failed:", err);
         localStorage.removeItem("jwt");
         setIsLoggedIn(false);
         setCurrentUser(null);
@@ -87,7 +93,7 @@ function App() {
     setSearchTerm(query);
     sessionStorage.setItem("justSearched", "true");
 
-    const MIN_SPINNER_TIME = 2000;
+    const MIN_SPINNER_TIME = 1500;
     const startTime = Date.now();
 
     const today = new Date().toISOString().slice(0, 10);
@@ -121,6 +127,7 @@ function App() {
 
       setArticles(validated);
     } catch (err) {
+      console.error("Search error:", err);
       setArticles([]);
       setFetchError(true);
     } finally {
@@ -170,7 +177,7 @@ function App() {
         setSavedArticles((prev) => [saved, ...prev]);
       }
     } catch (err) {
-      // silently fail for now
+      console.error("Save/Delete error:", err);
     }
   };
 
@@ -187,7 +194,7 @@ function App() {
         throw new Error("Failed to delete");
       }
     } catch (err) {
-      // silently fail
+      console.error("Delete error:", err);
     }
   };
 
@@ -232,7 +239,7 @@ function App() {
       });
       const articles = await res.json();
       setSavedArticles(articles);
-    } catch (err) {
+    } catch {
       setAuthError("Invalid email or password.");
     } finally {
       setIsLoading(false);

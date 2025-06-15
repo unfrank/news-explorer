@@ -9,8 +9,6 @@ function LoginModal({
   buttonText,
   setActiveModal,
 }) {
-  if (!isOpen) return null;
-
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
@@ -44,6 +42,10 @@ function LoginModal({
       onLogin({ email, password }, (msg) => setPasswordError(msg), onClose);
     }
   };
+
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <ModalWithForm

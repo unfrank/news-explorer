@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./RegisterSuccessModal.css";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import closeIcon from "../../assets/icons/icon-btn-close.svg";
 
 function RegisterSuccessModal({
@@ -10,9 +9,9 @@ function RegisterSuccessModal({
   pendingLogin,
   setActiveModal,
 }) {
-  if (!isOpen) return null;
-
   const [authError, setAuthError] = useState("");
+
+  if (!isOpen) return null;
 
   return (
     <div className="modal">
