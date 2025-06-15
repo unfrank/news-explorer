@@ -1,6 +1,6 @@
 # NewsExplorer
 
-NewsExplorer is a full-stack web application developed as part of the TripleTen Software Engineering program.
+NewsExplorer is a full-stack web application developed as the final project for the TripleTen Software Engineering program.
 
 The app allows users to search for news articles, save them to a personal profile, and manage saved content through an authenticated account.
 
