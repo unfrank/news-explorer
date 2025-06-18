@@ -35,7 +35,7 @@
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 3px 11px rgba(0, 0, 0, 0.1);
-  font-family: "Roboto", "Inter", sans-serif;
+  font-family: Roboto, Inter, sans-serif;
   width: auto;
   box-sizing: border-box;
   margin: 0;
@@ -146,6 +146,7 @@
 }
 
 .news-card__title {
+  font-family: "Roboto Slab", Inter, sans-serif;
   font-size: 26px;
   font-weight: 700;
   color: #1a1a1a;

@@ -1,5 +1,5 @@
 .header {
-  font-family: "Roboto", "Inter", sans-serif;
+  font-family: Roboto, Inter, sans-serif;
   z-index: 9000;
 }
 
@@ -27,7 +27,7 @@
 
 .header__logo {
   font-size: 20px;
-  font-family: "Roboto Slab";
+  font-family: "Roboto Slab", Inter, sans-serif;
   font-weight: 700;
   line-height: 24px;
   color: inherit;

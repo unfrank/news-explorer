@@ -8,7 +8,7 @@
 }
 
 .main__title {
-  font-family: "Roboto Slab", serif;
+  font-family: "Roboto Slab", Inter, sans-serif;
   font-size: 60px;
   font-weight: 400;
   line-height: 64px;

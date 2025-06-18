@@ -7,6 +7,8 @@ import {
   useNavigate,
 } from "react-router-dom";
 
+import "./fonts/fonts.css";
+
 import "./components/Hero/Hero.css";
 import "./components/Layout/Layout.css";
 

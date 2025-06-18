@@ -1,7 +1,7 @@
 .saved-news {
   background-color: #f9f9f9;
   color: black;
-  font-family: "Roboto", "Inter", sans-serif;
+  font-family: Roboto, Inter, sans-serif;
   min-height: calc(100vh - 88px);
 }
 
