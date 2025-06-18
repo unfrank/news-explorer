@@ -10,7 +10,6 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
       currentUser?.username?.slice(1) || "You";
 
   const [fadingCardIds, setFadingCardIds] = useState([]);
-  const cardRefs = useRef([]);
 
   const visibleArticles = savedArticles;
 

@@ -14,20 +14,9 @@ function NewsResults({
   isLoggedIn,
 }) {
   const isShowMoreVisible = articles.length > visibleCount;
-  const bottomRef = useRef(null);
 
   const handleShowMoreClick = () => {
     onShowMore();
-    setTimeout(() => {
-      if (bottomRef.current) {
-        const y =
-          bottomRef.current.getBoundingClientRect().bottom +
-          window.scrollY -
-          window.innerHeight +
-          60;
-        window.scrollTo({ top: y, behavior: "smooth" });
-      }
-    }, 50);
   };
 
   return (
@@ -50,7 +39,6 @@ function NewsResults({
           </button>
         )}
       </div>
-      <div ref={bottomRef} />
     </section>
   );
 }
