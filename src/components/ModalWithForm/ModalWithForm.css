@@ -110,7 +110,7 @@
 
 .modal__error-server {
   text-align: center;
-  margin-top: 19px;
+  margin-top: 16px;
 }
 
 .modal__error--visible {
@@ -118,7 +118,7 @@
 }
 
 .modal__error-last {
-  margin-bottom: 31px;
+  margin-bottom: 24px;
 }
 
 .modal__submit {
