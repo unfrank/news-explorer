@@ -254,30 +254,34 @@ function App() {
       value={{ currentUser, isLoggedIn, handleLogin }}
     >
       {isHome ? (
-        <div className="hero">
-          <Header
-            isHome={isHome}
-            isLoggedIn={isLoggedIn}
-            currentUser={currentUser}
-            setActiveModal={setActiveModal}
-            activeModal={activeModal}
-            handleLogout={handleLogout}
-          />
-          <Main
-            onSearch={handleSearch}
-            articles={articles}
-            isLoading={isLoading}
-            hasSearched={hasSearched}
-            visibleCount={visibleCount}
-            isLoggedIn={isLoggedIn}
-            onShowMore={() => setVisibleCount((prev) => Math.min(prev + 3, 12))}
-            fetchError={fetchError}
-            onSaveArticle={handleSaveArticle}
-            onDeleteArticle={handleDeleteArticle}
-            savedArticles={savedArticles}
-          />
-          <About />
-        </div>
+        <>
+          <main className="hero">
+            <Header
+              isHome={isHome}
+              isLoggedIn={isLoggedIn}
+              currentUser={currentUser}
+              setActiveModal={setActiveModal}
+              activeModal={activeModal}
+              handleLogout={handleLogout}
+            />
+            <Main
+              onSearch={handleSearch}
+              articles={articles}
+              isLoading={isLoading}
+              hasSearched={hasSearched}
+              visibleCount={visibleCount}
+              isLoggedIn={isLoggedIn}
+              onShowMore={() =>
+                setVisibleCount((prev) => Math.min(prev + 3, 12))
+              }
+              fetchError={fetchError}
+              onSaveArticle={handleSaveArticle}
+              onDeleteArticle={handleDeleteArticle}
+              savedArticles={savedArticles}
+            />
+            <About />
+          </main>
+        </>
       ) : (
         <>
           <Header
