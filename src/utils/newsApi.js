@@ -1,5 +1,4 @@
-const NEWS_API_BASE_URL = "https://newsapi.org/v2/everything";
-const NEWS_API_KEY = import.meta.env.VITE_NEWS_API_KEY;
+const NEWS_API_BASE_URL = "https://news-explorer-api-n5y3.onrender.com/news";
 
 const handleResponse = (res) => {
   if (res.ok) {
@@ -17,14 +16,12 @@ const handleResponse = (res) => {
  * @returns {Promise}
  */
 
-export const fetchNewsArticles = ({ query, from, to }) => {
+export const fetchNewsArticles = ({ query }) => {
   const url = new URL(NEWS_API_BASE_URL);
-  url.searchParams.append("q", query);
-  url.searchParams.append("from", from);
-  url.searchParams.append("to", to);
-  url.searchParams.append("pageSize", 9);
-  url.searchParams.append("language", "en");
-  url.searchParams.append("apiKey", NEWS_API_KEY);
+  url.searchParams.append("query", query);
 
-  return fetch(url).then(handleResponse);
+  return fetch(url).then((res) => {
+    if (res.ok) return res.json();
+    return Promise.reject(`News API Error: ${res.status} ${res.statusText}`);
+  });
 };

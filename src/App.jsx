@@ -26,7 +26,8 @@ import CurrentUserContext from "./contexts/CurrentUserContext";
 import { fetchNewsArticles } from "./utils/newsApi";
 import { checkToken, register, login as apiLogin } from "./authorization/auth";
 
-const BASE_ARTICLES_URL = "http://localhost:3000/articles";
+const BASE_ARTICLES_URL =
+  "https://news-explorer-api-n5y3.onrender.com/articles";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");

@@ -47,7 +47,7 @@ The frontend is deployed to GitHub Pages:
 **https://unfrank.github.io/news-explorer-frontend/**
 
 The backend API communicates with:  
-**http://localhost:3000**
+**https://news-explorer-api-n5y3.onrender.com**
 
 ## Third-Party APIs
 
