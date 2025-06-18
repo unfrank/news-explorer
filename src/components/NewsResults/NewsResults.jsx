@@ -8,7 +8,6 @@ function NewsResults({
   visibleCount,
   onShowMore,
   onCardClick,
-  lastVisibleIndex,
   onSaveArticle,
   savedArticles,
   isLoggedIn,
@@ -25,7 +24,6 @@ function NewsResults({
         <NewsCardList
           articles={articles.slice(0, visibleCount)}
           onCardClick={onCardClick}
-          scrollToIndex={lastVisibleIndex}
           onSaveArticle={onSaveArticle}
           savedArticles={savedArticles}
           isLoggedIn={isLoggedIn}

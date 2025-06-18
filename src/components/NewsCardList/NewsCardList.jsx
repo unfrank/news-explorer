@@ -1,26 +1,15 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 import NewsCard from "../NewsCard/NewsCard";
 
 function NewsCardList({
   articles,
   onCardClick,
-  scrollToIndex,
   onSaveArticle,
   savedArticles,
   isLoggedIn,
 }) {
   const cardRefs = useRef([]);
-
-  useEffect(() => {
-    if (scrollToIndex != null && cardRefs.current[scrollToIndex]) {
-      const targetCard = cardRefs.current[scrollToIndex];
-      const yOffset = -24;
-      const y =
-        targetCard.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: "smooth" });
-    }
-  }, [scrollToIndex]);
 
   return (
     <section className="news-results__list">
