@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://news-explorer-api-n5y3.onrender.com";
 
 async function request(endpoint, method = "GET", data = null, token = null) {
   const config = {
