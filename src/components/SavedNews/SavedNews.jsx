@@ -1,6 +1,6 @@
 import "./SavedNews.css";
 import NewsCard from "../NewsCard/NewsCard";
-import { useContext, useState, useMemo, useRef } from "react";
+import { useContext, useState, useMemo } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function SavedNews({ savedArticles, onDeleteArticle }) {
@@ -99,7 +99,7 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
             return (
               <NewsCard
                 key={`${article.url}-${index}`}
-                ref={(el) => (cardRefs.current[index] = el)}
+                // ref={(el) => (cardRefs.current[index] = el)}
                 title={article.title}
                 description={article.text}
                 date={article.date}

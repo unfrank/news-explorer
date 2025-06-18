@@ -1,16 +1,12 @@
-import { useRef } from "react";
-
 import NewsCard from "../NewsCard/NewsCard";
 
 function NewsCardList({
   articles,
   onCardClick,
   onSaveArticle,
-  savedArticles,
+  savedArticles = [],
   isLoggedIn,
 }) {
-  const cardRefs = useRef([]);
-
   return (
     <section className="news-results__list">
       <h2 className="news-results__title">Search results</h2>
@@ -18,7 +14,6 @@ function NewsCardList({
         {articles.map((article, index) => (
           <NewsCard
             key={`${article.url}-${index}`}
-            ref={(el) => (cardRefs.current[index] = el)}
             title={article.title}
             description={
               article.description && article.description.trim().length > 0
