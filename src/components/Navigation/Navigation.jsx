@@ -375,7 +375,7 @@ export default function Navigation({
       {menuOpen && (
         <div className="navigation__dropdown">
           <div className="navigation__dropdown-header">
-            <h2 className="navigation__dropdown-logo">NewsExplorer</h2>
+            <h1 className="navigation__dropdown-logo">NewsExplorer</h1>
             <button
               className="navigation__dropdown-close"
               onClick={() => setMenuOpen(false)}

@@ -60,11 +60,11 @@
   }
 }
 
-.header__icon-slot {
+/* .header__icon-slot {
   display: flex;
   align-items: center;
   margin-left: auto;
-}
+} */
 
 .header--transparent .navigation__username {
   color: #fff;
