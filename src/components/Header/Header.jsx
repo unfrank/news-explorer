@@ -42,13 +42,13 @@ export default function Header({
     >
       <div className="layout-container">
         <div className="header__container">
-          <div
+          <h1
             className={`header__logo ${
               logoAnimate ? "header__logo--animate" : ""
             }`}
           >
             NewsExplorer
-          </div>
+          </h1>
 
           <Navigation
             onSignInClick={() => setActiveModal("login")}

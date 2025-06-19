@@ -54,7 +54,7 @@ function Main({
     <>
       <section className="main">
         <div className="main__overlay">
-          <h1 className="main__title">What’s going on in the world?</h1>
+          <h2 className="main__title">What’s going on in the world?</h2>
           <p className="main__subtitle">
             Find the latest news on any topic and save them in your personal
             account.
@@ -71,10 +71,10 @@ function Main({
       </section>
 
       {!isLoading && hasSearched && fetchError && (
-        <div className="main__search-error">
+        <section className="main__search-error" role="alert">
           <h3>Something went wrong</h3>
           <p>Please try again later.</p>
-        </div>
+        </section>
       )}
 
       {!isLoading && hasSearched && !fetchError && articles.length === 0 && (
