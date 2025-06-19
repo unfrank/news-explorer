@@ -70,7 +70,7 @@ function RegisterModal({
           or{" "}
           <button
             type="button"
-            className="modal__footer__button"
+            className="modal__footer-button"
             onClick={() => {
               onClose();
               setTimeout(() => setActiveModal("login"), 0);
