@@ -9,7 +9,7 @@ function Footer() {
           <p className="footer__text">
             © {new Date().getFullYear()} NewsExplorer, by James Unthank
           </p>
-          <nav className="footer__nav">
+          <nav className="footer__nav" aria-label="Footer navigation">
             <a href="/" className="footer__link">
               Home
             </a>
@@ -27,7 +27,7 @@ function Footer() {
               rel="noreferrer"
               className="footer__icon"
             >
-              <img src={githubIcon} alt="GitHub" className="footer__icon" />
+              <img src={githubIcon} alt="GitHub" />
             </a>
           </nav>
         </div>

@@ -25,6 +25,11 @@
   padding-bottom: 13px;
 }
 
+@media screen and (min-width: 380px) and (max-width: 626px) {
+  .header__container {
+    padding: 16px 0;
+  }
+}
 .header__logo {
   font-size: 20px;
   font-family: "Roboto Slab", Inter, sans-serif;
@@ -33,6 +38,11 @@
   color: inherit;
 }
 
+@media screen and (max-width: 626px) {
+  .header__logo {
+    font-size: 16px;
+  }
+}
 .header__logo--animate {
   opacity: 0;
   transform: translateY(24px) scale(0.94);
