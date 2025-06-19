@@ -73,14 +73,6 @@
 @media screen and (max-width: 420px) {
   .main {
     padding: 30px 16px 0;
-    gap: 0;
-  }
-
-  .main__form {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
   }
 
   .main__form-wrapper {
@@ -98,33 +90,5 @@
 
   .main__title {
     padding-left: 0;
-  }
-
-  .main__input {
-    flex: 1;
-    padding: 12px 16px;
-    border-radius: 24px;
-    border: none;
-    min-width: 240px;
-    font-size: 16px;
-  }
-
-  .main__button {
-    background-color: #2f71e5;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 24px;
-    font-weight: 500;
-    font-size: 16px;
-    cursor: pointer;
-  }
-
-  .main__error {
-    color: #ff4d4f;
-    font-size: 14px;
-    margin-top: 8px;
-    text-align: left;
-    width: 100%;
   }
 }
