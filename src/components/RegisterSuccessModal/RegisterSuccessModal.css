@@ -2,8 +2,7 @@
   font-family: Roboto, Inter, sans-serif;
   font-size: 24px;
   font-weight: 900;
-  margin-top: 9px;
-  margin-bottom: 14px;
+  margin: 9px 0 14px;
 }
 
 .register-success__link {
@@ -21,4 +20,8 @@
 .register-success__link:hover {
   opacity: 0.8;
   transform: scale(1.05);
+}
+
+.modal__footer-registration {
+  text-align: left;
 }
