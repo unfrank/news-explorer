@@ -50,7 +50,7 @@
 
 .search-form__error {
   font-size: 14px;
-  font-style: bold;
+  font-weight: bold;
   color: red;
   opacity: 0;
   transition: opacity 0.2s ease;
@@ -79,7 +79,6 @@
 
 @media screen and (max-width: 420px) {
   .search-form__container {
-    display: flex;
     flex-direction: column;
     gap: 16px;
     width: 100%;
@@ -87,15 +86,12 @@
     border-radius: 0;
     padding: 0;
   }
+
   .search-form__error {
     text-align: left;
     background-color: transparent;
     margin: 0;
-    padding: 0;
-    padding-right: 0;
-    padding-left: 12px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px 0 10px 12px;
     font-size: 12px;
   }
 }
