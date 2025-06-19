@@ -1,6 +1,5 @@
-import { useRef } from "react";
-
 import "./NewsResults.css";
+
 import NewsCardList from "../NewsCardList/NewsCardList";
 
 function NewsResults({
