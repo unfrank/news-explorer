@@ -58,16 +58,16 @@ function LoginModal({
       footer={
         <>
           or{" "}
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
+          <button
+            type="button"
+            className="modal__footer__button"
+            onClick={() => {
               onClose();
               setTimeout(() => setActiveModal("register"), 0);
             }}
           >
             Sign up
-          </a>
+          </button>
         </>
       }
     >
