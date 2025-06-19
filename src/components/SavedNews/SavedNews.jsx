@@ -62,7 +62,10 @@ function SavedNews({ savedArticles, onDeleteArticle }) {
           </p>
           <p className="saved-news__keywords">
             <span className="saved-news__keywords-label">By keywords:</span>{" "}
-            <span className="saved-news__keywords-values">
+            <span
+              className="saved-news__keywords-values"
+              aria-label="Top keywords"
+            >
               {renderKeywordSummary()}
             </span>
           </p>
