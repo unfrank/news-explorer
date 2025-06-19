@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import "./RegisterSuccessModal.css";
 import closeIcon from "../../assets/icons/icon-btn-close.svg";
 
@@ -24,9 +25,12 @@ function RegisterSuccessModal({
         >
           <img src={closeIcon} alt="Close" />
         </button>
-        <h2 className="modal__title">Registration successfully completed!</h2>
+        <h2 className="register-success__title">
+          Registration successfully completed!
+        </h2>
         <div className="modal__footer-registration">
-          <p
+          <button
+            type="button"
             className="register-success__link"
             onClick={() => {
               if (!pendingLogin) return;
@@ -41,7 +45,7 @@ function RegisterSuccessModal({
             }}
           >
             Sign in
-          </p>
+          </button>
         </div>
         {authError && (
           <span className="modal__error-server modal__error--visible">
