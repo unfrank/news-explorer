@@ -3,8 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 86px;
-  padding-bottom: 80px;
+  padding: 86px 0 80px;
   font-family: Roboto, Inter, sans-serif;
   background-color: #f5f6f7;
   text-align: center;
@@ -16,19 +15,20 @@
 }
 
 .nothing-found__title {
-  font-size: 24px;
-  font-weight: 500;
+  font-family: "Roboto Slab", Inter, san-serif;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 30px;
   color: #1a1a1a;
-  margin: 0;
-  margin-bottom: 16px;
-  margin-top: 31px;
+  margin: 31px 0 16px;
 }
 
 .nothing-found__text {
   font-size: 18px;
+  font-weight: 400;
   color: #b6bcbf;
   max-width: 320px;
   line-height: 1.4;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
