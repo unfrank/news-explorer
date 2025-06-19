@@ -11,7 +11,7 @@
 }
 
 .footer__text {
-  font-size: 14px;
+  font-size: 16px;
   color: #888;
   margin: 0;
 }
@@ -23,7 +23,7 @@
 }
 
 .footer__link {
-  font-size: 14px;
+  font-size: 18px;
   color: #000;
   text-decoration: none;
 }
@@ -63,7 +63,6 @@
   .footer__link {
     line-height: 48px;
     font-weight: 400;
-    font-size: 18px;
   }
 
   .footer__nav {
@@ -76,14 +75,6 @@
   .footer__icon {
     width: 24px;
     height: 24px;
-  }
-
-  .footer__text {
-    font-size: 18px;
-  }
-
-  .footer__link:hover {
-    transform: none;
   }
 
   .footer__nav a:nth-child(2) {
