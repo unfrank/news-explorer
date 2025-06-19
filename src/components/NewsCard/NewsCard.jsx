@@ -70,9 +70,9 @@ const NewsCard = forwardRef(
 
             <div className="news-card__control-bar">
               {isSavedView && (
-                <div className="news-card__keyword">
+                <span className="news-card__keyword">
                   {keyword?.charAt(0).toUpperCase() + keyword?.slice(1)}
-                </div>
+                </span>
               )}
 
               <div
